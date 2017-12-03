@@ -1,7 +1,7 @@
 package com.app.dhsloader.model;
 
-import java.util.Arrays;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,7 +20,7 @@ public class Dhsidmap implements java.io.Serializable {
 	private Date createdate;
 	private Date updatedate;
 	private String updatesrc;
-	private byte[] quoteid;
+	private String quoteid;
 
 	public Dhsidmap() {
 	}
@@ -33,7 +33,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.updatesrc = updatesrc;
 	}
 
-	public Dhsidmap(long dhsid, String ric, String ric30, Date createdate, Date updatedate, String updatesrc, byte[] quoteid) {
+	public Dhsidmap(long dhsid, String ric, String ric30, Date createdate, Date updatedate, String updatesrc, String quoteid) {
 		this.dhsid = dhsid;
 		this.ric = ric;
 		this.ric30 = ric30;
@@ -101,11 +101,11 @@ public class Dhsidmap implements java.io.Serializable {
 	}
 
 	@Column(name = "QUOTEID")
-	public byte[] getQuoteid() {
+	public String getQuoteid() {
 		return this.quoteid;
 	}
 
-	public void setQuoteid(byte[] quoteid) {
+	public void setQuoteid(String quoteid) {
 		this.quoteid = quoteid;
 	}
 
@@ -125,7 +125,7 @@ public class Dhsidmap implements java.io.Serializable {
 		builder.append(", updatesrc=");
 		builder.append(updatesrc);
 		builder.append(", quoteid=");
-		builder.append(Arrays.toString(quoteid));
+		builder.append(quoteid);
 		builder.append("]");
 		return builder.toString();
 	}

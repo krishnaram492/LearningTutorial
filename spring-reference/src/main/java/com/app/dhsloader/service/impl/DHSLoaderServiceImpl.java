@@ -1,11 +1,14 @@
 package com.app.dhsloader.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dhsloader.dao.DHSLoaderDAO;
+import com.app.dhsloader.dto.DHSComp;
+import com.app.dhsloader.model.XrefDsp;
 import com.app.dhsloader.model.XrefXxDsp;
 import com.app.dhsloader.service.IDHSLoaderService;
 import com.app.dhsloader.util.DHSLoaderUtil;
@@ -28,19 +31,15 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 
 		rows.readHeaders();
 
-		List<XrefXxDsp> xrefXxDsps = util.getXrefXxDspData(rows);
+		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
 
 		System.out.println("size is " + xrefXxDsps.size());
 
-		int i = 1;
-		for (XrefXxDsp xrefXxDsp : xrefXxDsps) {
-			System.out.println(i + "" + xrefXxDsp.getId());
-			i++;
-		}
+		HashMap<DHSComp, Long> dhsIdMap = util.buildDhsIdMap(xrefXxDsps);
 
-		dao.saveXrefXxDspDetails(xrefXxDsps);
+		List<XrefDsp> xrefDsps = util.buildXrefDsp(xrefXxDsps, dhsIdMap);
 
-		// System.out.println("Records inserted..");
+		// dao.saveXrefXxDspDetails(xrefXxDsps);
 
 		rows.close();
 
