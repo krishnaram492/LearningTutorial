@@ -12,6 +12,10 @@ import com.app.dhsloader.model.Dhsidmap;
 import com.app.dhsloader.model.XrefDsp;
 import com.app.dhsloader.model.XrefXxDsp;
 
+/**
+ * @author Ram
+ * 
+ */
 @Repository
 public class DHSLoaderDAO extends BaseHibernateDao {
 
@@ -74,7 +78,6 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 			count++;
 		}
 	}
-
 
 	/**
 	 * 

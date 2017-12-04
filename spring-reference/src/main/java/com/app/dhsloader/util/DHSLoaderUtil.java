@@ -6,9 +6,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -19,11 +20,16 @@ import org.springframework.stereotype.Component;
 
 import com.app.dhsloader.dao.DHSLoaderDAO;
 import com.app.dhsloader.dto.DHSComp;
+import com.app.dhsloader.model.Dhsidmap;
 import com.app.dhsloader.model.XrefDsp;
 import com.app.dhsloader.model.XrefXxDsp;
 import com.app.dhsloader.model.XrefXxDspId;
 import com.csvreader.CsvReader;
 
+/**
+ * @author Ram
+ * 
+ */
 @Component
 public class DHSLoaderUtil {
 
@@ -55,25 +61,6 @@ public class DHSLoaderUtil {
 			}
 			return csvReader;
 		}
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param csvReader
-	 * @return
-	 * @throws Exception
-	 */
-	public List<XrefDsp> getXrefDspData(CsvReader csvReader) throws Exception {
-
-		List<XrefDsp> xrefDsps = new ArrayList<XrefDsp>();
-
-		if (null != csvReader) {
-			XrefDsp obj = new XrefDsp();
-			//
-
-		}
-
 		return null;
 	}
 
@@ -484,8 +471,7 @@ public class DHSLoaderUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<DHSComp, Long> buildDhsIdMap(List<XrefXxDsp> xrefXxDsps) throws Exception {
-		HashMap<DHSComp, Long> dhsIdMap = new HashMap<DHSComp, Long>();
+	public void buildDhsIdMap(List<XrefXxDsp> xrefXxDsps, Map<DHSComp, Long> dhsIdMap, List<Dhsidmap> dhsids, String fileName) throws Exception {
 
 		Long maxDhsId = dao.getMaxDhsid();
 
@@ -497,20 +483,25 @@ public class DHSLoaderUtil {
 				dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), dhsId);
 			} else {
 				dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), (maxDhsId + i));
-				// to do
-				
+				Dhsidmap dhsObj = new Dhsidmap();
+				dhsObj.setDhsid((maxDhsId + i));
+				dhsObj.setRic(obj.getId().getRic());
+				dhsObj.setRic30(obj.getId().getRic());
+				dhsObj.setCreatedate(Calendar.getInstance());
+				dhsObj.setUpdatedate(Calendar.getInstance());
+				dhsObj.setQuoteid(obj.getId().getQuoteid());
+				dhsObj.setUpdatesrc(fileName);
+				dhsids.add(dhsObj);
 			}
-
 			i++;
 		}
-		return dhsIdMap;
 	}
 
-	public List<XrefDsp> buildXrefDsp(List<XrefXxDsp> xrefXxDsps, HashMap<DHSComp, Long> dhsIdMap) {
+	public List<XrefDsp> buildXrefDsp(List<XrefXxDsp> xrefXxDsps, Map<DHSComp, Long> dhsIdMap) {
 		List<XrefDsp> xrefDsps = new ArrayList<XrefDsp>();
 
 		for (XrefXxDsp staging : xrefXxDsps) {
-			
+
 			XrefXxDspId obj = staging.getId();
 			XrefDsp dto = new XrefDsp();
 

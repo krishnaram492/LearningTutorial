@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 import com.app.dhsloader.service.IDHSLoaderService;
 
+/**
+ * @author Manasa
+ * 
+ */
 @Component
 public class DHSLoaderTest {
 
@@ -16,8 +20,7 @@ public class DHSLoaderTest {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws Exception {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"config/applicationContext-Spring.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext-Spring.xml");
 
 		DHSLoaderTest test = context.getBean(DHSLoaderTest.class);
 		String filePath = "D:\\MIFID.REF.296E.20171129.82.1.1.zip";
@@ -28,4 +31,5 @@ public class DHSLoaderTest {
 		// -Xmx1024m -XX:MaxPermSize=512m -Xms512m
 		service.saveXrefXxDspData(filePath);
 	}
+
 }
