@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +35,22 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 	public boolean saveXrefXxDspData(String filePath) throws Exception {
 
 		boolean status = false;
+		String fileName = "";
 
 		CsvReader rows = util.parseInputData(filePath);
-
-		String fileName = FilenameUtils.getBaseName(filePath);
+		
+		if (StringUtils.isNotBlank(filePath)) {
+			fileName = FilenameUtils.getBaseName(filePath);
+			fileName = fileName.replace(".1.1", "-DP");
+		}
 
 		rows.readHeaders();
 
 		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
+
+		List<DHSComp> pairList = util.buildDHSComp(xrefXxDsps);
+
+		// List<Dhsidmap> comps = dao.getDhsidList(pairList);
 
 		System.out.println("size is " + xrefXxDsps.size());
 
@@ -52,6 +61,10 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 		util.buildDhsIdMap(xrefXxDsps, dhsIdMap, dhsids, fileName);
 
 		List<XrefDsp> xrefDsps = util.buildXrefDsp(xrefXxDsps, dhsIdMap);
+
+		System.out.println("dhsids size is " + dhsids.size());
+
+		System.out.println("xrefDsps size is " + xrefDsps.size());
 
 		dao.saveXrefXxDspDetails(xrefXxDsps);
 		System.out.println("Saving list of xrefXxDsps..");

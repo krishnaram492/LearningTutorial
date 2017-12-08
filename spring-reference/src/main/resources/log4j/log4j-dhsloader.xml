@@ -12,7 +12,7 @@
 	</appender>
 
 	<appender name="fileAppender" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="D:/Java WorkSpace/Tools/Workspace/logs/spring3.log" />
+		<param name="file" value="D:/Java WorkSpace/Tools/Workspace/logs/dhsloader.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %l - %m%n" />

@@ -25,6 +25,14 @@ public class Dhsidmap implements java.io.Serializable {
 	public Dhsidmap() {
 	}
 
+	public Dhsidmap(long dhsid, String ric, Calendar createdate, Calendar updatedate, String updatesrc) {
+		this.dhsid = dhsid;
+		this.ric = ric;
+		this.createdate = createdate;
+		this.updatedate = updatedate;
+		this.updatesrc = updatesrc;
+	}
+
 	public Dhsidmap(long dhsid, String ric, String ric30, Calendar createdate, Calendar updatedate, String updatesrc, String quoteid) {
 		this.dhsid = dhsid;
 		this.ric = ric;
@@ -104,7 +112,7 @@ public class Dhsidmap implements java.io.Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Dhsidmap [dhsid=");
+		builder.append("[dhsid=");
 		builder.append(dhsid);
 		builder.append(", ric=");
 		builder.append(ric);

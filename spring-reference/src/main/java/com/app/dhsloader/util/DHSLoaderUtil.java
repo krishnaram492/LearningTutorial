@@ -70,7 +70,7 @@ public class DHSLoaderUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<XrefXxDsp> buildXrefXxDspData(CsvReader csvReader) throws Exception {
+	public synchronized List<XrefXxDsp> buildXrefXxDspData(CsvReader csvReader) throws Exception {
 
 		List<XrefXxDsp> xrefDsps = new ArrayList<XrefXxDsp>();
 
@@ -471,208 +471,239 @@ public class DHSLoaderUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public void buildDhsIdMap(List<XrefXxDsp> xrefXxDsps, Map<DHSComp, Long> dhsIdMap, List<Dhsidmap> dhsids, String fileName) throws Exception {
+	public synchronized void buildDhsIdMap(List<XrefXxDsp> xrefXxDsps, Map<DHSComp, Long> dhsIdMap, List<Dhsidmap> dhsids, String fileName) throws Exception {
 
 		Long maxDhsId = dao.getMaxDhsid();
 
 		int i = 1;
 		for (XrefXxDsp obj : xrefXxDsps) {
-			Long dhsId = dao.getDhsidByRicNQuoteId(obj.getId().getQuoteid(), obj.getId().getRic());
 
-			if (dhsId != null) {
-				dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), dhsId);
-			} else {
-				dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), (maxDhsId + i));
-				Dhsidmap dhsObj = new Dhsidmap();
-				dhsObj.setDhsid((maxDhsId + i));
-				dhsObj.setRic(obj.getId().getRic());
-				dhsObj.setRic30(obj.getId().getRic());
-				dhsObj.setCreatedate(Calendar.getInstance());
-				dhsObj.setUpdatedate(Calendar.getInstance());
-				dhsObj.setQuoteid(obj.getId().getQuoteid());
-				dhsObj.setUpdatesrc(fileName);
-				dhsids.add(dhsObj);
+			if (StringUtils.isNotBlank(obj.getId().getRic()) && StringUtils.isNotBlank(obj.getId().getQuoteid())) {
+
+				Long dhsId = null;// dao.getDhsidByRicNQuoteId(obj.getId().getQuoteid(),
+									// obj.getId().getRic());
+
+				if (dhsId != null) {
+					dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), dhsId);
+				} else {
+					dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), (maxDhsId + i));
+					Dhsidmap dhsObj = new Dhsidmap();
+					dhsObj.setDhsid((maxDhsId + i));
+					dhsObj.setRic(obj.getId().getRic());
+					dhsObj.setRic30(obj.getId().getRic());
+					dhsObj.setCreatedate(Calendar.getInstance());
+					dhsObj.setUpdatedate(Calendar.getInstance());
+					dhsObj.setQuoteid(obj.getId().getQuoteid());
+					dhsObj.setUpdatesrc(fileName);
+					dhsids.add(dhsObj);
+				}
+				i++;
 			}
-			i++;
 		}
 	}
 
-	public List<XrefDsp> buildXrefDsp(List<XrefXxDsp> xrefXxDsps, Map<DHSComp, Long> dhsIdMap) {
+	public synchronized List<XrefDsp> buildXrefDsp(List<XrefXxDsp> xrefXxDsps, Map<DHSComp, Long> dhsIdMap) {
 		List<XrefDsp> xrefDsps = new ArrayList<XrefDsp>();
 
 		for (XrefXxDsp staging : xrefXxDsps) {
 
-			XrefXxDspId obj = staging.getId();
-			XrefDsp dto = new XrefDsp();
+			if (StringUtils.isNotBlank(staging.getId().getRic()) && StringUtils.isNotBlank(staging.getId().getQuoteid())) {
 
-			if (dhsIdMap.containsKey(new DHSComp(obj.getQuoteid(), obj.getRic()))) {
-				dto.setDhsid(dhsIdMap.get(new DHSComp(obj.getQuoteid(), obj.getRic())));
+				XrefXxDspId obj = staging.getId();
+				XrefDsp dto = new XrefDsp();
+
+				if (dhsIdMap.containsKey(new DHSComp(obj.getQuoteid(), obj.getRic()))) {
+					dto.setDhsid(dhsIdMap.get(new DHSComp(obj.getQuoteid(), obj.getRic())));
+				}
+
+				if (StringUtils.isNotBlank(obj.getIpc()))
+					dto.setIpc(obj.getIpc());
+				if (StringUtils.isNotBlank(obj.getAssetstatus()))
+					dto.setAssetstatus(obj.getAssetstatus());
+				if (StringUtils.isNotBlank(obj.getBasketundisinlist()))
+					dto.setBasketundisinlist(obj.getBasketundisinlist());
+				if (StringUtils.isNotBlank(obj.getBasketwrrindicator()))
+					dto.setBasketwrrindicator(obj.getBasketwrrindicator());
+				if (StringUtils.isNotBlank(obj.getCincode()))
+					dto.setCincode(obj.getCincode());
+				if (StringUtils.isNotBlank(obj.getComplegaldomicile()))
+					dto.setComplegaldomicile(obj.getComplegaldomicile());
+				if (StringUtils.isNotBlank(obj.getCompshortname()))
+					dto.setCompshortname(obj.getCompshortname());
+				if (StringUtils.isNotBlank(obj.getDealstartdate()))
+					dto.setDealstartdate(Integer.valueOf(convertDate(obj.getDealstartdate())));
+				if (StringUtils.isNotBlank(obj.getEeavenueelflg()))
+					dto.setEeavenueelflg(obj.getEeavenueelflg());
+				if (StringUtils.isNotBlank(obj.getFininsshnameesma()))
+					dto.setFininsshnameesma(obj.getFininsshnameesma());
+				if (StringUtils.isNotBlank(obj.getInesmafirds()))
+					dto.setInesmafirds(obj.getInesmafirds());
+				if (StringUtils.isNotBlank(obj.getInsclassesma()))
+					dto.setInsclassesma(obj.getInsclassesma());
+				if (StringUtils.isNotBlank(obj.getInsfullnameesma()))
+					dto.setInsfullnameesma(obj.getInsfullnameesma());
+				if (StringUtils.isNotBlank(obj.getIssuedate()))
+					dto.setIssuedate(Integer.valueOf(convertDate(obj.getIssuedate())));
+				if (StringUtils.isNotBlank(obj.getIssortrvenueleiesma()))
+					dto.setIssortrvenueleiesma(obj.getIssortrvenueleiesma());
+				if (StringUtils.isNotBlank(obj.getMrkattsrcpermid()))
+					dto.setMrkattsrcpermid(new BigDecimal(obj.getMrkattsrcpermid()));
+				if (StringUtils.isNotBlank(obj.getMaturitydate()))
+					dto.setMaturitydate(Integer.valueOf(convertDate(obj.getMaturitydate())));
+				if (StringUtils.isNotBlank(obj.getMifidasclofun()))
+					dto.setMifidasclofun(obj.getMifidasclofun());
+				if (StringUtils.isNotBlank(obj.getMifidadnapinsesma()))
+					dto.setMifidadnapinsesma(new BigDecimal(obj.getMifidadnapinsesma()));
+				if (StringUtils.isNotBlank(obj.getMifidadnoftpinsesma()))
+					dto.setMifidadnoftpinsesma(new BigDecimal(obj.getMifidadnoftpinsesma()));
+				if (StringUtils.isNotBlank(obj.getMifidavdatuesma()))
+					dto.setMifidavdatuesma(new BigDecimal(obj.getMifidavdatuesma()));
+				if (StringUtils.isNotBlank(obj.getMifidavdatucurcode()))
+					dto.setMifidavdatucurcode(obj.getMifidavdatucurcode());
+				if (StringUtils.isNotBlank(obj.getMifidavvaoftresma()))
+					dto.setMifidavvaoftresma(new BigDecimal(obj.getMifidavvaoftresma()));
+				if (StringUtils.isNotBlank(obj.getMifidavvaoftrcurcode()))
+					dto.setMifidavvaoftrcurcode(new BigDecimal(obj.getMifidavvaoftrcurcode()));
+				if (StringUtils.isNotBlank(obj.getMifidbaseprod()))
+					dto.setMifidbaseprod(obj.getMifidbaseprod());
+				if (StringUtils.isNotBlank(obj.getMifidbaseprodesma()))
+					dto.setMifidbaseprodesma(obj.getMifidbaseprodesma());
+				if (StringUtils.isNotBlank(obj.getMifidbondseni()))
+					dto.setMifidbondseni(obj.getMifidbondseni());
+				if (StringUtils.isNotBlank(obj.getMifidbondtype()))
+					dto.setMifidbondtype(obj.getMifidbondtype());
+				if (StringUtils.isNotBlank(obj.getMifidclobflag()))
+					dto.setMifidclobflag(obj.getMifidclobflag());
+				if (StringUtils.isNotBlank(obj.getMifidcofialiinfornewbo()))
+					dto.setMifidcofialiinfornewbo(obj.getMifidcofialiinfornewbo());
+				if (StringUtils.isNotBlank(obj.getMifidcodein()))
+					dto.setMifidcodein(obj.getMifidcodein());
+				if (StringUtils.isNotBlank(obj.getMifidcodeinesma()))
+					dto.setMifidcodeinesma(obj.getMifidcodeinesma());
+				if (StringUtils.isNotBlank(obj.getMifidcoinflesma()))
+					dto.setMifidcoinflesma(obj.getMifidcoinflesma());
+				if (StringUtils.isNotBlank(obj.getMifidcoinre()))
+					dto.setMifidcoinre(obj.getMifidcoinre());
+				if (StringUtils.isNotBlank(obj.getMifidcotype()))
+					dto.setMifidcotype(obj.getMifidcotype());
+				if (StringUtils.isNotBlank(obj.getMifiddeltypeesma()))
+					dto.setMifiddeltypeesma(obj.getMifiddeltypeesma());
+				if (StringUtils.isNotBlank(obj.getMifidemalsubtype()))
+					dto.setMifidemalsubtype(obj.getMifidemalsubtype());
+				if (StringUtils.isNotBlank(obj.getMifidexerstyle()))
+					dto.setMifidexerstyle(obj.getMifidexerstyle());
+				if (StringUtils.isNotBlank(obj.getMifidexerstyleesma()))
+					dto.setMifidexerstyleesma(obj.getMifidexerstyleesma());
+				if (StringUtils.isNotBlank(obj.getMifidexpdateesma()))
+					dto.setMifidexpdateesma(Integer.valueOf(obj.getMifidexpdateesma()));
+				if (StringUtils.isNotBlank(obj.getMifidfiprtype()))
+					dto.setMifidfiprtype(obj.getMifidfiprtype());
+				if (StringUtils.isNotBlank(obj.getMifidfiprtypeesma()))
+					dto.setMifidfiprtypeesma(obj.getMifidfiprtypeesma());
+				if (StringUtils.isNotBlank(obj.getMifidfrtradedate()))
+					dto.setMifidfrtradedate(Integer.valueOf(convertDate(obj.getMifidfrtradedate())));
+				if (StringUtils.isNotBlank(obj.getMifidfrtradedateesma()))
+					dto.setMifidfrtradedateesma(Integer.valueOf(obj.getMifidfrtradedateesma()));
+				if (StringUtils.isNotBlank(obj.getMifidflag()))
+					dto.setMifidflag(obj.getMifidflag());
+				if (StringUtils.isNotBlank(obj.getMifidfrfloatesma()))
+					dto.setMifidfrfloatesma(new BigDecimal(obj.getMifidfrfloatesma()));
+				if (StringUtils.isNotBlank(obj.getMifidfrfloatcurcode()))
+					dto.setMifidfrfloatcurcode(obj.getMifidfrfloatcurcode());
+				if (StringUtils.isNotBlank(obj.getMifidfusubpr()))
+					dto.setMifidfusubpr(obj.getMifidfusubpr());
+				if (StringUtils.isNotBlank(obj.getMifidfusubpresma()))
+					dto.setMifidfusubpresma(obj.getMifidfusubpresma());
+				if (StringUtils.isNotBlank(obj.getMifidissdateesma()))
+					dto.setMifidissdateesma(Long.valueOf(obj.getMifidissdateesma()));
+				if (StringUtils.isNotBlank(obj.getMifidisssizeesma()))
+					dto.setMifidisssizeesma(new BigDecimal(obj.getMifidisssizeesma()));
+				if (StringUtils.isNotBlank(obj.getMifidmatdate()))
+					dto.setMifidmatdate(Integer.valueOf(convertDate(obj.getMifidmatdate())));
+				if (StringUtils.isNotBlank(obj.getMifidmatdateesma()))
+					dto.setMifidmatdateesma(Integer.valueOf(obj.getMifidmatdateesma()));
+				if (StringUtils.isNotBlank(obj.getMifidmostremaesma()))
+					dto.setMifidmostremaesma(obj.getMifidmostremaesma());
+				if (StringUtils.isNotBlank(obj.getMifidoptype()))
+					dto.setMifidoptype(obj.getMifidoptype());
+				if (StringUtils.isNotBlank(obj.getMifidoptypeesma()))
+					dto.setMifidoptypeesma(obj.getMifidoptypeesma());
+				if (StringUtils.isNotBlank(obj.getMifidptuw12esma()))
+					dto.setMifidptuw12esma(new BigDecimal(obj.getMifidptuw12esma()));
+				if (StringUtils.isNotBlank(obj.getMifidptuwptv12mesma()))
+					dto.setMifidptuwptv12mesma(new BigDecimal(obj.getMifidptuwptv12mesma()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrlisthfl()))
+					dto.setMifidpotrlisthfl(Long.valueOf(obj.getMifidpotrlisthfl()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrlisthvl()))
+					dto.setMifidpotrlisthvl(Long.valueOf(obj.getMifidpotrlisthvl()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrlistrper()))
+					dto.setMifidpotrlistrper(new BigDecimal(obj.getMifidpotrlistrper()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrlisvoper()))
+					dto.setMifidpotrlisvoper(new BigDecimal(obj.getMifidpotrlisvoper()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrsstithfl()))
+					dto.setMifidpotrsstithfl(Long.valueOf(obj.getMifidpotrsstithfl()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrsstithvl()))
+					dto.setMifidpotrsstithvl(Long.valueOf(obj.getMifidpotrsstithvl()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrsstitrper()))
+					dto.setMifidpotrsstitrper(new BigDecimal(obj.getMifidpotrsstitrper()));
+				if (StringUtils.isNotBlank(obj.getMifidpotrsstivoper()))
+					dto.setMifidpotrsstivoper(new BigDecimal(obj.getMifidpotrsstivoper()));
+				if (StringUtils.isNotBlank(obj.getMifidpretrlisthfl()))
+					dto.setMifidpretrlisthfl(Long.valueOf(obj.getMifidpretrlisthfl()));
+				if (StringUtils.isNotBlank(obj.getMifidpretrlisthvl()))
+					dto.setMifidpretrlisthvl(Long.valueOf(obj.getMifidpretrlisthvl()));
+				if (StringUtils.isNotBlank(obj.getMifidpretrlistrper()))
+					dto.setMifidpretrlistrper(new BigDecimal(obj.getMifidpretrlistrper()));
+				if (StringUtils.isNotBlank(obj.getMifidpretrsstithfl()))
+					dto.setMifidpretrsstithfl(Long.valueOf(obj.getMifidpretrsstithfl()));
+				if (StringUtils.isNotBlank(obj.getMifidpretrsstithvl()))
+					dto.setMifidpretrsstithvl(Long.valueOf(obj.getMifidpretrsstithvl()));
+				if (StringUtils.isNotBlank(obj.getMifidpretrsstitrper()))
+					dto.setMifidpretrsstitrper(new BigDecimal(obj.getMifidpretrsstitrper()));
+				if (StringUtils.isNotBlank(obj.getMifidregulatedesma()))
+					dto.setMifidregulatedesma(obj.getMifidregulatedesma());
+				if (StringUtils.isNotBlank(obj.getMifidstmasizeesma()))
+					dto.setMifidstmasizeesma(Long.valueOf(obj.getMifidstmasizeesma()));
+				if (StringUtils.isNotBlank(obj.getMifidstmasizecurcode()))
+					dto.setMifidstmasizecurcode(obj.getMifidstmasizecurcode());
+				if (StringUtils.isNotBlank(obj.getMifidsubprod()))
+					dto.setMifidsubprod(obj.getMifidsubprod());
+				if (StringUtils.isNotBlank(obj.getMifidsubprodesma()))
+					dto.setMifidsubprodesma(obj.getMifidsubprodesma());
+				if (StringUtils.isNotBlank(obj.getMifidtermdate()))
+					dto.setMifidtermdate(Integer.valueOf(convertDate(obj.getMifidtermdate())));
+				if (StringUtils.isNotBlank(obj.getMifidtermdateesma()))
+					dto.setMifidtermdateesma(Integer.valueOf(obj.getMifidtermdateesma()));
+				if (StringUtils.isNotBlank(obj.getMifidtrobflag()))
+					dto.setMifidtrobflag(obj.getMifidtrobflag());
+
+				xrefDsps.add(dto);
 			}
-
-			if (StringUtils.isNotBlank(obj.getIpc()))
-				dto.setIpc(obj.getIpc());
-			if (StringUtils.isNotBlank(obj.getAssetstatus()))
-				dto.setAssetstatus(obj.getAssetstatus());
-			if (StringUtils.isNotBlank(obj.getBasketundisinlist()))
-				dto.setBasketundisinlist(obj.getBasketundisinlist());
-			if (StringUtils.isNotBlank(obj.getBasketwrrindicator()))
-				dto.setBasketwrrindicator(obj.getBasketwrrindicator());
-			if (StringUtils.isNotBlank(obj.getCincode()))
-				dto.setCincode(obj.getCincode());
-			if (StringUtils.isNotBlank(obj.getComplegaldomicile()))
-				dto.setComplegaldomicile(obj.getComplegaldomicile());
-			if (StringUtils.isNotBlank(obj.getCompshortname()))
-				dto.setCompshortname(obj.getCompshortname());
-			if (StringUtils.isNotBlank(obj.getDealstartdate()))
-				dto.setDealstartdate(Integer.valueOf(obj.getDealstartdate()));
-			if (StringUtils.isNotBlank(obj.getEeavenueelflg()))
-				dto.setEeavenueelflg(obj.getEeavenueelflg());
-			if (StringUtils.isNotBlank(obj.getFininsshnameesma()))
-				dto.setFininsshnameesma(obj.getFininsshnameesma());
-			if (StringUtils.isNotBlank(obj.getInesmafirds()))
-				dto.setInesmafirds(obj.getInesmafirds());
-			if (StringUtils.isNotBlank(obj.getInsclassesma()))
-				dto.setInsclassesma(obj.getInsclassesma());
-			if (StringUtils.isNotBlank(obj.getInsfullnameesma()))
-				dto.setInsfullnameesma(obj.getInsfullnameesma());
-			if (StringUtils.isNotBlank(obj.getIssuedate()))
-				dto.setIssuedate(Integer.valueOf(obj.getIssuedate()));
-			if (StringUtils.isNotBlank(obj.getIssortrvenueleiesma()))
-				dto.setIssortrvenueleiesma(obj.getIssortrvenueleiesma());
-			if (StringUtils.isNotBlank(obj.getMrkattsrcpermid()))
-				dto.setMrkattsrcpermid(new BigDecimal(obj.getMrkattsrcpermid()));
-			if (StringUtils.isNotBlank(obj.getMaturitydate()))
-				dto.setMaturitydate(Integer.valueOf(obj.getMaturitydate()));
-			if (StringUtils.isNotBlank(obj.getMifidasclofun()))
-				dto.setMifidasclofun(obj.getMifidasclofun());
-			if (StringUtils.isNotBlank(obj.getMifidadnapinsesma()))
-				dto.setMifidadnapinsesma(new BigDecimal(obj.getMifidadnapinsesma()));
-			if (StringUtils.isNotBlank(obj.getMifidadnoftpinsesma()))
-				dto.setMifidadnoftpinsesma(new BigDecimal(obj.getMifidadnoftpinsesma()));
-			if (StringUtils.isNotBlank(obj.getMifidavdatuesma()))
-				dto.setMifidavdatuesma(new BigDecimal(obj.getMifidavdatuesma()));
-			if (StringUtils.isNotBlank(obj.getMifidavdatucurcode()))
-				dto.setMifidavdatucurcode(obj.getMifidavdatucurcode());
-			if (StringUtils.isNotBlank(obj.getMifidavvaoftresma()))
-				dto.setMifidavvaoftresma(new BigDecimal(obj.getMifidavvaoftresma()));
-			if (StringUtils.isNotBlank(obj.getMifidavvaoftrcurcode()))
-				dto.setMifidavvaoftrcurcode(new BigDecimal(obj.getMifidavvaoftrcurcode()));
-			if (StringUtils.isNotBlank(obj.getMifidbaseprod()))
-				dto.setMifidbaseprod(obj.getMifidbaseprod());
-			if (StringUtils.isNotBlank(obj.getMifidbaseprodesma()))
-				dto.setMifidbaseprodesma(obj.getMifidbaseprodesma());
-			if (StringUtils.isNotBlank(obj.getMifidbondseni()))
-				dto.setMifidbondseni(obj.getMifidbondseni());
-			if (StringUtils.isNotBlank(obj.getMifidbondtype()))
-				dto.setMifidbondtype(obj.getMifidbondtype());
-			if (StringUtils.isNotBlank(obj.getMifidclobflag()))
-				dto.setMifidclobflag(obj.getMifidclobflag());
-			if (StringUtils.isNotBlank(obj.getMifidcofialiinfornewbo()))
-				dto.setMifidcofialiinfornewbo(obj.getMifidcofialiinfornewbo());
-			if (StringUtils.isNotBlank(obj.getMifidcodein()))
-				dto.setMifidcodein(obj.getMifidcodein());
-			if (StringUtils.isNotBlank(obj.getMifidcodeinesma()))
-				dto.setMifidcodeinesma(obj.getMifidcodeinesma());
-			if (StringUtils.isNotBlank(obj.getMifidcoinflesma()))
-				dto.setMifidcoinflesma(obj.getMifidcoinflesma());
-			if (StringUtils.isNotBlank(obj.getMifidcoinre()))
-				dto.setMifidcoinre(obj.getMifidcoinre());
-			if (StringUtils.isNotBlank(obj.getMifidcotype()))
-				dto.setMifidcotype(obj.getMifidcotype());
-			if (StringUtils.isNotBlank(obj.getMifiddeltypeesma()))
-				dto.setMifiddeltypeesma(obj.getMifiddeltypeesma());
-			if (StringUtils.isNotBlank(obj.getMifidemalsubtype()))
-				dto.setMifidemalsubtype(obj.getMifidemalsubtype());
-			if (StringUtils.isNotBlank(obj.getMifidexerstyle()))
-				dto.setMifidexerstyle(obj.getMifidexerstyle());
-			if (StringUtils.isNotBlank(obj.getMifidexerstyleesma()))
-				dto.setMifidexerstyleesma(obj.getMifidexerstyleesma());
-			if (StringUtils.isNotBlank(obj.getMifidexpdateesma()))
-				dto.setMifidexpdateesma(Integer.valueOf(obj.getMifidexpdateesma()));
-			if (StringUtils.isNotBlank(obj.getMifidfiprtype()))
-				dto.setMifidfiprtype(obj.getMifidfiprtype());
-			if (StringUtils.isNotBlank(obj.getMifidfiprtypeesma()))
-				dto.setMifidfiprtypeesma(obj.getMifidfiprtypeesma());
-			if (StringUtils.isNotBlank(obj.getMifidfrtradedate()))
-				dto.setMifidfrtradedate(Integer.valueOf(obj.getMifidfrtradedate()));
-			if (StringUtils.isNotBlank(obj.getMifidfrtradedateesma()))
-				dto.setMifidfrtradedateesma(Integer.valueOf(obj.getMifidfrtradedateesma()));
-			if (StringUtils.isNotBlank(obj.getMifidflag()))
-				dto.setMifidflag(obj.getMifidflag());
-			if (StringUtils.isNotBlank(obj.getMifidfrfloatesma()))
-				dto.setMifidfrfloatesma(new BigDecimal(obj.getMifidfrfloatesma()));
-			if (StringUtils.isNotBlank(obj.getMifidfrfloatcurcode()))
-				dto.setMifidfrfloatcurcode(obj.getMifidfrfloatcurcode());
-			if (StringUtils.isNotBlank(obj.getMifidfusubpr()))
-				dto.setMifidfusubpr(obj.getMifidfusubpr());
-			if (StringUtils.isNotBlank(obj.getMifidfusubpresma()))
-				dto.setMifidfusubpresma(obj.getMifidfusubpresma());
-			if (StringUtils.isNotBlank(obj.getMifidissdateesma()))
-				dto.setMifidissdateesma(Long.valueOf(obj.getMifidissdateesma()));
-			if (StringUtils.isNotBlank(obj.getMifidisssizeesma()))
-				dto.setMifidisssizeesma(new BigDecimal(obj.getMifidisssizeesma()));
-			if (StringUtils.isNotBlank(obj.getMifidmatdate()))
-				dto.setMifidmatdate(Integer.valueOf(obj.getMifidmatdate()));
-			if (StringUtils.isNotBlank(obj.getMifidmatdateesma()))
-				dto.setMifidmatdateesma(Integer.valueOf(obj.getMifidmatdateesma()));
-			if (StringUtils.isNotBlank(obj.getMifidmostremaesma()))
-				dto.setMifidmostremaesma(obj.getMifidmostremaesma());
-			if (StringUtils.isNotBlank(obj.getMifidoptype()))
-				dto.setMifidoptype(obj.getMifidoptype());
-			if (StringUtils.isNotBlank(obj.getMifidoptypeesma()))
-				dto.setMifidoptypeesma(obj.getMifidoptypeesma());
-			if (StringUtils.isNotBlank(obj.getMifidptuw12esma()))
-				dto.setMifidptuw12esma(new BigDecimal(obj.getMifidptuw12esma()));
-			if (StringUtils.isNotBlank(obj.getMifidptuwptv12mesma()))
-				dto.setMifidptuwptv12mesma(new BigDecimal(obj.getMifidptuwptv12mesma()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrlisthfl()))
-				dto.setMifidpotrlisthfl(Long.valueOf(obj.getMifidpotrlisthfl()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrlisthvl()))
-				dto.setMifidpotrlisthvl(Long.valueOf(obj.getMifidpotrlisthvl()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrlistrper()))
-				dto.setMifidpotrlistrper(new BigDecimal(obj.getMifidpotrlistrper()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrlisvoper()))
-				dto.setMifidpotrlisvoper(new BigDecimal(obj.getMifidpotrlisvoper()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrsstithfl()))
-				dto.setMifidpotrsstithfl(Long.valueOf(obj.getMifidpotrsstithfl()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrsstithvl()))
-				dto.setMifidpotrsstithvl(Long.valueOf(obj.getMifidpotrsstithvl()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrsstitrper()))
-				dto.setMifidpotrsstitrper(new BigDecimal(obj.getMifidpotrsstitrper()));
-			if (StringUtils.isNotBlank(obj.getMifidpotrsstivoper()))
-				dto.setMifidpotrsstivoper(new BigDecimal(obj.getMifidpotrsstivoper()));
-			if (StringUtils.isNotBlank(obj.getMifidpretrlisthfl()))
-				dto.setMifidpretrlisthfl(Long.valueOf(obj.getMifidpretrlisthfl()));
-			if (StringUtils.isNotBlank(obj.getMifidpretrlisthvl()))
-				dto.setMifidpretrlisthvl(Long.valueOf(obj.getMifidpretrlisthvl()));
-			if (StringUtils.isNotBlank(obj.getMifidpretrlistrper()))
-				dto.setMifidpretrlistrper(new BigDecimal(obj.getMifidpretrlistrper()));
-			if (StringUtils.isNotBlank(obj.getMifidpretrsstithfl()))
-				dto.setMifidpretrsstithfl(Long.valueOf(obj.getMifidpretrsstithfl()));
-			if (StringUtils.isNotBlank(obj.getMifidpretrsstithvl()))
-				dto.setMifidpretrsstithvl(Long.valueOf(obj.getMifidpretrsstithvl()));
-			if (StringUtils.isNotBlank(obj.getMifidpretrsstitrper()))
-				dto.setMifidpretrsstitrper(new BigDecimal(obj.getMifidpretrsstitrper()));
-			if (StringUtils.isNotBlank(obj.getMifidregulatedesma()))
-				dto.setMifidregulatedesma(obj.getMifidregulatedesma());
-			if (StringUtils.isNotBlank(obj.getMifidstmasizeesma()))
-				dto.setMifidstmasizeesma(Long.valueOf(obj.getMifidstmasizeesma()));
-			if (StringUtils.isNotBlank(obj.getMifidstmasizecurcode()))
-				dto.setMifidstmasizecurcode(obj.getMifidstmasizecurcode());
-			if (StringUtils.isNotBlank(obj.getMifidsubprod()))
-				dto.setMifidsubprod(obj.getMifidsubprod());
-			if (StringUtils.isNotBlank(obj.getMifidsubprodesma()))
-				dto.setMifidsubprodesma(obj.getMifidsubprodesma());
-			if (StringUtils.isNotBlank(obj.getMifidtermdate()))
-				dto.setMifidtermdate(Integer.valueOf(obj.getMifidtermdate()));
-			if (StringUtils.isNotBlank(obj.getMifidtermdateesma()))
-				dto.setMifidtermdateesma(Integer.valueOf(obj.getMifidtermdateesma()));
-			if (StringUtils.isNotBlank(obj.getMifidtrobflag()))
-				dto.setMifidtrobflag(obj.getMifidtrobflag());
-
-			xrefDsps.add(dto);
-
 		}
 		return xrefDsps;
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @return
+	 */
+	private String convertDate(String date) {
+		return date.replace("-", "");
+	}
+
+	/**
+	 * 
+	 * @param xrefXxDsps
+	 * @return
+	 */
+	public List<DHSComp> buildDHSComp(List<XrefXxDsp> xrefXxDsps) {
+		List<DHSComp> comps = new ArrayList<DHSComp>();
+		for (XrefXxDsp xrefXxDsp : xrefXxDsps) {
+			if (StringUtils.isNotBlank(xrefXxDsp.getId().getRic()) && StringUtils.isNotBlank(xrefXxDsp.getId().getQuoteid())) {
+				comps.add(new DHSComp(xrefXxDsp.getId().getQuoteid(), xrefXxDsp.getId().getRic()));
+			}
+		}
+		return comps;
 	}
 }

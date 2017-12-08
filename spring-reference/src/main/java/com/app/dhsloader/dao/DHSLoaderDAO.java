@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.type.LongType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dhsloader.constants.IDHSLoaderConstants;
+import com.app.dhsloader.dto.DHSComp;
 import com.app.dhsloader.model.Dhsidmap;
 import com.app.dhsloader.model.XrefDsp;
 import com.app.dhsloader.model.XrefXxDsp;
@@ -89,7 +91,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
 	public Long getDhsidByRicNQuoteId(String quoteid, String ric) throws Exception {
 		Long dhsid = null;
-		Query query = getHQLQuery("select dhsid from XrefDsp where quoteid=:quoteid and ric=:ric");
+		Query query = getHQLQuery("select dhsid from Dhsidmap where quoteid=:quoteid and ric=:ric");
 		query.setParameter("quoteid", quoteid);
 		query.setParameter("ric", ric);
 		dhsid = (Long) query.uniqueResult();
@@ -104,9 +106,18 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
 	public Long getMaxDhsid() throws Exception {
 		Long dhsid = null;
-		Query query = getHQLQuery("select max(dhsid) from XrefDsp");
+		Query query = getHQLQuery("select max(dhsid) from Dhsidmap");
 		dhsid = (Long) query.uniqueResult();
 		return dhsid;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
+	public List<Dhsidmap> getDhsidList(List<DHSComp> pairList) throws Exception {
+		List<Dhsidmap> dhsids = null;
+		Query query = getHQLQuery("from Dhsidmap where (quoteid, ric) in (:list)");
+		query.setParameterList("list", pairList, LongType.INSTANCE);
+		dhsids = query.list();
+		return dhsids;
+	}
 }
