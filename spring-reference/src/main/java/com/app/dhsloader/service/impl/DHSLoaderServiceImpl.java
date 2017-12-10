@@ -1,7 +1,6 @@
 package com.app.dhsloader.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +37,7 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 		String fileName = "";
 
 		CsvReader rows = util.parseInputData(filePath);
-		
+
 		if (StringUtils.isNotBlank(filePath)) {
 			fileName = FilenameUtils.getBaseName(filePath);
 			fileName = fileName.replace(".1.1", "-DP");
@@ -48,13 +47,9 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 
 		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
 
-		List<DHSComp> pairList = util.buildDHSComp(xrefXxDsps);
+		List<String> pairList = util.buildDHSComp(xrefXxDsps);
 
-		// List<Dhsidmap> comps = dao.getDhsidList(pairList);
-
-		System.out.println("size is " + xrefXxDsps.size());
-
-		Map<DHSComp, Long> dhsIdMap = new HashMap<DHSComp, Long>();
+		Map<DHSComp, Long> dhsIdMap = dao.getDhsidList(pairList);
 
 		List<Dhsidmap> dhsids = new ArrayList<Dhsidmap>();
 
@@ -62,9 +57,11 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 
 		List<XrefDsp> xrefDsps = util.buildXrefDsp(xrefXxDsps, dhsIdMap);
 
-		System.out.println("dhsids size is " + dhsids.size());
+		System.out.println("xrefXxDsps size is " + xrefXxDsps.size());
 
 		System.out.println("xrefDsps size is " + xrefDsps.size());
+
+		System.out.println("Dhsidmap list size is " + dhsids.size());
 
 		dao.saveXrefXxDspDetails(xrefXxDsps);
 		System.out.println("Saving list of xrefXxDsps..");

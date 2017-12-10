@@ -1,10 +1,13 @@
 package com.app.dhsloader.dao;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.type.LongType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +54,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		Session session = getCurrentSession();
 		int count = 0;
 		for (XrefDsp xrefDsp : xrefDsps) {
-			session.save(xrefDsp);
+			session.saveOrUpdate(xrefDsp);
 			// batch for 250 rows
 			if (count % 250 == 0) {
 				session.flush();
@@ -71,7 +74,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		Session session = getCurrentSession();
 		int count = 0;
 		for (Dhsidmap dhsidmap : dhsidmaps) {
-			session.save(dhsidmap);
+			session.saveOrUpdate(dhsidmap);
 			// batch for 250 rows
 			if (count % 250 == 0) {
 				session.flush();
@@ -113,11 +116,36 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 
 	@SuppressWarnings("unchecked")
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
-	public List<Dhsidmap> getDhsidList(List<DHSComp> pairList) throws Exception {
-		List<Dhsidmap> dhsids = null;
-		Query query = getHQLQuery("from Dhsidmap where (quoteid, ric) in (:list)");
-		query.setParameterList("list", pairList, LongType.INSTANCE);
+	public Map<DHSComp, Long> getDhsidList(List<String> values) throws Exception {
+		Map<DHSComp, Long> dhsIdMap = new HashMap<DHSComp, Long>();
+		List<Object[]> dhsids = null;
+		Query query = getSQLQuery("select DHSID, RIC, QUOTEID FROM DHSIDMAP WHERE CONCAT(QUOTEID, RIC) in (:values)");
+		query.setParameterList("values", values);
 		dhsids = query.list();
-		return dhsids;
+
+		if (null != dhsids && dhsids.size() > 0) {
+
+			for (Object[] objs : dhsids) {
+				long dhsid = 0;
+				String ric = "";
+				String quoteid = "";
+
+				if (null != objs[0]) {
+					dhsid = ((BigDecimal) objs[0]).longValue();
+				}
+				if (null != objs[1]) {
+					ric = (String) objs[1];
+				}
+				if (null != objs[2]) {
+					quoteid = (String) objs[2];
+				}
+
+				if (StringUtils.isNotBlank(ric) && StringUtils.isNotBlank(quoteid)) {
+					dhsIdMap.put(new DHSComp(quoteid, ric), dhsid);
+				}
+			}
+		}
+
+		return dhsIdMap;
 	}
 }

@@ -480,23 +480,22 @@ public class DHSLoaderUtil {
 
 			if (StringUtils.isNotBlank(obj.getId().getRic()) && StringUtils.isNotBlank(obj.getId().getQuoteid())) {
 
-				Long dhsId = null;// dao.getDhsidByRicNQuoteId(obj.getId().getQuoteid(),
-									// obj.getId().getRic());
-
-				if (dhsId != null) {
-					dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), dhsId);
+				Dhsidmap dhsObj = new Dhsidmap();
+				DHSComp dhsCompObj = new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic());
+				if (dhsIdMap.containsKey(dhsCompObj)) {
+					dhsObj.setDhsid(dhsIdMap.get(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic())));
 				} else {
-					dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), (maxDhsId + i));
-					Dhsidmap dhsObj = new Dhsidmap();
 					dhsObj.setDhsid((maxDhsId + i));
-					dhsObj.setRic(obj.getId().getRic());
-					dhsObj.setRic30(obj.getId().getRic());
-					dhsObj.setCreatedate(Calendar.getInstance());
-					dhsObj.setUpdatedate(Calendar.getInstance());
-					dhsObj.setQuoteid(obj.getId().getQuoteid());
-					dhsObj.setUpdatesrc(fileName);
-					dhsids.add(dhsObj);
+					dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), (maxDhsId + i));
 				}
+				dhsObj.setRic(obj.getId().getRic());
+				dhsObj.setRic30(obj.getId().getRic());
+				dhsObj.setCreatedate(Calendar.getInstance());
+				dhsObj.setUpdatedate(Calendar.getInstance());
+				dhsObj.setQuoteid(obj.getId().getQuoteid());
+				dhsObj.setUpdatesrc(fileName);
+				dhsids.add(dhsObj);
+
 				i++;
 			}
 		}
@@ -697,11 +696,11 @@ public class DHSLoaderUtil {
 	 * @param xrefXxDsps
 	 * @return
 	 */
-	public List<DHSComp> buildDHSComp(List<XrefXxDsp> xrefXxDsps) {
-		List<DHSComp> comps = new ArrayList<DHSComp>();
+	public List<String> buildDHSComp(List<XrefXxDsp> xrefXxDsps) {
+		List<String> comps = new ArrayList<String>();
 		for (XrefXxDsp xrefXxDsp : xrefXxDsps) {
 			if (StringUtils.isNotBlank(xrefXxDsp.getId().getRic()) && StringUtils.isNotBlank(xrefXxDsp.getId().getQuoteid())) {
-				comps.add(new DHSComp(xrefXxDsp.getId().getQuoteid(), xrefXxDsp.getId().getRic()));
+				comps.add(xrefXxDsp.getId().getQuoteid() + xrefXxDsp.getId().getRic());
 			}
 		}
 		return comps;
