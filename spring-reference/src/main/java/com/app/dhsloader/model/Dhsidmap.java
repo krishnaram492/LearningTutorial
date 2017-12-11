@@ -1,6 +1,6 @@
 package com.app.dhsloader.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,15 +17,15 @@ public class Dhsidmap implements java.io.Serializable {
 	private long dhsid;
 	private String ric;
 	private String ric30;
-	private Date createdate;
-	private Date updatedate;
+	private Calendar createdate;
+	private Calendar updatedate;
 	private String updatesrc;
 	private String quoteid;
 
 	public Dhsidmap() {
 	}
 
-	public Dhsidmap(long dhsid, String ric, Date createdate, Date updatedate, String updatesrc) {
+	public Dhsidmap(long dhsid, String ric, Calendar createdate, Calendar updatedate, String updatesrc) {
 		this.dhsid = dhsid;
 		this.ric = ric;
 		this.createdate = createdate;
@@ -33,7 +33,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.updatesrc = updatesrc;
 	}
 
-	public Dhsidmap(long dhsid, String ric, String ric30, Date createdate, Date updatedate, String updatesrc, String quoteid) {
+	public Dhsidmap(long dhsid, String ric, String ric30, Calendar createdate, Calendar updatedate, String updatesrc, String quoteid) {
 		this.dhsid = dhsid;
 		this.ric = ric;
 		this.ric30 = ric30;
@@ -73,21 +73,21 @@ public class Dhsidmap implements java.io.Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "CREATEDATE", nullable = false, length = 7)
-	public Date getCreatedate() {
+	public Calendar getCreatedate() {
 		return this.createdate;
 	}
 
-	public void setCreatedate(Date createdate) {
+	public void setCreatedate(Calendar createdate) {
 		this.createdate = createdate;
 	}
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "UPDATEDATE", nullable = false, length = 7)
-	public Date getUpdatedate() {
+	public Calendar getUpdatedate() {
 		return this.updatedate;
 	}
 
-	public void setUpdatedate(Date updatedate) {
+	public void setUpdatedate(Calendar updatedate) {
 		this.updatedate = updatedate;
 	}
 
@@ -112,7 +112,7 @@ public class Dhsidmap implements java.io.Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Dhsidmap [dhsid=");
+		builder.append("[dhsid=");
 		builder.append(dhsid);
 		builder.append(", ric=");
 		builder.append(ric);

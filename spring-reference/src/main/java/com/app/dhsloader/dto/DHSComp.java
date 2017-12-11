@@ -2,6 +2,10 @@ package com.app.dhsloader.dto;
 
 import java.io.Serializable;
 
+/**
+ * @author Ram
+ * 
+ */
 public class DHSComp implements Serializable {
 
 	private static final long serialVersionUID = 1L;

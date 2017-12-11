@@ -7,6 +7,10 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * @author Ram
+ * 
+ */
 @Entity
 @Table(name = "XREF_XX_DSP")
 public class XrefXxDsp implements java.io.Serializable {

@@ -3,6 +3,10 @@ package com.app.dhsloader.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * @author Ram
+ * 
+ */
 @Embeddable
 public class XrefXxDspId implements java.io.Serializable {
 

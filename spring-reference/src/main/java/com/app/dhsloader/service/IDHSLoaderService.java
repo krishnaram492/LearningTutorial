@@ -1,8 +1,11 @@
 package com.app.dhsloader.service;
 
+/**
+ * @author Ram
+ * 
+ */
 public interface IDHSLoaderService {
 
-	boolean saveXrefXxDspData(String filePath) throws Exception;
+	boolean processReport(String filePath) throws Exception;
 
-	void getMifidReference();
 }

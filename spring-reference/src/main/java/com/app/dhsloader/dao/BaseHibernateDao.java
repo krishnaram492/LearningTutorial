@@ -5,6 +5,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * @author Ram
+ * 
+ */
 public class BaseHibernateDao {
 
 	@Autowired

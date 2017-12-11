@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author Ram
+ * 
+ */
 @Entity
 @Table(name = "XREF_DSP")
 public class XrefDsp implements java.io.Serializable {
