@@ -6,6 +6,6 @@ package com.app.dhsloader.service;
  */
 public interface IDHSLoaderService {
 
-	boolean saveXrefXxDspData(String filePath) throws Exception;
+	boolean processReport(String filePath) throws Exception;
 
 }

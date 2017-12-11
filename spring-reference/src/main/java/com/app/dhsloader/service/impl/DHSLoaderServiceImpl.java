@@ -6,8 +6,11 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StopWatch;
 
 import com.app.dhsloader.dao.DHSLoaderDAO;
 import com.app.dhsloader.dto.DHSComp;
@@ -25,13 +28,17 @@ import com.csvreader.CsvReader;
 @Service
 public class DHSLoaderServiceImpl implements IDHSLoaderService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderServiceImpl.class);
+
 	@Autowired
 	private DHSLoaderUtil util;
 
 	@Autowired
 	private DHSLoaderDAO dao;
 
-	public boolean saveXrefXxDspData(String filePath) throws Exception {
+	public boolean processReport(String filePath) throws Exception {
+		StopWatch stopWatch = new StopWatch();
+		stopWatch.start();
 
 		boolean status = false;
 		String fileName = "";
@@ -73,6 +80,10 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 		System.out.println("Saving list of xrefDsps..");
 
 		rows.close();
+
+		stopWatch.stop();
+
+		LOGGER.info("Total time taken for processReport api is {} ", stopWatch.getTotalTimeSeconds() + " secs.");
 
 		return status;
 	}

@@ -15,6 +15,8 @@ import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,8 @@ import com.csvreader.CsvReader;
 @Component
 public class DHSLoaderUtil {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderUtil.class);
+
 	@Autowired
 	private DHSLoaderDAO dao;
 
@@ -43,6 +47,8 @@ public class DHSLoaderUtil {
 	 */
 	@SuppressWarnings({ "resource", "rawtypes" })
 	public CsvReader parseInputData(String filePath) throws Exception {
+
+		LOGGER.info("parseInputData...");
 
 		if (StringUtils.isNotBlank(filePath)) {
 			ZipFile zip = new ZipFile(filePath);
@@ -480,21 +486,24 @@ public class DHSLoaderUtil {
 
 			if (StringUtils.isNotBlank(obj.getId().getRic()) && StringUtils.isNotBlank(obj.getId().getQuoteid())) {
 
-				Dhsidmap dhsObj = new Dhsidmap();
 				DHSComp dhsCompObj = new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic());
-				if (dhsIdMap.containsKey(dhsCompObj)) {
-					dhsObj.setDhsid(dhsIdMap.get(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic())));
-				} else {
+
+				if (!dhsIdMap.containsKey(dhsCompObj)) {
+
+					Dhsidmap dhsObj = new Dhsidmap();
+
 					dhsObj.setDhsid((maxDhsId + i));
+					dhsObj.setRic(obj.getId().getRic());
+					dhsObj.setRic30(obj.getId().getRic());
+					dhsObj.setCreatedate(Calendar.getInstance());
+					dhsObj.setUpdatedate(Calendar.getInstance());
+					dhsObj.setQuoteid(obj.getId().getQuoteid());
+					dhsObj.setUpdatesrc(fileName);
+
+					dhsids.add(dhsObj);
+
 					dhsIdMap.put(new DHSComp(obj.getId().getQuoteid(), obj.getId().getRic()), (maxDhsId + i));
 				}
-				dhsObj.setRic(obj.getId().getRic());
-				dhsObj.setRic30(obj.getId().getRic());
-				dhsObj.setCreatedate(Calendar.getInstance());
-				dhsObj.setUpdatedate(Calendar.getInstance());
-				dhsObj.setQuoteid(obj.getId().getQuoteid());
-				dhsObj.setUpdatesrc(fileName);
-				dhsids.add(dhsObj);
 
 				i++;
 			}

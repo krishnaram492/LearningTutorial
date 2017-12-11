@@ -27,7 +27,7 @@ public class DHSLoaderTest {
 		ApplicationContext context = new ClassPathXmlApplicationContext("config/applicationContext-Spring.xml");
 
 		DHSLoaderTest test = context.getBean(DHSLoaderTest.class);
-		String filePath = "D:\\MIFID.REF.296E.20171129.82.1.1.zip";
+		String filePath = "D:\\MIFID.REF.296E.20171211.82.1.1.zip";
 
 		LOGGER.info("File path is {} ", filePath);
 
@@ -35,8 +35,7 @@ public class DHSLoaderTest {
 	}
 
 	private void invoke(String filePath) throws Exception {
-		// -Xmx1024m -XX:MaxPermSize=512m -Xms512m
-		service.saveXrefXxDspData(filePath);
+		service.processReport(filePath);
 	}
 
 }

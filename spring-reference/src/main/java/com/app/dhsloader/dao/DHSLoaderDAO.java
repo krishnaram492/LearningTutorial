@@ -8,6 +8,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,8 @@ import com.app.dhsloader.model.XrefXxDsp;
  */
 @Repository
 public class DHSLoaderDAO extends BaseHibernateDao {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderDAO.class);
 
 	/**
 	 * 
@@ -31,17 +35,22 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false)
 	public void saveXrefXxDspDetails(List<XrefXxDsp> xrefXxDsps) throws Exception {
-		Session session = getCurrentSession();
-		int count = 0;
-		for (XrefXxDsp xrefXxDsp : xrefXxDsps) {
-			session.save(xrefXxDsp);
-			// batch for 250 rows
-			if (count % 250 == 0) {
-				session.flush();
-				session.clear();
+		LOGGER.info("start :: saveXrefXxDspDetails...");
+		if (null != xrefXxDsps && xrefXxDsps.size() > 0) {
+
+			Session session = getCurrentSession();
+			int count = 0;
+			for (XrefXxDsp xrefXxDsp : xrefXxDsps) {
+				session.save(xrefXxDsp);
+				// batch for 250 rows
+				if (count % 250 == 0) {
+					session.flush();
+					session.clear();
+				}
+				count++;
 			}
-			count++;
 		}
+		LOGGER.info("end :: saveXrefXxDspDetails...");
 	}
 
 	/**
@@ -51,17 +60,22 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false)
 	public void saveXrefDspDetails(List<XrefDsp> xrefDsps) throws Exception {
-		Session session = getCurrentSession();
-		int count = 0;
-		for (XrefDsp xrefDsp : xrefDsps) {
-			session.saveOrUpdate(xrefDsp);
-			// batch for 250 rows
-			if (count % 250 == 0) {
-				session.flush();
-				session.clear();
+		LOGGER.info("start :: saveXrefDspDetails...");
+		if (null != xrefDsps && xrefDsps.size() > 0) {
+
+			Session session = getCurrentSession();
+			int count = 0;
+			for (XrefDsp xrefDsp : xrefDsps) {
+				session.saveOrUpdate(xrefDsp);
+				// batch for 250 rows
+				if (count % 250 == 0) {
+					session.flush();
+					session.clear();
+				}
+				count++;
 			}
-			count++;
 		}
+		LOGGER.info("end :: saveXrefDspDetails...");
 	}
 
 	/**
@@ -71,17 +85,22 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false)
 	public void saveDhsidDetails(List<Dhsidmap> dhsidmaps) throws Exception {
-		Session session = getCurrentSession();
-		int count = 0;
-		for (Dhsidmap dhsidmap : dhsidmaps) {
-			session.saveOrUpdate(dhsidmap);
-			// batch for 250 rows
-			if (count % 250 == 0) {
-				session.flush();
-				session.clear();
+		LOGGER.info("start :: saveDhsidDetails...");
+		if (null != dhsidmaps && dhsidmaps.size() > 0) {
+			
+			Session session = getCurrentSession();
+			int count = 0;
+			for (Dhsidmap dhsidmap : dhsidmaps) {
+				session.save(dhsidmap);
+				// batch for 250 rows
+				if (count % 250 == 0) {
+					session.flush();
+					session.clear();
+				}
+				count++;
 			}
-			count++;
 		}
+		LOGGER.info("end :: saveDhsidDetails...");
 	}
 
 	/**
