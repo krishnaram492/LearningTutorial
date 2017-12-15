@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "XREF_DSP")
+@Table(name = "XRef_DSP", schema="dbo")
 public class XrefDsp implements java.io.Serializable {
 
 	private static final long serialVersionUID = -8069713917374599924L;
@@ -282,7 +282,7 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "DHSID", unique = true, nullable = false, precision = 12, scale = 0)
+	@Column(name = "dhsID", unique = true, nullable = false, precision = 12, scale = 0)
 	public long getDhsid() {
 		return this.dhsid;
 	}
@@ -291,7 +291,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.dhsid = dhsid;
 	}
 
-	@Column(name = "IPC", length = 8)
+	@Column(name = "ipc", length = 8)
 	public String getIpc() {
 		return this.ipc;
 	}
@@ -300,7 +300,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ipc = ipc;
 	}
 
-	@Column(name = "ASSETSTATUS", length = 3)
+	@Column(name = "assetStatus", length = 3)
 	public String getAssetstatus() {
 		return this.assetstatus;
 	}
@@ -309,7 +309,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.assetstatus = assetstatus;
 	}
 
-	@Column(name = "BASKETUNDISINLIST", length = 260)
+	@Column(name = "basketUndIsinList", length = 260)
 	public String getBasketundisinlist() {
 		return this.basketundisinlist;
 	}
@@ -318,7 +318,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.basketundisinlist = basketundisinlist;
 	}
 
-	@Column(name = "BASKETWRRINDICATOR", length = 260)
+	@Column(name = "basketWrrIndicator", length = 260)
 	public String getBasketwrrindicator() {
 		return this.basketwrrindicator;
 	}
@@ -327,7 +327,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.basketwrrindicator = basketwrrindicator;
 	}
 
-	@Column(name = "CINCODE", length = 9)
+	@Column(name = "cinCode", length = 9)
 	public String getCincode() {
 		return this.cincode;
 	}
@@ -336,7 +336,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.cincode = cincode;
 	}
 
-	@Column(name = "COMPLEGALDOMICILE", length = 3)
+	@Column(name = "compLegalDomicile", length = 3)
 	public String getComplegaldomicile() {
 		return this.complegaldomicile;
 	}
@@ -345,7 +345,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.complegaldomicile = complegaldomicile;
 	}
 
-	@Column(name = "COMPSHORTNAME", length = 16)
+	@Column(name = "compShortName", length = 16)
 	public String getCompshortname() {
 		return this.compshortname;
 	}
@@ -354,7 +354,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.compshortname = compshortname;
 	}
 
-	@Column(name = "DEALSTARTDATE", precision = 8, scale = 0)
+	@Column(name = "dealStartDate", precision = 8, scale = 0)
 	public Integer getDealstartdate() {
 		return this.dealstartdate;
 	}
@@ -363,7 +363,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.dealstartdate = dealstartdate;
 	}
 
-	@Column(name = "EEAVENUEELFLG", length = 1)
+	@Column(name = "eeaVenueElFlg", length = 1)
 	public String getEeavenueelflg() {
 		return this.eeavenueelflg;
 	}
@@ -372,7 +372,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.eeavenueelflg = eeavenueelflg;
 	}
 
-	@Column(name = "FININSSHNAMEESMA", length = 35)
+	@Column(name = "finInsShNameESMA", length = 35)
 	public String getFininsshnameesma() {
 		return this.fininsshnameesma;
 	}
@@ -381,7 +381,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.fininsshnameesma = fininsshnameesma;
 	}
 
-	@Column(name = "INESMAFIRDS", length = 1)
+	@Column(name = "inEsmaFirds", length = 1)
 	public String getInesmafirds() {
 		return this.inesmafirds;
 	}
@@ -390,7 +390,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.inesmafirds = inesmafirds;
 	}
 
-	@Column(name = "INSCLASSESMA", length = 6)
+	@Column(name = "insClassESMA", length = 6)
 	public String getInsclassesma() {
 		return this.insclassesma;
 	}
@@ -399,7 +399,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.insclassesma = insclassesma;
 	}
 
-	@Column(name = "INSFULLNAMEESMA", length = 350)
+	@Column(name = "insFullNameESMA", length = 350)
 	public String getInsfullnameesma() {
 		return this.insfullnameesma;
 	}
@@ -408,7 +408,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.insfullnameesma = insfullnameesma;
 	}
 
-	@Column(name = "ISSUEDATE", precision = 8, scale = 0)
+	@Column(name = "issueDate", precision = 8, scale = 0)
 	public Integer getIssuedate() {
 		return this.issuedate;
 	}
@@ -417,7 +417,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.issuedate = issuedate;
 	}
 
-	@Column(name = "ISSORTRVENUELEIESMA", length = 20)
+	@Column(name = "issOrTrVenueLeiESMA", length = 20)
 	public String getIssortrvenueleiesma() {
 		return this.issortrvenueleiesma;
 	}
@@ -426,7 +426,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.issortrvenueleiesma = issortrvenueleiesma;
 	}
 
-	@Column(name = "MRKATTSRCPERMID", precision = 30, scale = 0)
+	@Column(name = "mrkAttSrcPermID", precision = 30, scale = 0)
 	public BigDecimal getMrkattsrcpermid() {
 		return this.mrkattsrcpermid;
 	}
@@ -435,7 +435,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mrkattsrcpermid = mrkattsrcpermid;
 	}
 
-	@Column(name = "MATURITYDATE", precision = 8, scale = 0)
+	@Column(name = "maturityDate", precision = 8, scale = 0)
 	public Integer getMaturitydate() {
 		return this.maturitydate;
 	}
@@ -444,7 +444,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.maturitydate = maturitydate;
 	}
 
-	@Column(name = "MIFIDASCLOFUN", length = 6)
+	@Column(name = "mifidAsClofUn", length = 6)
 	public String getMifidasclofun() {
 		return this.mifidasclofun;
 	}
@@ -453,7 +453,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidasclofun = mifidasclofun;
 	}
 
-	@Column(name = "MIFIDADNAPINSESMA", precision = 12)
+	@Column(name = "mifidADNAPInsESMA", precision = 12)
 	public BigDecimal getMifidadnapinsesma() {
 		return this.mifidadnapinsesma;
 	}
@@ -462,7 +462,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidadnapinsesma = mifidadnapinsesma;
 	}
 
-	@Column(name = "MIFIDADNOFTPINSESMA", precision = 12)
+	@Column(name = "mifidADNOfTPInsESMA", precision = 12)
 	public BigDecimal getMifidadnoftpinsesma() {
 		return this.mifidadnoftpinsesma;
 	}
@@ -471,7 +471,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidadnoftpinsesma = mifidadnoftpinsesma;
 	}
 
-	@Column(name = "MIFIDAVDATUESMA", precision = 20)
+	@Column(name = "mifidAvDaTuESMA", precision = 20)
 	public BigDecimal getMifidavdatuesma() {
 		return this.mifidavdatuesma;
 	}
@@ -480,7 +480,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidavdatuesma = mifidavdatuesma;
 	}
 
-	@Column(name = "MIFIDAVDATUCURCODE", length = 3)
+	@Column(name = "mifidAvDaTuCurCode", length = 3)
 	public String getMifidavdatucurcode() {
 		return this.mifidavdatucurcode;
 	}
@@ -489,7 +489,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidavdatucurcode = mifidavdatucurcode;
 	}
 
-	@Column(name = "MIFIDAVVAOFTRESMA", precision = 20)
+	@Column(name = "mifidAvVaOfTrESMA", precision = 20)
 	public BigDecimal getMifidavvaoftresma() {
 		return this.mifidavvaoftresma;
 	}
@@ -498,7 +498,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidavvaoftresma = mifidavvaoftresma;
 	}
 
-	@Column(name = "MIFIDAVVAOFTRCURCODE", precision = 22, scale = 0)
+	@Column(name = "mifidAvVaOfTrCurCode", precision = 22, scale = 0)
 	public BigDecimal getMifidavvaoftrcurcode() {
 		return this.mifidavvaoftrcurcode;
 	}
@@ -507,7 +507,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidavvaoftrcurcode = mifidavvaoftrcurcode;
 	}
 
-	@Column(name = "MIFIDBASEPROD", length = 6)
+	@Column(name = "mifidBaseProd", length = 6)
 	public String getMifidbaseprod() {
 		return this.mifidbaseprod;
 	}
@@ -516,7 +516,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidbaseprod = mifidbaseprod;
 	}
 
-	@Column(name = "MIFIDBASEPRODESMA", length = 4)
+	@Column(name = "mifidBaseProdESMA", length = 4)
 	public String getMifidbaseprodesma() {
 		return this.mifidbaseprodesma;
 	}
@@ -525,7 +525,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidbaseprodesma = mifidbaseprodesma;
 	}
 
-	@Column(name = "MIFIDBONDSENI", length = 4)
+	@Column(name = "mifidBondSeni", length = 4)
 	public String getMifidbondseni() {
 		return this.mifidbondseni;
 	}
@@ -534,7 +534,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidbondseni = mifidbondseni;
 	}
 
-	@Column(name = "MIFIDBONDTYPE", length = 4)
+	@Column(name = "mifidBondType", length = 4)
 	public String getMifidbondtype() {
 		return this.mifidbondtype;
 	}
@@ -543,7 +543,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidbondtype = mifidbondtype;
 	}
 
-	@Column(name = "MIFIDCLOBFLAG", length = 1)
+	@Column(name = "mifidClObFlag", length = 1)
 	public String getMifidclobflag() {
 		return this.mifidclobflag;
 	}
@@ -552,7 +552,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidclobflag = mifidclobflag;
 	}
 
-	@Column(name = "MIFIDCOFIALIINFORNEWBO", length = 1)
+	@Column(name = "mifidCofiaLiInForNewBo", length = 1)
 	public String getMifidcofialiinfornewbo() {
 		return this.mifidcofialiinfornewbo;
 	}
@@ -561,7 +561,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidcofialiinfornewbo = mifidcofialiinfornewbo;
 	}
 
-	@Column(name = "MIFIDCODEIN", length = 1)
+	@Column(name = "mifidCoDeIn", length = 1)
 	public String getMifidcodein() {
 		return this.mifidcodein;
 	}
@@ -570,7 +570,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidcodein = mifidcodein;
 	}
 
-	@Column(name = "MIFIDCODEINESMA", length = 1)
+	@Column(name = "mifidCoDeInESMA", length = 1)
 	public String getMifidcodeinesma() {
 		return this.mifidcodeinesma;
 	}
@@ -579,7 +579,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidcodeinesma = mifidcodeinesma;
 	}
 
-	@Column(name = "MIFIDCOINFLESMA", length = 1)
+	@Column(name = "mifidCoInFlESMA", length = 1)
 	public String getMifidcoinflesma() {
 		return this.mifidcoinflesma;
 	}
@@ -588,7 +588,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidcoinflesma = mifidcoinflesma;
 	}
 
-	@Column(name = "MIFIDCOINRE", length = 50)
+	@Column(name = "mifidCoInRe", length = 50)
 	public String getMifidcoinre() {
 		return this.mifidcoinre;
 	}
@@ -597,7 +597,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidcoinre = mifidcoinre;
 	}
 
-	@Column(name = "MIFIDCOTYPE", length = 4)
+	@Column(name = "mifidCoType", length = 4)
 	public String getMifidcotype() {
 		return this.mifidcotype;
 	}
@@ -606,7 +606,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidcotype = mifidcotype;
 	}
 
-	@Column(name = "MIFIDDELTYPEESMA", length = 4)
+	@Column(name = "mifidDelTypeESMA", length = 4)
 	public String getMifiddeltypeesma() {
 		return this.mifiddeltypeesma;
 	}
@@ -615,7 +615,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifiddeltypeesma = mifiddeltypeesma;
 	}
 
-	@Column(name = "MIFIDEMALSUBTYPE", length = 4)
+	@Column(name = "mifidEmAlSubType", length = 4)
 	public String getMifidemalsubtype() {
 		return this.mifidemalsubtype;
 	}
@@ -624,7 +624,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidemalsubtype = mifidemalsubtype;
 	}
 
-	@Column(name = "MIFIDEXERSTYLE", length = 4)
+	@Column(name = "mifidExerStyle", length = 4)
 	public String getMifidexerstyle() {
 		return this.mifidexerstyle;
 	}
@@ -633,7 +633,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidexerstyle = mifidexerstyle;
 	}
 
-	@Column(name = "MIFIDEXERSTYLEESMA", length = 4)
+	@Column(name = "mifidExerStyleESMA", length = 4)
 	public String getMifidexerstyleesma() {
 		return this.mifidexerstyleesma;
 	}
@@ -642,7 +642,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidexerstyleesma = mifidexerstyleesma;
 	}
 
-	@Column(name = "MIFIDEXPDATEESMA", precision = 8, scale = 0)
+	@Column(name = "mifidExpDateESMA", precision = 8, scale = 0)
 	public Integer getMifidexpdateesma() {
 		return this.mifidexpdateesma;
 	}
@@ -651,7 +651,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidexpdateesma = mifidexpdateesma;
 	}
 
-	@Column(name = "MIFIDFIPRTYPE", length = 6)
+	@Column(name = "mifidFiPrType", length = 6)
 	public String getMifidfiprtype() {
 		return this.mifidfiprtype;
 	}
@@ -660,7 +660,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfiprtype = mifidfiprtype;
 	}
 
-	@Column(name = "MIFIDFIPRTYPEESMA", length = 4)
+	@Column(name = "mifidFiPrTypeESMA", length = 4)
 	public String getMifidfiprtypeesma() {
 		return this.mifidfiprtypeesma;
 	}
@@ -669,7 +669,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfiprtypeesma = mifidfiprtypeesma;
 	}
 
-	@Column(name = "MIFIDFRTRADEDATE", precision = 8, scale = 0)
+	@Column(name = "mifidFrTradeDate", precision = 8, scale = 0)
 	public Integer getMifidfrtradedate() {
 		return this.mifidfrtradedate;
 	}
@@ -678,7 +678,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfrtradedate = mifidfrtradedate;
 	}
 
-	@Column(name = "MIFIDFRTRADEDATEESMA", precision = 8, scale = 0)
+	@Column(name = "mifidFrTradeDateESMA", precision = 8, scale = 0)
 	public Integer getMifidfrtradedateesma() {
 		return this.mifidfrtradedateesma;
 	}
@@ -687,7 +687,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfrtradedateesma = mifidfrtradedateesma;
 	}
 
-	@Column(name = "MIFIDFLAG", length = 8)
+	@Column(name = "mifidFlag", length = 8)
 	public String getMifidflag() {
 		return this.mifidflag;
 	}
@@ -696,7 +696,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidflag = mifidflag;
 	}
 
-	@Column(name = "MIFIDFRFLOATESMA", precision = 20, scale = 0)
+	@Column(name = "mifidFrFloatESMA", precision = 20, scale = 0)
 	public BigDecimal getMifidfrfloatesma() {
 		return this.mifidfrfloatesma;
 	}
@@ -705,7 +705,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfrfloatesma = mifidfrfloatesma;
 	}
 
-	@Column(name = "MIFIDFRFLOATCURCODE", length = 3)
+	@Column(name = "mifidFrFloatCurCode", length = 3)
 	public String getMifidfrfloatcurcode() {
 		return this.mifidfrfloatcurcode;
 	}
@@ -714,7 +714,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfrfloatcurcode = mifidfrfloatcurcode;
 	}
 
-	@Column(name = "MIFIDFUSUBPR", length = 6)
+	@Column(name = "mifidFuSubPr", length = 6)
 	public String getMifidfusubpr() {
 		return this.mifidfusubpr;
 	}
@@ -723,7 +723,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfusubpr = mifidfusubpr;
 	}
 
-	@Column(name = "MIFIDFUSUBPRESMA", length = 4)
+	@Column(name = "mifidFuSubPrESMA", length = 4)
 	public String getMifidfusubpresma() {
 		return this.mifidfusubpresma;
 	}
@@ -732,7 +732,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidfusubpresma = mifidfusubpresma;
 	}
 
-	@Column(name = "MIFIDISSDATEESMA", precision = 10, scale = 0)
+	@Column(name = "mifidIssDateESMA", precision = 10, scale = 0)
 	public Long getMifidissdateesma() {
 		return this.mifidissdateesma;
 	}
@@ -741,7 +741,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidissdateesma = mifidissdateesma;
 	}
 
-	@Column(name = "MIFIDISSSIZEESMA", precision = 24)
+	@Column(name = "mifidIssSizeESMA", precision = 24)
 	public BigDecimal getMifidisssizeesma() {
 		return this.mifidisssizeesma;
 	}
@@ -750,7 +750,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidisssizeesma = mifidisssizeesma;
 	}
 
-	@Column(name = "MIFIDMATDATE", precision = 8, scale = 0)
+	@Column(name = "mifidMatDate", precision = 8, scale = 0)
 	public Integer getMifidmatdate() {
 		return this.mifidmatdate;
 	}
@@ -759,7 +759,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidmatdate = mifidmatdate;
 	}
 
-	@Column(name = "MIFIDMATDATEESMA", precision = 8, scale = 0)
+	@Column(name = "mifidMatDateESMA", precision = 8, scale = 0)
 	public Integer getMifidmatdateesma() {
 		return this.mifidmatdateesma;
 	}
@@ -768,7 +768,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidmatdateesma = mifidmatdateesma;
 	}
 
-	@Column(name = "MIFIDMOSTREMAESMA", length = 3)
+	@Column(name = "mifidMostReMaESMA", length = 3)
 	public String getMifidmostremaesma() {
 		return this.mifidmostremaesma;
 	}
@@ -777,7 +777,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidmostremaesma = mifidmostremaesma;
 	}
 
-	@Column(name = "MIFIDOPTYPE", length = 6)
+	@Column(name = "mifidOpType", length = 6)
 	public String getMifidoptype() {
 		return this.mifidoptype;
 	}
@@ -786,7 +786,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidoptype = mifidoptype;
 	}
 
-	@Column(name = "MIFIDOPTYPEESMA", length = 4)
+	@Column(name = "mifidOpTypeESMA", length = 4)
 	public String getMifidoptypeesma() {
 		return this.mifidoptypeesma;
 	}
@@ -795,7 +795,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidoptypeesma = mifidoptypeesma;
 	}
 
-	@Column(name = "MIFIDPTUW12ESMA", precision = 5)
+	@Column(name = "mifidPTUW12ESMA", precision = 5)
 	public BigDecimal getMifidptuw12esma() {
 		return this.mifidptuw12esma;
 	}
@@ -804,7 +804,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidptuw12esma = mifidptuw12esma;
 	}
 
-	@Column(name = "MIFIDPTUWPTV12MESMA", precision = 5)
+	@Column(name = "mifidPTUWPTV12MESMA", precision = 5)
 	public BigDecimal getMifidptuwptv12mesma() {
 		return this.mifidptuwptv12mesma;
 	}
@@ -813,7 +813,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidptuwptv12mesma = mifidptuwptv12mesma;
 	}
 
-	@Column(name = "MIFIDPOTRLISTHFL", precision = 10, scale = 0)
+	@Column(name = "mifidPoTrLISThFl", precision = 10, scale = 0)
 	public Long getMifidpotrlisthfl() {
 		return this.mifidpotrlisthfl;
 	}
@@ -822,7 +822,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrlisthfl = mifidpotrlisthfl;
 	}
 
-	@Column(name = "MIFIDPOTRLISTHVL", precision = 10, scale = 0)
+	@Column(name = "mifidPoTrLISThVl", precision = 10, scale = 0)
 	public Long getMifidpotrlisthvl() {
 		return this.mifidpotrlisthvl;
 	}
@@ -831,7 +831,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrlisthvl = mifidpotrlisthvl;
 	}
 
-	@Column(name = "MIFIDPOTRLISTRPER", precision = 5)
+	@Column(name = "mifidPoTrLISTrPer", precision = 5)
 	public BigDecimal getMifidpotrlistrper() {
 		return this.mifidpotrlistrper;
 	}
@@ -840,7 +840,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrlistrper = mifidpotrlistrper;
 	}
 
-	@Column(name = "MIFIDPOTRLISVOPER", precision = 5)
+	@Column(name = "mifidPoTrLISVoPer", precision = 5)
 	public BigDecimal getMifidpotrlisvoper() {
 		return this.mifidpotrlisvoper;
 	}
@@ -849,7 +849,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrlisvoper = mifidpotrlisvoper;
 	}
 
-	@Column(name = "MIFIDPOTRSSTITHFL", precision = 10, scale = 0)
+	@Column(name = "mifidPoTrSSTIThFl", precision = 10, scale = 0)
 	public Long getMifidpotrsstithfl() {
 		return this.mifidpotrsstithfl;
 	}
@@ -858,7 +858,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrsstithfl = mifidpotrsstithfl;
 	}
 
-	@Column(name = "MIFIDPOTRSSTITHVL", precision = 10, scale = 0)
+	@Column(name = "mifidPoTrSSTIThVl", precision = 10, scale = 0)
 	public Long getMifidpotrsstithvl() {
 		return this.mifidpotrsstithvl;
 	}
@@ -867,7 +867,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrsstithvl = mifidpotrsstithvl;
 	}
 
-	@Column(name = "MIFIDPOTRSSTITRPER", precision = 5)
+	@Column(name = "mifidPoTrSSTITrPer", precision = 5)
 	public BigDecimal getMifidpotrsstitrper() {
 		return this.mifidpotrsstitrper;
 	}
@@ -876,7 +876,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrsstitrper = mifidpotrsstitrper;
 	}
 
-	@Column(name = "MIFIDPOTRSSTIVOPER", precision = 5)
+	@Column(name = "mifidPoTrSSTIVoPer", precision = 5)
 	public BigDecimal getMifidpotrsstivoper() {
 		return this.mifidpotrsstivoper;
 	}
@@ -885,7 +885,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpotrsstivoper = mifidpotrsstivoper;
 	}
 
-	@Column(name = "MIFIDPRETRLISTHFL", precision = 10, scale = 0)
+	@Column(name = "mifidPreTrLISThFl", precision = 10, scale = 0)
 	public Long getMifidpretrlisthfl() {
 		return this.mifidpretrlisthfl;
 	}
@@ -894,7 +894,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpretrlisthfl = mifidpretrlisthfl;
 	}
 
-	@Column(name = "MIFIDPRETRLISTHVL", precision = 10, scale = 0)
+	@Column(name = "mifidPreTrLISThVl", precision = 10, scale = 0)
 	public Long getMifidpretrlisthvl() {
 		return this.mifidpretrlisthvl;
 	}
@@ -903,7 +903,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpretrlisthvl = mifidpretrlisthvl;
 	}
 
-	@Column(name = "MIFIDPRETRLISTRPER", precision = 5)
+	@Column(name = "mifidPreTrLISTrPer", precision = 5)
 	public BigDecimal getMifidpretrlistrper() {
 		return this.mifidpretrlistrper;
 	}
@@ -912,7 +912,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpretrlistrper = mifidpretrlistrper;
 	}
 
-	@Column(name = "MIFIDPRETRSSTITHFL", precision = 10, scale = 0)
+	@Column(name = "mifidPreTrSSTIThFl", precision = 10, scale = 0)
 	public Long getMifidpretrsstithfl() {
 		return this.mifidpretrsstithfl;
 	}
@@ -921,7 +921,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpretrsstithfl = mifidpretrsstithfl;
 	}
 
-	@Column(name = "MIFIDPRETRSSTITHVL", precision = 10, scale = 0)
+	@Column(name = "mifidPreTrSSTIThVl", precision = 10, scale = 0)
 	public Long getMifidpretrsstithvl() {
 		return this.mifidpretrsstithvl;
 	}
@@ -930,7 +930,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpretrsstithvl = mifidpretrsstithvl;
 	}
 
-	@Column(name = "MIFIDPRETRSSTITRPER", precision = 5)
+	@Column(name = "mifidPreTrSSTITrPer", precision = 5)
 	public BigDecimal getMifidpretrsstitrper() {
 		return this.mifidpretrsstitrper;
 	}
@@ -939,7 +939,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidpretrsstitrper = mifidpretrsstitrper;
 	}
 
-	@Column(name = "MIFIDREGULATEDESMA", length = 1)
+	@Column(name = "mifidRegulatedESMA", length = 1)
 	public String getMifidregulatedesma() {
 		return this.mifidregulatedesma;
 	}
@@ -948,7 +948,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidregulatedesma = mifidregulatedesma;
 	}
 
-	@Column(name = "MIFIDSTMASIZEESMA", precision = 10, scale = 0)
+	@Column(name = "mifidStMaSizeESMA", precision = 10, scale = 0)
 	public Long getMifidstmasizeesma() {
 		return this.mifidstmasizeesma;
 	}
@@ -957,7 +957,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidstmasizeesma = mifidstmasizeesma;
 	}
 
-	@Column(name = "MIFIDSTMASIZECURCODE", length = 3)
+	@Column(name = "mifidStMaSizeCurCode", length = 3)
 	public String getMifidstmasizecurcode() {
 		return this.mifidstmasizecurcode;
 	}
@@ -966,7 +966,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidstmasizecurcode = mifidstmasizecurcode;
 	}
 
-	@Column(name = "MIFIDSUBPROD", length = 6)
+	@Column(name = "mifidSubProd", length = 6)
 	public String getMifidsubprod() {
 		return this.mifidsubprod;
 	}
@@ -975,7 +975,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidsubprod = mifidsubprod;
 	}
 
-	@Column(name = "MIFIDSUBPRODESMA", length = 4)
+	@Column(name = "mifidSubProdESMA", length = 4)
 	public String getMifidsubprodesma() {
 		return this.mifidsubprodesma;
 	}
@@ -984,7 +984,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidsubprodesma = mifidsubprodesma;
 	}
 
-	@Column(name = "MIFIDTERMDATE", precision = 8, scale = 0)
+	@Column(name = "mifidTermDate", precision = 8, scale = 0)
 	public Integer getMifidtermdate() {
 		return this.mifidtermdate;
 	}
@@ -993,7 +993,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtermdate = mifidtermdate;
 	}
 
-	@Column(name = "MIFIDTERMDATEESMA", precision = 8, scale = 0)
+	@Column(name = "mifidTermDateESMA", precision = 8, scale = 0)
 	public Integer getMifidtermdateesma() {
 		return this.mifidtermdateesma;
 	}
@@ -1002,7 +1002,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtermdateesma = mifidtermdateesma;
 	}
 
-	@Column(name = "MIFIDTROBFLAG", length = 1)
+	@Column(name = "mifidTrObFlag", length = 1)
 	public String getMifidtrobflag() {
 		return this.mifidtrobflag;
 	}
@@ -1011,7 +1011,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtrobflag = mifidtrobflag;
 	}
 
-	@Column(name = "MIFIDTRADAPDATE", precision = 8, scale = 0)
+	@Column(name = "mifidTrAdApDate", precision = 8, scale = 0)
 	public Integer getMifidtradapdate() {
 		return this.mifidtradapdate;
 	}
@@ -1020,7 +1020,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtradapdate = mifidtradapdate;
 	}
 
-	@Column(name = "MIFIDTRADAPDATEESMA", precision = 8, scale = 0)
+	@Column(name = "mifidTrAdApDateESMA", precision = 8, scale = 0)
 	public Integer getMifidtradapdateesma() {
 		return this.mifidtradapdateesma;
 	}
@@ -1029,7 +1029,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtradapdateesma = mifidtradapdateesma;
 	}
 
-	@Column(name = "MIFIDTRADREQDATE", precision = 8, scale = 0)
+	@Column(name = "mifidTrAdReqDate", precision = 8, scale = 0)
 	public Integer getMifidtradreqdate() {
 		return this.mifidtradreqdate;
 	}
@@ -1038,7 +1038,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtradreqdate = mifidtradreqdate;
 	}
 
-	@Column(name = "MIFIDTRADREQDATEESMA", precision = 8, scale = 0)
+	@Column(name = "mifidTrAdReqDateESMA", precision = 8, scale = 0)
 	public Integer getMifidtradreqdateesma() {
 		return this.mifidtradreqdateesma;
 	}
@@ -1047,7 +1047,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtradreqdateesma = mifidtradreqdateesma;
 	}
 
-	@Column(name = "MIFIDTRTYPE", length = 6)
+	@Column(name = "mifidTrType", length = 6)
 	public String getMifidtrtype() {
 		return this.mifidtrtype;
 	}
@@ -1056,7 +1056,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtrtype = mifidtrtype;
 	}
 
-	@Column(name = "MIFIDTRTYPEESMA", length = 4)
+	@Column(name = "mifidTrTypeESMA", length = 4)
 	public String getMifidtrtypeesma() {
 		return this.mifidtrtypeesma;
 	}
@@ -1065,7 +1065,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidtrtypeesma = mifidtrtypeesma;
 	}
 
-	@Column(name = "MIFIDUNDINDNAME", length = 25)
+	@Column(name = "mifidUndIndName", length = 25)
 	public String getMifidundindname() {
 		return this.mifidundindname;
 	}
@@ -1074,7 +1074,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidundindname = mifidundindname;
 	}
 
-	@Column(name = "MIFIDUNDINDNAMEESMA", length = 25)
+	@Column(name = "mifidUndIndNameESMA", length = 25)
 	public String getMifidundindnameesma() {
 		return this.mifidundindnameesma;
 	}
@@ -1083,7 +1083,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidundindnameesma = mifidundindnameesma;
 	}
 
-	@Column(name = "MIFIDUNDINDTERMESMA", length = 6)
+	@Column(name = "mifidUndIndTermESMA", length = 6)
 	public String getMifidundindtermesma() {
 		return this.mifidundindtermesma;
 	}
@@ -1092,7 +1092,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidundindtermesma = mifidundindtermesma;
 	}
 
-	@Column(name = "MIFIDUNDTYPE", length = 4)
+	@Column(name = "mifidUndType", length = 4)
 	public String getMifidundtype() {
 		return this.mifidundtype;
 	}
@@ -1101,7 +1101,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifidundtype = mifidundtype;
 	}
 
-	@Column(name = "MIFIRIDENTIFIER", length = 6)
+	@Column(name = "mifirIdentifier", length = 6)
 	public String getMifiridentifier() {
 		return this.mifiridentifier;
 	}
@@ -1110,7 +1110,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mifiridentifier = mifiridentifier;
 	}
 
-	@Column(name = "MINDENOMINATION", precision = 22, scale = 0)
+	@Column(name = "minDenomination", precision = 22, scale = 0)
 	public BigDecimal getMindenomination() {
 		return this.mindenomination;
 	}
@@ -1119,7 +1119,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.mindenomination = mindenomination;
 	}
 
-	@Column(name = "NCAAVDAILYTURNOVER", precision = 20)
+	@Column(name = "ncaAvDailyTurnover", precision = 20)
 	public BigDecimal getNcaavdailyturnover() {
 		return this.ncaavdailyturnover;
 	}
@@ -1128,7 +1128,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ncaavdailyturnover = ncaavdailyturnover;
 	}
 
-	@Column(name = "NCAAVDAILYTURNCURCODE", length = 3)
+	@Column(name = "ncaAvDailyTurnCurCode", length = 3)
 	public String getNcaavdailyturncurcode() {
 		return this.ncaavdailyturncurcode;
 	}
@@ -1137,7 +1137,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ncaavdailyturncurcode = ncaavdailyturncurcode;
 	}
 
-	@Column(name = "NCAFREEFL", precision = 20, scale = 0)
+	@Column(name = "ncaFreeFl", precision = 20, scale = 0)
 	public BigDecimal getNcafreefl() {
 		return this.ncafreefl;
 	}
@@ -1146,7 +1146,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ncafreefl = ncafreefl;
 	}
 
-	@Column(name = "NCAFREEFLCURCODE", length = 3)
+	@Column(name = "ncaFreeFlCurCode", length = 3)
 	public String getNcafreeflcurcode() {
 		return this.ncafreeflcurcode;
 	}
@@ -1155,7 +1155,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ncafreeflcurcode = ncafreeflcurcode;
 	}
 
-	@Column(name = "NOTIONALCURESMA", length = 3)
+	@Column(name = "notionalCurESMA", length = 3)
 	public String getNotionalcuresma() {
 		return this.notionalcuresma;
 	}
@@ -1164,7 +1164,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.notionalcuresma = notionalcuresma;
 	}
 
-	@Column(name = "OPTIONROOT", length = 40)
+	@Column(name = "optionRoot", length = 40)
 	public String getOptionroot() {
 		return this.optionroot;
 	}
@@ -1173,7 +1173,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.optionroot = optionroot;
 	}
 
-	@Column(name = "PLACEHOLDER", length = 1)
+	@Column(name = "placeholder", length = 1)
 	public String getPlaceholder() {
 		return this.placeholder;
 	}
@@ -1182,7 +1182,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.placeholder = placeholder;
 	}
 
-	@Column(name = "PRICEMULTIPLIERESMA", precision = 38, scale = 0)
+	@Column(name = "priceMultiplierESMA", precision = 38, scale = 0)
 	public BigDecimal getPricemultiplieresma() {
 		return this.pricemultiplieresma;
 	}
@@ -1191,7 +1191,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.pricemultiplieresma = pricemultiplieresma;
 	}
 
-	@Column(name = "PRTRMAQUOTE", length = 18)
+	@Column(name = "prTrMaQuote", length = 18)
 	public String getPrtrmaquote() {
 		return this.prtrmaquote;
 	}
@@ -1200,7 +1200,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.prtrmaquote = prtrmaquote;
 	}
 
-	@Column(name = "REQFATTBYISSUER", length = 1)
+	@Column(name = "reqFATTByIssuer", length = 1)
 	public String getReqfattbyissuer() {
 		return this.reqfattbyissuer;
 	}
@@ -1209,7 +1209,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.reqfattbyissuer = reqfattbyissuer;
 	}
 
-	@Column(name = "REQFATTBYISSUERESMA", length = 1)
+	@Column(name = "reqFATTByIssuerESMA", length = 1)
 	public String getReqfattbyissueresma() {
 		return this.reqfattbyissueresma;
 	}
@@ -1218,7 +1218,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.reqfattbyissueresma = reqfattbyissueresma;
 	}
 
-	@Column(name = "SECURITYDESCRIPTION", length = 36)
+	@Column(name = "securityDescription", length = 36)
 	public String getSecuritydescription() {
 		return this.securitydescription;
 	}
@@ -1227,7 +1227,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.securitydescription = securitydescription;
 	}
 
-	@Column(name = "STRIKEPRICEESMA", precision = 18, scale = 0)
+	@Column(name = "strikePriceESMA", precision = 18, scale = 0)
 	public Long getStrikepriceesma() {
 		return this.strikepriceesma;
 	}
@@ -1236,7 +1236,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.strikepriceesma = strikepriceesma;
 	}
 
-	@Column(name = "STRIKEPRICECURESMA", length = 3)
+	@Column(name = "strikePriceCurESMA", length = 3)
 	public String getStrikepricecuresma() {
 		return this.strikepricecuresma;
 	}
@@ -1245,7 +1245,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.strikepricecuresma = strikepricecuresma;
 	}
 
-	@Column(name = "SUSCATEGORYESMA", length = 20)
+	@Column(name = "susCategoryESMA", length = 20)
 	public String getSuscategoryesma() {
 		return this.suscategoryesma;
 	}
@@ -1254,7 +1254,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.suscategoryesma = suscategoryesma;
 	}
 
-	@Column(name = "SUSENDEDONESMA", precision = 8, scale = 0)
+	@Column(name = "susEndedOnESMA", precision = 8, scale = 0)
 	public Integer getSusendedonesma() {
 		return this.susendedonesma;
 	}
@@ -1263,7 +1263,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.susendedonesma = susendedonesma;
 	}
 
-	@Column(name = "SUSONGOINGESMA", precision = 8, scale = 0)
+	@Column(name = "susOnGoingESMA", precision = 8, scale = 0)
 	public Integer getSusongoingesma() {
 		return this.susongoingesma;
 	}
@@ -1272,7 +1272,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.susongoingesma = susongoingesma;
 	}
 
-	@Column(name = "SUSRATESMA")
+	@Column(name = "susRatESMA")
 	public String getSusratesma() {
 		return this.susratesma;
 	}
@@ -1281,7 +1281,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.susratesma = susratesma;
 	}
 
-	@Column(name = "SUSSTONESMA", precision = 8, scale = 0)
+	@Column(name = "susStOnESMA", precision = 8, scale = 0)
 	public Integer getSusstonesma() {
 		return this.susstonesma;
 	}
@@ -1290,7 +1290,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.susstonesma = susstonesma;
 	}
 
-	@Column(name = "TTLAMISSUED", precision = 36, scale = 0)
+	@Column(name = "ttlAmIssued", precision = 36, scale = 0)
 	public BigDecimal getTtlamissued() {
 		return this.ttlamissued;
 	}
@@ -1299,7 +1299,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ttlamissued = ttlamissued;
 	}
 
-	@Column(name = "TTLEUTU12MOESMA", precision = 12, scale = 0)
+	@Column(name = "ttlEUTu12MoESMA", precision = 12, scale = 0)
 	public Long getTtleutu12moesma() {
 		return this.ttleutu12moesma;
 	}
@@ -1308,7 +1308,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ttleutu12moesma = ttleutu12moesma;
 	}
 
-	@Column(name = "TTLEUVL12MOESMA", precision = 12, scale = 0)
+	@Column(name = "ttlEUVl12MoESMA", precision = 12, scale = 0)
 	public Long getTtleuvl12moesma() {
 		return this.ttleuvl12moesma;
 	}
@@ -1317,7 +1317,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.ttleuvl12moesma = ttleuvl12moesma;
 	}
 
-	@Column(name = "UNDEEAELIG", length = 1)
+	@Column(name = "undEeaElig", length = 1)
 	public String getUndeeaelig() {
 		return this.undeeaelig;
 	}
@@ -1326,7 +1326,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.undeeaelig = undeeaelig;
 	}
 
-	@Column(name = "UNDISIN", length = 12)
+	@Column(name = "undIsin", length = 12)
 	public String getUndisin() {
 		return this.undisin;
 	}
@@ -1335,7 +1335,7 @@ public class XrefDsp implements java.io.Serializable {
 		this.undisin = undisin;
 	}
 
-	@Column(name = "UNDISINESMA", length = 12)
+	@Column(name = "undIsinESMA", length = 12)
 	public String getUndisinesma() {
 		return this.undisinesma;
 	}
