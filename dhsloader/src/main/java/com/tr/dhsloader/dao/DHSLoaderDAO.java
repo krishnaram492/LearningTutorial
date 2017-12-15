@@ -113,7 +113,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
 	public Long getDhsidByRicNQuoteId(String quoteid, String ric) throws Exception {
 		Long dhsid = null;
-		Query query = getHQLQuery("select dhsid from Dhsidmap where quoteid=:quoteid and ric=:ric");
+		Query query = getHQLQuery("select dhsID from DhsIdMap where quoteID=:quoteid and ric=:ric");
 		query.setParameter("quoteid", quoteid);
 		query.setParameter("ric", ric);
 		dhsid = (Long) query.uniqueResult();
@@ -128,7 +128,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
 	public Long getMaxDhsid() throws Exception {
 		Long dhsid = null;
-		Query query = getHQLQuery("select max(dhsid) from Dhsidmap");
+		Query query = getHQLQuery("select max(dhsID) from DhsIdMap");
 		dhsid = (Long) query.uniqueResult();
 		return dhsid;
 	}
@@ -138,7 +138,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	public Map<DHSComp, Long> getDhsidList(List<String> values) throws Exception {
 		Map<DHSComp, Long> dhsIdMap = new HashMap<DHSComp, Long>();
 		List<Object[]> dhsids = null;
-		Query query = getSQLQuery("select DHSID, RIC, QUOTEID FROM DHSIDMAP WHERE CONCAT(QUOTEID, RIC) in (:values)");
+		Query query = getSQLQuery("select dhID, ric, quoteID FROM DhsIdMap WHERE CONCAT(quoteID, ric) in (:values)");
 		query.setParameterList("values", values);
 		dhsids = query.list();
 
