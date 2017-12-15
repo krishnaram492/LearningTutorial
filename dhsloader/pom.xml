@@ -32,6 +32,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>sybase</groupId>
+			<artifactId>jconn4</artifactId>
+			<version>7.07</version>
+		</dependency>
 
 		<dependency>
 			<groupId>net.sourceforge.javacsv</groupId>
