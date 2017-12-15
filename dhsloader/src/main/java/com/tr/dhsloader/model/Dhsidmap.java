@@ -10,7 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "DHSIDMAP")
+@Table(name = "DhsIdMap",schema="dbo")
 public class Dhsidmap implements java.io.Serializable {
 
 	private static final long serialVersionUID = -2906401980614302531L;
@@ -44,7 +44,7 @@ public class Dhsidmap implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "DHSID", unique = true, nullable = false, precision = 12, scale = 0)
+	@Column(name = "dhsID", unique = true, nullable = false, precision = 12, scale = 0)
 	public long getDhsid() {
 		return this.dhsid;
 	}
@@ -53,7 +53,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.dhsid = dhsid;
 	}
 
-	@Column(name = "RIC", nullable = false, length = 50)
+	@Column(name = "ric", nullable = false, length = 50)
 	public String getRic() {
 		return this.ric;
 	}
@@ -62,7 +62,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.ric = ric;
 	}
 
-	@Column(name = "RIC30", length = 30)
+	@Column(name = "ric30", length = 30)
 	public String getRic30() {
 		return this.ric30;
 	}
@@ -72,7 +72,7 @@ public class Dhsidmap implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATEDATE", nullable = false, length = 7)
+	@Column(name = "createDate", nullable = false, length = 7)
 	public Calendar getCreatedate() {
 		return this.createdate;
 	}
@@ -82,7 +82,7 @@ public class Dhsidmap implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "UPDATEDATE", nullable = false, length = 7)
+	@Column(name = "updateDate", nullable = false, length = 7)
 	public Calendar getUpdatedate() {
 		return this.updatedate;
 	}
@@ -91,7 +91,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.updatedate = updatedate;
 	}
 
-	@Column(name = "UPDATESRC", nullable = false, length = 30)
+	@Column(name = "updateSRC", nullable = false, length = 30)
 	public String getUpdatesrc() {
 		return this.updatesrc;
 	}
@@ -100,7 +100,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.updatesrc = updatesrc;
 	}
 
-	@Column(name = "QUOTEID")
+	@Column(name = "quoteID")
 	public String getQuoteid() {
 		return this.quoteid;
 	}
