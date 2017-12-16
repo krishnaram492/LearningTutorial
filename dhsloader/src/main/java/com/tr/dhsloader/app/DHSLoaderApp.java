@@ -41,7 +41,7 @@ public class DHSLoaderApp implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... arg0) throws Exception {
-		String filePath = "D:\\MIFID.REF.296E.20171129.82.1.1.txt.zip";
+		String filePath = "C:\\DSP\\MIFID.REF.296E.20171129.82.1.1.txt.zip";
 		LOGGER.info("File path is {} ", filePath);
 		service.processReport(filePath);
 		LOGGER.info("Process end..");

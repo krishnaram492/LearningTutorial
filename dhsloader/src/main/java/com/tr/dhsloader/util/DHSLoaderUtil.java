@@ -623,9 +623,8 @@ public class DHSLoaderUtil {
 	public List<String> buildDHSComp(List<XrefXxDsp> xrefXxDsps) {
 		List<String> comps = new ArrayList<String>();
 		for (XrefXxDsp xrefXxDsp : xrefXxDsps) {
-			if (StringUtils.isNotBlank(xrefXxDsp.getId().getRic())
-					&& StringUtils.isNotBlank(xrefXxDsp.getId().getQuoteid())) {
-				comps.add(xrefXxDsp.getId().getQuoteid() + xrefXxDsp.getId().getRic());
+			if (StringUtils.isNotBlank(xrefXxDsp.getId().getQuoteid())) {
+				comps.add(xrefXxDsp.getId().getQuoteid());
 			}
 		}
 		return comps;
