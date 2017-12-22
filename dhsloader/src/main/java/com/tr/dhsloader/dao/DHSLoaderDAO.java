@@ -5,24 +5,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.codec.binary.Hex;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tr.dhsloader.constants.IDHSLoaderConstants;
-import com.tr.dhsloader.dto.DHSComp;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
 import com.tr.dhsloader.model.XrefXxDsp;
 
 /**
- * @author Ram
+ * @author Thomson Reuters
  * 
  */
+
 @Repository
 public class DHSLoaderDAO extends BaseHibernateDao {
 
@@ -33,7 +34,6 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	 * @param xrefXxDsps
 	 * @throws Exception
 	 */
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false)
 	public void saveXrefXxDspDetails(List<XrefXxDsp> xrefXxDsps) throws Exception {
 		LOGGER.info("start :: saveXrefXxDspDetails...");
 		if (null != xrefXxDsps && xrefXxDsps.size() > 0) {
@@ -58,7 +58,6 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	 * @param xrefDsps
 	 * @throws Exception
 	 */
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false)
 	public void saveXrefDspDetails(List<XrefDsp> xrefDsps) throws Exception {
 		LOGGER.info("start :: saveXrefDspDetails...");
 		if (null != xrefDsps && xrefDsps.size() > 0) {
@@ -83,7 +82,6 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	 * @param dhsidmaps
 	 * @throws Exception
 	 */
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false)
 	public void saveDhsidDetails(List<Dhsidmap> dhsidmaps) throws Exception {
 		LOGGER.info("start :: saveDhsidDetails...");
 		if (null != dhsidmaps && dhsidmaps.size() > 0) {
@@ -91,7 +89,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 			Session session = getCurrentSession();
 			int count = 0;
 			for (Dhsidmap dhsidmap : dhsidmaps) {
-				session.save(dhsidmap);
+				session.saveOrUpdate(dhsidmap);
 				// batch for 250 rows
 				if (count % 250 == 0) {
 					session.flush();
@@ -103,29 +101,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		LOGGER.info("end :: saveDhsidDetails...");
 	}
 
-	/**
-	 * 
-	 * @param quoteid
-	 * @param ric
-	 * @return
-	 * @throws Exception
-	 */
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
-	public Long getDhsidByRicNQuoteId(String quoteid, String ric) throws Exception {
-		Long dhsid = null;
-		Query query = getHQLQuery("select dhsID from DhsIdMap where quoteID=:quoteid and ric=:ric");
-		query.setParameter("quoteid", quoteid);
-		query.setParameter("ric", ric);
-		dhsid = (Long) query.uniqueResult();
-		return dhsid;
-	}
-
-	/**
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
+	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Long getMaxDhsid() throws Exception {
 		Long dhsid = null;
 		Query query = getHQLQuery("select max(dhsid) from Dhsidmap");
@@ -134,33 +110,29 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true)
-	public Map<DHSComp, Long> getDhsidList(List<String> values) throws Exception {
-		Map<DHSComp, Long> dhsIdMap = new HashMap<DHSComp, Long>();
+	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public Map<String, Long> getDhsidList(List<byte[]> pairList) throws Exception {
+		Map<String, Long> dhsIdMap = new HashMap<String, Long>();
 		List<Object[]> dhsids = null;
-		Query query = getSQLQuery("select dhsID, ric, quoteID FROM DhsIdMap WHERE quoteID in (:values)");
-		query.setParameterList("values", values);
+		Query query = getSQLQuery("select dhsID, quoteID FROM DhsIdMap1 WHERE quoteID in (:values)");
+		query.setParameterList("values", pairList);
 		dhsids = query.list();
 
 		if (null != dhsids && dhsids.size() > 0) {
 
 			for (Object[] objs : dhsids) {
 				long dhsid = 0;
-				String ric = "";
-				String quoteid = "";
+				byte[] quoteid = null;
 
 				if (null != objs[0]) {
 					dhsid = ((BigDecimal) objs[0]).longValue();
 				}
 				if (null != objs[1]) {
-					ric = (String) objs[1];
-				}
-				if (null != objs[2]) {
-					quoteid = (String) objs[2];
+					quoteid = (byte[]) objs[1];
 				}
 
-				if (StringUtils.isNotBlank(ric) && StringUtils.isNotBlank(quoteid)) {
-					dhsIdMap.put(new DHSComp(quoteid, ric), dhsid);
+				if (quoteid != null) {
+					dhsIdMap.put(Hex.encodeHexString(quoteid), dhsid);
 				}
 			}
 		}

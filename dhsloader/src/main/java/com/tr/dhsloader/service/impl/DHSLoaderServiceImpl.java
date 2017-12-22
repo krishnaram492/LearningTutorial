@@ -10,11 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
 
 import com.csvreader.CsvReader;
+import com.tr.dhsloader.constants.IDHSLoaderConstants;
 import com.tr.dhsloader.dao.DHSLoaderDAO;
-import com.tr.dhsloader.dto.DHSComp;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
 import com.tr.dhsloader.model.XrefXxDsp;
@@ -22,11 +24,11 @@ import com.tr.dhsloader.service.IDHSLoaderService;
 import com.tr.dhsloader.util.DHSLoaderUtil;
 
 /**
- * @author Ram
+ * @author Thomson Reuters
  * 
  */
 @Service
-public class DHSLoaderServiceImpl implements IDHSLoaderService {
+public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderServiceImpl.class);
 
@@ -36,14 +38,15 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 	@Autowired
 	private DHSLoaderDAO dao;
 
+	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor=Exception.class)
 	public boolean processReport(String filePath) throws Exception {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
 		boolean status = false;
 		String fileName = "";
-
-		CsvReader rows = util.parseInputData(filePath);
+		String firstLine = "";
+		CsvReader rows = util.parseInputData(filePath,firstLine);
 
 		if (StringUtils.isNotBlank(filePath)) {
 			fileName = FilenameUtils.getBaseName(filePath);
@@ -53,10 +56,14 @@ public class DHSLoaderServiceImpl implements IDHSLoaderService {
 		rows.readHeaders();
 
 		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
+		
+		List<String> quotes = util.buildQuote(xrefXxDsps);
+		System.out.println(quotes);
 
-		List<String> pairList = util.buildDHSComp(xrefXxDsps);
+		List<byte[]> pairList = util.buildDHSComp(quotes);
+		System.out.println(pairList);
 
-		Map<DHSComp, Long> dhsIdMap = dao.getDhsidList(pairList);
+		Map<String, Long> dhsIdMap = dao.getDhsidList(pairList);
 
 		List<Dhsidmap> dhsids = new ArrayList<Dhsidmap>();
 

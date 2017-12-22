@@ -9,18 +9,22 @@ import java.net.URLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import com.tr.dhsloader.util.FTPUtil;
+
+/**
+ * @author Thomson Reuters
+ * 
+ */
+
 @Component
-@PropertySource("classpath:ftpconfig.properties")
 public class FTPIngester extends Thread {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FTPIngester.class);
 
 	@Autowired
-	private Environment env;
+	private FTPUtil ftpUtil;
 
 	private static final int BUFFER_SIZE = 4096;
 
@@ -28,22 +32,14 @@ public class FTPIngester extends Thread {
 	public void run() {
 
 		try {
-
-			String ftpUrl = env.getProperty("ftp.url");
-			String host = env.getProperty("ftp.host");
-			String username = env.getProperty("ftp.username");
-			String password = env.getProperty("ftp.password");
-			String sourcepath = env.getProperty("ftp.sourcepath");
-			String targetpath = env.getProperty("ftp.targetpath");
-
-			ftpUrl = String.format(ftpUrl, username, password, host, sourcepath);
+			String ftpUrl = ftpUtil.buildFtpUrl();
+			String targetPath = ftpUtil.getTargetPath();
 
 			URL url = new URL(ftpUrl);
 			URLConnection conn = url.openConnection();
 			LOGGER.info("Connection is Successful");
 			InputStream inputStream = conn.getInputStream();
-
-			FileOutputStream outputStream = new FileOutputStream(targetpath);
+			FileOutputStream outputStream = new FileOutputStream(targetPath);
 
 			byte[] buffer = new byte[BUFFER_SIZE];
 			int bytesRead = -1;

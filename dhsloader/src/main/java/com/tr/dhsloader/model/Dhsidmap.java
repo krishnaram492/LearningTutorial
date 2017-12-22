@@ -1,5 +1,6 @@
 package com.tr.dhsloader.model;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "DhsIdMap",schema="dbo")
+@Table(name = "DhsIdMap1",schema="dbo")
 public class Dhsidmap implements java.io.Serializable {
 
 	private static final long serialVersionUID = -2906401980614302531L;
@@ -20,7 +21,7 @@ public class Dhsidmap implements java.io.Serializable {
 	private Calendar createdate;
 	private Calendar updatedate;
 	private String updatesrc;
-	private String quoteid;
+	private byte[] quoteid;
 
 	public Dhsidmap() {
 	}
@@ -33,7 +34,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.updatesrc = updatesrc;
 	}
 
-	public Dhsidmap(long dhsid, String ric, String ric30, Calendar createdate, Calendar updatedate, String updatesrc, String quoteid) {
+	public Dhsidmap(long dhsid, String ric, String ric30, Calendar createdate, Calendar updatedate, String updatesrc, byte[] quoteid) {
 		this.dhsid = dhsid;
 		this.ric = ric;
 		this.ric30 = ric30;
@@ -71,7 +72,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.ric30 = ric30;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "createDate", nullable = false, length = 7)
 	public Calendar getCreatedate() {
 		return this.createdate;
@@ -81,7 +82,7 @@ public class Dhsidmap implements java.io.Serializable {
 		this.createdate = createdate;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updateDate", nullable = false, length = 7)
 	public Calendar getUpdatedate() {
 		return this.updatedate;
@@ -101,12 +102,69 @@ public class Dhsidmap implements java.io.Serializable {
 	}
 
 	@Column(name = "quoteID")
-	public String getQuoteid() {
+	public byte[] getQuoteid() {
 		return this.quoteid;
 	}
 
-	public void setQuoteid(String quoteid) {
+	public void setQuoteid(byte[] quoteid) {
 		this.quoteid = quoteid;
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdate == null) ? 0 : createdate.hashCode());
+		result = prime * result + (int) (dhsid ^ (dhsid >>> 32));
+		result = prime * result + Arrays.hashCode(quoteid);
+		result = prime * result + ((ric == null) ? 0 : ric.hashCode());
+		result = prime * result + ((ric30 == null) ? 0 : ric30.hashCode());
+		result = prime * result + ((updatedate == null) ? 0 : updatedate.hashCode());
+		result = prime * result + ((updatesrc == null) ? 0 : updatesrc.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dhsidmap other = (Dhsidmap) obj;
+		if (createdate == null) {
+			if (other.createdate != null)
+				return false;
+		} else if (!createdate.equals(other.createdate))
+			return false;
+		if (dhsid != other.dhsid)
+			return false;
+		if (!Arrays.equals(quoteid, other.quoteid))
+			return false;
+		if (ric == null) {
+			if (other.ric != null)
+				return false;
+		} else if (!ric.equals(other.ric))
+			return false;
+		if (ric30 == null) {
+			if (other.ric30 != null)
+				return false;
+		} else if (!ric30.equals(other.ric30))
+			return false;
+		if (updatedate == null) {
+			if (other.updatedate != null)
+				return false;
+		} else if (!updatedate.equals(other.updatedate))
+			return false;
+		if (updatesrc == null) {
+			if (other.updatesrc != null)
+				return false;
+		} else if (!updatesrc.equals(other.updatesrc))
+			return false;
+		return true;
 	}
 
 	@Override

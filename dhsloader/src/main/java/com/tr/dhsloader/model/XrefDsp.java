@@ -7,11 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Ram
+ * @author Thomson Reuters
  * 
  */
 @Entity
-@Table(name = "XRef_DSP", schema="dbo")
+@Table(name = "XRef_DSP1", schema="dbo")
 public class XrefDsp implements java.io.Serializable {
 
 	private static final long serialVersionUID = -8069713917374599924L;

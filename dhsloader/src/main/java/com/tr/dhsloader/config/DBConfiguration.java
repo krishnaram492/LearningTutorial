@@ -56,6 +56,8 @@ public class DBConfiguration {
 		hibernateProperties.put("hibernate.dialect", env.getProperty("db.hibernate.dialect"));
 		hibernateProperties.put("hibernate.show_sql", env.getProperty("db.hibernate.show_sql"));
 		//hibernateProperties.put("hibernate.hbm2ddl.auto", env.getProperty("db.hibernate.hbm2ddl.auto"));
+		//hibernateProperties.put("hibernate.c3p0.testWhileIdle", env.getProperty("db.hibernate.testWhileIdle"));
+		//hibernateProperties.put("hibernate.c3p0.validationQuery", env.getProperty("db.hibernate.validationQuery"));
 
 		sessionFactory.setHibernateProperties(hibernateProperties);
 
