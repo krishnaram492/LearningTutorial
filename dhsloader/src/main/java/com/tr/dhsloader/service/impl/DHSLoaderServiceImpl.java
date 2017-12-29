@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
 
@@ -19,9 +18,11 @@ import com.tr.dhsloader.constants.IDHSLoaderConstants;
 import com.tr.dhsloader.dao.DHSLoaderDAO;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
+import com.tr.dhsloader.model.XrefHistory;
 import com.tr.dhsloader.model.XrefXxDsp;
 import com.tr.dhsloader.service.IDHSLoaderService;
 import com.tr.dhsloader.util.DHSLoaderUtil;
+import com.tr.dhsloader.util.FileStatusUtil;
 
 /**
  * @author Thomson Reuters
@@ -37,6 +38,9 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 	@Autowired
 	private DHSLoaderDAO dao;
+	
+	@Autowired
+	private FileStatusUtil fileutil;
 
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor=Exception.class)
 	public boolean processReport(String filePath) throws Exception {
@@ -71,6 +75,8 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 		List<XrefDsp> xrefDsps = util.buildXrefDsp(xrefXxDsps, dhsIdMap);
 
+	//	List<XrefHistory> xrefhist = util.buildXrefHistory(rows, dhsIdMap, fileName);
+
 		System.out.println("xrefXxDsps size is " + xrefXxDsps.size());
 
 		System.out.println("xrefDsps size is " + xrefDsps.size());
@@ -87,6 +93,8 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 		System.out.println("Saving list of xrefDsps..");
 
 		rows.close();
+		
+		fileutil.writeStatus(firstLine);
 
 		stopWatch.stop();
 

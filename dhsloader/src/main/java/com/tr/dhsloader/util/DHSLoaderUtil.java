@@ -4,15 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +28,7 @@ import com.csvreader.CsvReader;
 import com.tr.dhsloader.dao.DHSLoaderDAO;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
+import com.tr.dhsloader.model.XrefHistory;
 import com.tr.dhsloader.model.XrefXxDsp;
 import com.tr.dhsloader.model.XrefXxDspId;
 
@@ -45,7 +43,10 @@ public class DHSLoaderUtil {
 
 	@Autowired
 	private DHSLoaderDAO dao;
-	
+
+	@Autowired
+	private FileStatusUtil statusutil;
+
 	/**
 	 * 
 	 * @param filePath
@@ -84,8 +85,6 @@ public class DHSLoaderUtil {
 						fw.close();
 
 						System.out.println(tempdata);
-						readStatus(tempdata);
-
 						System.out.println("done");
 
 						BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tempFile)));
@@ -520,22 +519,24 @@ public class DHSLoaderUtil {
 		}
 		return comps;
 	}
-	
-	public String buildCurrentDate() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date today = Calendar.getInstance().getTime();
-        String reportDate = df.format(today);
-        return reportDate;
+
+	public List<XrefHistory> buildXrefHistory(CsvReader rows, Map<String, Long> dhsIdMap, String fileName) throws Exception {
+		List<XrefHistory> xrefhists = new ArrayList<XrefHistory>();
+		if (null != rows) {
+			while (rows.readRecord()) {
+				XrefHistory obj = new XrefHistory();
+				String changeFlag = rows.get("Change_Flag");
+				String quoteid = rows.get("Quote_ID").replace("0x", "");
+				byte[] quote = Hex.decodeHex(quoteid.toCharArray());
+
+				if (dhsIdMap.containsKey(Hex.encodeHexString(quote))) {
+                    obj.setDhsid(dhsIdMap.get(Hex.encodeHexString(quote)));
+                }
+				
+				
+			}
+		}
+		return xrefhists;
 	}
 
-	public void readStatus(String firstLine) {
-				
-		try {
-			String date = buildCurrentDate();
-			FileWriter fw = new FileWriter("C:\\temp\\myfile.txt", true);
-			fw.write(date+ ":" + firstLine + "\n");
-			fw.close();
-		} catch (IOException e) {
-		}
-	}
 }

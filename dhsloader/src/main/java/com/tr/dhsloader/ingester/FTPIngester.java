@@ -19,7 +19,7 @@ import com.tr.dhsloader.util.FTPUtil;
  */
 
 @Component
-public class FTPIngester extends Thread {
+public class FTPIngester {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FTPIngester.class);
 
@@ -28,7 +28,6 @@ public class FTPIngester extends Thread {
 
 	private static final int BUFFER_SIZE = 4096;
 
-	@Override
 	public void run() {
 
 		try {
@@ -52,7 +51,7 @@ public class FTPIngester extends Thread {
 			LOGGER.info("File Downloaded");
 			System.out.println("File downloaded");
 		} catch (IOException ex) {
-			ex.printStackTrace();
+			LOGGER.error("FTP file is not found...please try again after some time {}",ex.getMessage());
 		}
 
 	}

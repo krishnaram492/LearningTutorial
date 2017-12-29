@@ -1,11 +1,13 @@
 package com.tr.dhsloader.dao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -113,10 +115,23 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Map<String, Long> getDhsidList(List<byte[]> pairList) throws Exception {
 		Map<String, Long> dhsIdMap = new HashMap<String, Long>();
-		List<Object[]> dhsids = null;
-		Query query = getSQLQuery("select dhsID, quoteID FROM DhsIdMap1 WHERE quoteID in (:values)");
-		query.setParameterList("values", pairList);
-		dhsids = query.list();
+		List<Object[]> dhsids = new ArrayList<Object[]>();
+		int i = 0;
+		if (null != pairList && pairList.size() > 0) {
+			while (pairList.size() > i) {
+				int x = i + 300;
+				Query query = getSQLQuery("select dhsID, quoteID FROM DhsIdMap1 WHERE quoteID in (:values)");
+				if (pairList.size() > x) {
+					query.setParameterList("values", pairList.subList(i, x));
+				} else {
+					int count = pairList.size();
+					query.setParameterList("values", pairList.subList(i, count));
+				}
+				List<Object[]> objs = query.list();
+				i = x;
+				dhsids.addAll(objs);
+			}
+		}
 
 		if (null != dhsids && dhsids.size() > 0) {
 
@@ -138,5 +153,26 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		}
 
 		return dhsIdMap;
+	}
+
+	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public Map<String, Integer> getColIdMap() throws Exception {
+		Map<String, Integer> colIdMap = new HashMap<String, Integer>();
+		Query query = getSQLQuery("select name, colid FROM dspCplumns");
+		List<Object[]> objs = query.list();
+		String name = "";
+		Integer colid = 0;
+		for (Object[] objects : objs) {
+			if (objects[0] != null) {
+				name = (String) objects[0];
+			}
+			if (objects[1] != null) {
+				colid = Integer.valueOf((String) objects[1]);
+			}
+			if (StringUtils.isNotBlank(name)) {
+				colIdMap.put(name, colid);
+			}
+		}
+		return colIdMap;
 	}
 }
