@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,9 +40,9 @@ public class FileStatusUtil {
 			}
 			System.out.println(lastline);
 
-			if (lastline != null) {
+			if (StringUtils.isNotBlank(lastline)) {
 				int len = lastline.length();
-				String val = lastline.substring(len - 12, len - 1);
+				String val = lastline.substring(len - 11, len - 1);
 				String[] strs = val.split("\\|");
 				String fullDate = strs[0];
 				int segment = Integer.valueOf(strs[1]);
@@ -54,7 +55,7 @@ public class FileStatusUtil {
 				}
 				return fileName;
 			} else {
-				return ftputil.getTargetPath();
+				return ftputil.getTargetFilePath();
 			}
 		}
 		return null;

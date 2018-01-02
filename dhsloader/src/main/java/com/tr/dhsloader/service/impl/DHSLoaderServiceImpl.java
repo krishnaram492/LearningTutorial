@@ -18,7 +18,6 @@ import com.tr.dhsloader.constants.IDHSLoaderConstants;
 import com.tr.dhsloader.dao.DHSLoaderDAO;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
-import com.tr.dhsloader.model.XrefHistory;
 import com.tr.dhsloader.model.XrefXxDsp;
 import com.tr.dhsloader.service.IDHSLoaderService;
 import com.tr.dhsloader.util.DHSLoaderUtil;
@@ -38,19 +37,21 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 	@Autowired
 	private DHSLoaderDAO dao;
-	
+
 	@Autowired
 	private FileStatusUtil fileutil;
 
-	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor=Exception.class)
+	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor = Exception.class)
 	public boolean processReport(String filePath) throws Exception {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
 		boolean status = false;
 		String fileName = "";
-		String firstLine = "";
-		CsvReader rows = util.parseInputData(filePath,firstLine);
+
+		String firstLine = util.getFirstLine(filePath);
+
+		CsvReader rows = util.parseInputData(filePath);
 
 		if (StringUtils.isNotBlank(filePath)) {
 			fileName = FilenameUtils.getBaseName(filePath);
@@ -60,12 +61,12 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 		rows.readHeaders();
 
 		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
-		
+
 		List<String> quotes = util.buildQuote(xrefXxDsps);
-		System.out.println(quotes);
+		LOGGER.info("quotes ar3 {} ", quotes);
 
 		List<byte[]> pairList = util.buildDHSComp(quotes);
-		System.out.println(pairList);
+		LOGGER.info("pairList ar3 {} ", pairList);
 
 		Map<String, Long> dhsIdMap = dao.getDhsidList(pairList);
 
@@ -75,30 +76,37 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 		List<XrefDsp> xrefDsps = util.buildXrefDsp(xrefXxDsps, dhsIdMap);
 
-	//	List<XrefHistory> xrefhist = util.buildXrefHistory(rows, dhsIdMap, fileName);
+		// List<XrefHistory> xrefhist = util.buildXrefHistory(rows, dhsIdMap, fileName);
 
-		System.out.println("xrefXxDsps size is " + xrefXxDsps.size());
+		LOGGER.info("xrefXxDsps size is {} ", xrefXxDsps.size());
 
-		System.out.println("xrefDsps size is " + xrefDsps.size());
+		LOGGER.info("xrefDsps size is {} ", xrefDsps.size());
 
-		System.out.println("Dhsidmap list size is " + dhsids.size());
+		LOGGER.info("Dhsidmap list size is {} ", dhsids.size());
 
-		dao.saveXrefXxDspDetails(xrefXxDsps);
-		System.out.println("Saving list of xrefXxDsps..");
+		if (null != xrefXxDsps && xrefXxDsps.size() > 0) {
+			dao.saveXrefXxDspDetails(xrefXxDsps);
+			LOGGER.info("Saving list of xrefXxDsps..");
+		}
 
-		dao.saveDhsidDetails(dhsids);
-		System.out.println("Saving list of dhsids..");
+		if (null != dhsids && dhsids.size() > 0) {
+			dao.saveDhsidDetails(dhsids);
+			LOGGER.info("Saving list of dhsids..");
+		}
 
-		dao.saveXrefDspDetails(xrefDsps);
-		System.out.println("Saving list of xrefDsps..");
+		if (null != xrefDsps && xrefDsps.size() > 0) {
+			dao.saveXrefDspDetails(xrefDsps);
+			LOGGER.info("Saving list of xrefDsps..");
+		}
 
 		rows.close();
-		
-		fileutil.writeStatus(firstLine);
+
+		if (StringUtils.isNotBlank(firstLine))
+			fileutil.writeStatus(firstLine);
 
 		stopWatch.stop();
 
-		LOGGER.info("Total time taken for processReport api is {} ", stopWatch.getTotalTimeSeconds() + " secs.");
+		LOGGER.info("Total time taken for processReport api is {} {}", stopWatch.getTotalTimeSeconds(), " secs.");
 
 		return status;
 	}

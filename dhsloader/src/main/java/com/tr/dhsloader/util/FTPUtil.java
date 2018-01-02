@@ -86,4 +86,9 @@ public class FTPUtil {
 		String archivepath = env.getProperty("ftp.archivepath") + fileName;
 		return archivepath;
 	}
+	
+	public String getTargetFilePath() {
+		String fileName = getFileName();
+		return fileName;
+	}
 }

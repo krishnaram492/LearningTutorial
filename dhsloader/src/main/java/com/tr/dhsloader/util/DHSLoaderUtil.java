@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -44,16 +43,13 @@ public class DHSLoaderUtil {
 	@Autowired
 	private DHSLoaderDAO dao;
 
-	@Autowired
-	private FileStatusUtil statusutil;
-
 	/**
 	 * 
 	 * @param filePath
 	 * @return
 	 */
 	@SuppressWarnings({ "resource", "rawtypes" })
-	public CsvReader parseInputData(String filePath, String tempdata) throws Exception {
+	public CsvReader parseInputData(String filePath) throws Exception {
 
 		LOGGER.info("File Processing Started...");
 		if (StringUtils.isNotBlank(filePath)) {
@@ -73,10 +69,7 @@ public class DHSLoaderUtil {
 						FileWriter fw = new FileWriter(tempFile);
 						int i = 0;
 						while ((line = bufferedReader.readLine()) != null) {
-
-							if (i == 0) {
-								tempdata = line;
-							} else {
+							if (i > 0) {
 								fw.write(line + "\n");
 							}
 							i++;
@@ -84,17 +77,14 @@ public class DHSLoaderUtil {
 						bufferedReader.close();
 						fw.close();
 
-						System.out.println(tempdata);
-						System.out.println("done");
-
 						BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tempFile)));
 
 						csvReader = new CsvReader(br, '|');
 
 						if (tempFile.exists() && !tempFile.isDirectory()) {
-							System.out.println("File is available");
-							System.out.println(tempFile.delete());
-							System.out.println("temp file deleted...");
+							LOGGER.info("File is available");
+							LOGGER.info("File is getting deleted? or not?", tempFile.delete());
+							LOGGER.info("temp file deleted...");
 							LOGGER.info("File Processing Ended...");
 						}
 
@@ -297,7 +287,7 @@ public class DHSLoaderUtil {
 			int i = 1;
 			for (XrefXxDsp obj : xrefXxDsps) {
 				byte[] quoteid = (obj.getId().getQuoteid());
-				System.out.println(quoteid);
+				LOGGER.info("quote id is {}", quoteid);
 				if (quoteid != null) {
 
 					if (dhsIdMap != null && !dhsIdMap.containsKey(Hex.encodeHexString(quoteid))) {
@@ -353,7 +343,7 @@ public class DHSLoaderUtil {
 				if (StringUtils.isNotBlank(obj.getCompshortname()))
 					dto.setCompshortname(obj.getCompshortname());
 				if (StringUtils.isNotBlank(obj.getDealstartdate()))
-					dto.setDealstartdate(Integer.valueOf(convertDate(obj.getDealstartdate())));
+					dto.setDealstartdate((convertDate(obj.getDealstartdate())));
 				if (StringUtils.isNotBlank(obj.getEeavenueelflg()))
 					dto.setEeavenueelflg(obj.getEeavenueelflg());
 				if (StringUtils.isNotBlank(obj.getFininsshnameesma()))
@@ -365,27 +355,27 @@ public class DHSLoaderUtil {
 				if (StringUtils.isNotBlank(obj.getInsfullnameesma()))
 					dto.setInsfullnameesma(obj.getInsfullnameesma());
 				if (StringUtils.isNotBlank(obj.getIssuedate()))
-					dto.setIssuedate(Integer.valueOf(convertDate(obj.getIssuedate())));
+					dto.setIssuedate((convertDate(obj.getIssuedate())));
 				if (StringUtils.isNotBlank(obj.getIssortrvenueleiesma()))
 					dto.setIssortrvenueleiesma(obj.getIssortrvenueleiesma());
 				if (StringUtils.isNotBlank(obj.getMrkattsrcpermid()))
-					dto.setMrkattsrcpermid(new BigDecimal(obj.getMrkattsrcpermid()));
+					dto.setMrkattsrcpermid((obj.getMrkattsrcpermid()));
 				if (StringUtils.isNotBlank(obj.getMaturitydate()))
-					dto.setMaturitydate(Integer.valueOf(convertDate(obj.getMaturitydate())));
+					dto.setMaturitydate((convertDate(obj.getMaturitydate())));
 				if (StringUtils.isNotBlank(obj.getMifidasclofun()))
 					dto.setMifidasclofun(obj.getMifidasclofun());
 				if (StringUtils.isNotBlank(obj.getMifidadnapinsesma()))
-					dto.setMifidadnapinsesma(new BigDecimal(obj.getMifidadnapinsesma()));
+					dto.setMifidadnapinsesma((obj.getMifidadnapinsesma()));
 				if (StringUtils.isNotBlank(obj.getMifidadnoftpinsesma()))
-					dto.setMifidadnoftpinsesma(new BigDecimal(obj.getMifidadnoftpinsesma()));
+					dto.setMifidadnoftpinsesma((obj.getMifidadnoftpinsesma()));
 				if (StringUtils.isNotBlank(obj.getMifidavdatuesma()))
-					dto.setMifidavdatuesma(new BigDecimal(obj.getMifidavdatuesma()));
+					dto.setMifidavdatuesma((obj.getMifidavdatuesma()));
 				if (StringUtils.isNotBlank(obj.getMifidavdatucurcode()))
 					dto.setMifidavdatucurcode(obj.getMifidavdatucurcode());
 				if (StringUtils.isNotBlank(obj.getMifidavvaoftresma()))
-					dto.setMifidavvaoftresma(new BigDecimal(obj.getMifidavvaoftresma()));
+					dto.setMifidavvaoftresma((obj.getMifidavvaoftresma()));
 				if (StringUtils.isNotBlank(obj.getMifidavvaoftrcurcode()))
-					dto.setMifidavvaoftrcurcode(new BigDecimal(obj.getMifidavvaoftrcurcode()));
+					dto.setMifidavvaoftrcurcode((obj.getMifidavvaoftrcurcode()));
 				if (StringUtils.isNotBlank(obj.getMifidbaseprod()))
 					dto.setMifidbaseprod(obj.getMifidbaseprod());
 				if (StringUtils.isNotBlank(obj.getMifidbaseprodesma()))
@@ -417,19 +407,19 @@ public class DHSLoaderUtil {
 				if (StringUtils.isNotBlank(obj.getMifidexerstyleesma()))
 					dto.setMifidexerstyleesma(obj.getMifidexerstyleesma());
 				if (StringUtils.isNotBlank(obj.getMifidexpdateesma()))
-					dto.setMifidexpdateesma(Integer.valueOf(obj.getMifidexpdateesma()));
+					dto.setMifidexpdateesma((obj.getMifidexpdateesma()));
 				if (StringUtils.isNotBlank(obj.getMifidfiprtype()))
 					dto.setMifidfiprtype(obj.getMifidfiprtype());
 				if (StringUtils.isNotBlank(obj.getMifidfiprtypeesma()))
 					dto.setMifidfiprtypeesma(obj.getMifidfiprtypeesma());
 				if (StringUtils.isNotBlank(obj.getMifidfrtradedate()))
-					dto.setMifidfrtradedate(Integer.valueOf(convertDate(obj.getMifidfrtradedate())));
+					dto.setMifidfrtradedate((convertDate(obj.getMifidfrtradedate())));
 				if (StringUtils.isNotBlank(obj.getMifidfrtradedateesma()))
-					dto.setMifidfrtradedateesma(Integer.valueOf(obj.getMifidfrtradedateesma()));
+					dto.setMifidfrtradedateesma((obj.getMifidfrtradedateesma()));
 				if (StringUtils.isNotBlank(obj.getMifidflag()))
 					dto.setMifidflag(obj.getMifidflag());
 				if (StringUtils.isNotBlank(obj.getMifidfrfloatesma()))
-					dto.setMifidfrfloatesma(new BigDecimal(obj.getMifidfrfloatesma()));
+					dto.setMifidfrfloatesma((obj.getMifidfrfloatesma()));
 				if (StringUtils.isNotBlank(obj.getMifidfrfloatcurcode()))
 					dto.setMifidfrfloatcurcode(obj.getMifidfrfloatcurcode());
 				if (StringUtils.isNotBlank(obj.getMifidfusubpr()))
@@ -437,13 +427,13 @@ public class DHSLoaderUtil {
 				if (StringUtils.isNotBlank(obj.getMifidfusubpresma()))
 					dto.setMifidfusubpresma(obj.getMifidfusubpresma());
 				if (StringUtils.isNotBlank(obj.getMifidissdateesma()))
-					dto.setMifidissdateesma(Long.valueOf(obj.getMifidissdateesma()));
+					dto.setMifidissdateesma((obj.getMifidissdateesma()));
 				if (StringUtils.isNotBlank(obj.getMifidisssizeesma()))
-					dto.setMifidisssizeesma(new BigDecimal(obj.getMifidisssizeesma()));
+					dto.setMifidisssizeesma((obj.getMifidisssizeesma()));
 				if (StringUtils.isNotBlank(obj.getMifidmatdate()))
-					dto.setMifidmatdate(Integer.valueOf(convertDate(obj.getMifidmatdate())));
+					dto.setMifidmatdate((convertDate(obj.getMifidmatdate())));
 				if (StringUtils.isNotBlank(obj.getMifidmatdateesma()))
-					dto.setMifidmatdateesma(Integer.valueOf(obj.getMifidmatdateesma()));
+					dto.setMifidmatdateesma((obj.getMifidmatdateesma()));
 				if (StringUtils.isNotBlank(obj.getMifidmostremaesma()))
 					dto.setMifidmostremaesma(obj.getMifidmostremaesma());
 				if (StringUtils.isNotBlank(obj.getMifidoptype()))
@@ -451,41 +441,41 @@ public class DHSLoaderUtil {
 				if (StringUtils.isNotBlank(obj.getMifidoptypeesma()))
 					dto.setMifidoptypeesma(obj.getMifidoptypeesma());
 				if (StringUtils.isNotBlank(obj.getMifidptuw12esma()))
-					dto.setMifidptuw12esma(new BigDecimal(obj.getMifidptuw12esma()));
+					dto.setMifidptuw12esma((obj.getMifidptuw12esma()));
 				if (StringUtils.isNotBlank(obj.getMifidptuwptv12mesma()))
-					dto.setMifidptuwptv12mesma(new BigDecimal(obj.getMifidptuwptv12mesma()));
+					dto.setMifidptuwptv12mesma((obj.getMifidptuwptv12mesma()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrlisthfl()))
-					dto.setMifidpotrlisthfl(Long.valueOf(obj.getMifidpotrlisthfl()));
+					dto.setMifidpotrlisthfl((obj.getMifidpotrlisthfl()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrlisthvl()))
-					dto.setMifidpotrlisthvl(Long.valueOf(obj.getMifidpotrlisthvl()));
+					dto.setMifidpotrlisthvl((obj.getMifidpotrlisthvl()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrlistrper()))
-					dto.setMifidpotrlistrper(new BigDecimal(obj.getMifidpotrlistrper()));
+					dto.setMifidpotrlistrper((obj.getMifidpotrlistrper()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrlisvoper()))
-					dto.setMifidpotrlisvoper(new BigDecimal(obj.getMifidpotrlisvoper()));
+					dto.setMifidpotrlisvoper((obj.getMifidpotrlisvoper()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrsstithfl()))
-					dto.setMifidpotrsstithfl(Long.valueOf(obj.getMifidpotrsstithfl()));
+					dto.setMifidpotrsstithfl((obj.getMifidpotrsstithfl()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrsstithvl()))
-					dto.setMifidpotrsstithvl(Long.valueOf(obj.getMifidpotrsstithvl()));
+					dto.setMifidpotrsstithvl((obj.getMifidpotrsstithvl()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrsstitrper()))
-					dto.setMifidpotrsstitrper(new BigDecimal(obj.getMifidpotrsstitrper()));
+					dto.setMifidpotrsstitrper((obj.getMifidpotrsstitrper()));
 				if (StringUtils.isNotBlank(obj.getMifidpotrsstivoper()))
-					dto.setMifidpotrsstivoper(new BigDecimal(obj.getMifidpotrsstivoper()));
+					dto.setMifidpotrsstivoper((obj.getMifidpotrsstivoper()));
 				if (StringUtils.isNotBlank(obj.getMifidpretrlisthfl()))
-					dto.setMifidpretrlisthfl(Long.valueOf(obj.getMifidpretrlisthfl()));
+					dto.setMifidpretrlisthfl((obj.getMifidpretrlisthfl()));
 				if (StringUtils.isNotBlank(obj.getMifidpretrlisthvl()))
-					dto.setMifidpretrlisthvl(Long.valueOf(obj.getMifidpretrlisthvl()));
+					dto.setMifidpretrlisthvl((obj.getMifidpretrlisthvl()));
 				if (StringUtils.isNotBlank(obj.getMifidpretrlistrper()))
-					dto.setMifidpretrlistrper(new BigDecimal(obj.getMifidpretrlistrper()));
+					dto.setMifidpretrlistrper((obj.getMifidpretrlistrper()));
 				if (StringUtils.isNotBlank(obj.getMifidpretrsstithfl()))
-					dto.setMifidpretrsstithfl(Long.valueOf(obj.getMifidpretrsstithfl()));
+					dto.setMifidpretrsstithfl((obj.getMifidpretrsstithfl()));
 				if (StringUtils.isNotBlank(obj.getMifidpretrsstithvl()))
-					dto.setMifidpretrsstithvl(Long.valueOf(obj.getMifidpretrsstithvl()));
+					dto.setMifidpretrsstithvl((obj.getMifidpretrsstithvl()));
 				if (StringUtils.isNotBlank(obj.getMifidpretrsstitrper()))
-					dto.setMifidpretrsstitrper(new BigDecimal(obj.getMifidpretrsstitrper()));
+					dto.setMifidpretrsstitrper((obj.getMifidpretrsstitrper()));
 				if (StringUtils.isNotBlank(obj.getMifidregulatedesma()))
 					dto.setMifidregulatedesma(obj.getMifidregulatedesma());
 				if (StringUtils.isNotBlank(obj.getMifidstmasizeesma()))
-					dto.setMifidstmasizeesma(Long.valueOf(obj.getMifidstmasizeesma()));
+					dto.setMifidstmasizeesma((obj.getMifidstmasizeesma()));
 				if (StringUtils.isNotBlank(obj.getMifidstmasizecurcode()))
 					dto.setMifidstmasizecurcode(obj.getMifidstmasizecurcode());
 				if (StringUtils.isNotBlank(obj.getMifidsubprod()))
@@ -493,9 +483,9 @@ public class DHSLoaderUtil {
 				if (StringUtils.isNotBlank(obj.getMifidsubprodesma()))
 					dto.setMifidsubprodesma(obj.getMifidsubprodesma());
 				if (StringUtils.isNotBlank(obj.getMifidtermdate()))
-					dto.setMifidtermdate(Integer.valueOf(convertDate(obj.getMifidtermdate())));
+					dto.setMifidtermdate((convertDate(obj.getMifidtermdate())));
 				if (StringUtils.isNotBlank(obj.getMifidtermdateesma()))
-					dto.setMifidtermdateesma(Integer.valueOf(obj.getMifidtermdateesma()));
+					dto.setMifidtermdateesma((obj.getMifidtermdateesma()));
 				if (StringUtils.isNotBlank(obj.getMifidtrobflag()))
 					dto.setMifidtrobflag(obj.getMifidtrobflag());
 
@@ -520,7 +510,8 @@ public class DHSLoaderUtil {
 		return comps;
 	}
 
-	public List<XrefHistory> buildXrefHistory(CsvReader rows, Map<String, Long> dhsIdMap, String fileName) throws Exception {
+	public List<XrefHistory> buildXrefHistory(CsvReader rows, Map<String, Long> dhsIdMap, String fileName)
+			throws Exception {
 		List<XrefHistory> xrefhists = new ArrayList<XrefHistory>();
 		if (null != rows) {
 			while (rows.readRecord()) {
@@ -530,13 +521,44 @@ public class DHSLoaderUtil {
 				byte[] quote = Hex.decodeHex(quoteid.toCharArray());
 
 				if (dhsIdMap.containsKey(Hex.encodeHexString(quote))) {
-                    obj.setDhsid(dhsIdMap.get(Hex.encodeHexString(quote)));
-                }
-				
-				
+					obj.setDhsid(dhsIdMap.get(Hex.encodeHexString(quote)));
+				}
+
 			}
 		}
 		return xrefhists;
+	}
+
+	@SuppressWarnings({ "resource", "rawtypes" })
+	public String getFirstLine(String filePath) throws Exception {
+		LOGGER.info("File loading..");
+		String tempdata = StringUtils.EMPTY;
+		if (StringUtils.isNotBlank(filePath)) {
+			ZipFile zip = new ZipFile(filePath);
+			Enumeration e = zip.entries();
+			while (e.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry) e.nextElement();
+				if (!entry.isDirectory()) {
+					if (FilenameUtils.getExtension(entry.getName()).equals("txt")) {
+						InputStream inputStream = zip.getInputStream(entry);
+						Reader reader = new InputStreamReader(inputStream);
+						BufferedReader bufferedReader = new BufferedReader(reader);
+						String line = "";
+						int i = 0;
+						while ((line = bufferedReader.readLine()) != null) {
+							if (i == 0) {
+								tempdata = line;
+							}
+							i++;
+						}
+						bufferedReader.close();
+
+						LOGGER.info("First line is {}", tempdata);
+					}
+				}
+			}
+		}
+		return tempdata;
 	}
 
 }

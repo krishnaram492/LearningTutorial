@@ -24,23 +24,23 @@ public class XrefDsp implements java.io.Serializable {
 	private String cincode;
 	private String complegaldomicile;
 	private String compshortname;
-	private Integer dealstartdate;
+	private String dealstartdate;
 	private String eeavenueelflg;
 	private String fininsshnameesma;
 	private String inesmafirds;
 	private String insclassesma;
 	private String insfullnameesma;
-	private Integer issuedate;
+	private String issuedate;
 	private String issortrvenueleiesma;
-	private BigDecimal mrkattsrcpermid;
-	private Integer maturitydate;
+	private String mrkattsrcpermid;
+	private String maturitydate;
 	private String mifidasclofun;
-	private BigDecimal mifidadnapinsesma;
-	private BigDecimal mifidadnoftpinsesma;
-	private BigDecimal mifidavdatuesma;
+	private String mifidadnapinsesma;
+	private String mifidadnoftpinsesma;
+	private String mifidavdatuesma;
 	private String mifidavdatucurcode;
-	private BigDecimal mifidavvaoftresma;
-	private BigDecimal mifidavvaoftrcurcode;
+	private String mifidavvaoftresma;
+	private String mifidavvaoftrcurcode;
 	private String mifidbaseprod;
 	private String mifidbaseprodesma;
 	private String mifidbondseni;
@@ -56,51 +56,51 @@ public class XrefDsp implements java.io.Serializable {
 	private String mifidemalsubtype;
 	private String mifidexerstyle;
 	private String mifidexerstyleesma;
-	private Integer mifidexpdateesma;
+	private String mifidexpdateesma;
 	private String mifidfiprtype;
 	private String mifidfiprtypeesma;
-	private Integer mifidfrtradedate;
-	private Integer mifidfrtradedateesma;
+	private String mifidfrtradedate;
+	private String mifidfrtradedateesma;
 	private String mifidflag;
-	private BigDecimal mifidfrfloatesma;
+	private String mifidfrfloatesma;
 	private String mifidfrfloatcurcode;
 	private String mifidfusubpr;
 	private String mifidfusubpresma;
-	private Long mifidissdateesma;
-	private BigDecimal mifidisssizeesma;
-	private Integer mifidmatdate;
-	private Integer mifidmatdateesma;
+	private String mifidissdateesma;
+	private String mifidisssizeesma;
+	private String mifidmatdate;
+	private String mifidmatdateesma;
 	private String mifidmostremaesma;
 	private String mifidoptype;
 	private String mifidoptypeesma;
-	private BigDecimal mifidptuw12esma;
-	private BigDecimal mifidptuwptv12mesma;
-	private Long mifidpotrlisthfl;
-	private Long mifidpotrlisthvl;
-	private BigDecimal mifidpotrlistrper;
-	private BigDecimal mifidpotrlisvoper;
-	private Long mifidpotrsstithfl;
-	private Long mifidpotrsstithvl;
-	private BigDecimal mifidpotrsstitrper;
-	private BigDecimal mifidpotrsstivoper;
-	private Long mifidpretrlisthfl;
-	private Long mifidpretrlisthvl;
-	private BigDecimal mifidpretrlistrper;
-	private Long mifidpretrsstithfl;
-	private Long mifidpretrsstithvl;
-	private BigDecimal mifidpretrsstitrper;
+	private String mifidptuw12esma;
+	private String mifidptuwptv12mesma;
+	private String mifidpotrlisthfl;
+	private String mifidpotrlisthvl;
+	private String mifidpotrlistrper;
+	private String mifidpotrlisvoper;
+	private String mifidpotrsstithfl;
+	private String mifidpotrsstithvl;
+	private String mifidpotrsstitrper;
+	private String mifidpotrsstivoper;
+	private String mifidpretrlisthfl;
+	private String mifidpretrlisthvl;
+	private String mifidpretrlistrper;
+	private String mifidpretrsstithfl;
+	private String mifidpretrsstithvl;
+	private String mifidpretrsstitrper;
 	private String mifidregulatedesma;
-	private Long mifidstmasizeesma;
+	private String mifidstmasizeesma;
 	private String mifidstmasizecurcode;
 	private String mifidsubprod;
 	private String mifidsubprodesma;
-	private Integer mifidtermdate;
-	private Integer mifidtermdateesma;
+	private String mifidtermdate;
+	private String mifidtermdateesma;
 	private String mifidtrobflag;
-	private Integer mifidtradapdate;
-	private Integer mifidtradapdateesma;
-	private Integer mifidtradreqdate;
-	private Integer mifidtradreqdateesma;
+	private String mifidtradapdate;
+	private String mifidtradapdateesma;
+	private String mifidtradreqdate;
+	private String mifidtradreqdateesma;
 	private String mifidtrtype;
 	private String mifidtrtypeesma;
 	private String mifidundindname;
@@ -108,29 +108,29 @@ public class XrefDsp implements java.io.Serializable {
 	private String mifidundindtermesma;
 	private String mifidundtype;
 	private String mifiridentifier;
-	private BigDecimal mindenomination;
-	private BigDecimal ncaavdailyturnover;
+	private String mindenomination;
+	private String ncaavdailyturnover;
 	private String ncaavdailyturncurcode;
-	private BigDecimal ncafreefl;
+	private String ncafreefl;
 	private String ncafreeflcurcode;
 	private String notionalcuresma;
 	private String optionroot;
 	private String placeholder;
-	private BigDecimal pricemultiplieresma;
+	private String pricemultiplieresma;
 	private String prtrmaquote;
 	private String reqfattbyissuer;
 	private String reqfattbyissueresma;
 	private String securitydescription;
-	private Long strikepriceesma;
+	private String strikepriceesma;
 	private String strikepricecuresma;
 	private String suscategoryesma;
-	private Integer susendedonesma;
-	private Integer susongoingesma;
+	private String susendedonesma;
+	private String susongoingesma;
 	private String susratesma;
-	private Integer susstonesma;
-	private BigDecimal ttlamissued;
-	private Long ttleutu12moesma;
-	private Long ttleuvl12moesma;
+	private String susstonesma;
+	private String ttlamissued;
+	private String ttleutu12moesma;
+	private String ttleuvl12moesma;
 	private String undeeaelig;
 	private String undisin;
 	private String undisinesma;
@@ -142,25 +142,35 @@ public class XrefDsp implements java.io.Serializable {
 		this.dhsid = dhsid;
 	}
 
-	public XrefDsp(long dhsid, String ipc, String assetstatus, String basketundisinlist, String basketwrrindicator, String cincode, String complegaldomicile, String compshortname,
-			Integer dealstartdate, String eeavenueelflg, String fininsshnameesma, String inesmafirds, String insclassesma, String insfullnameesma, Integer issuedate,
-			String issortrvenueleiesma, BigDecimal mrkattsrcpermid, Integer maturitydate, String mifidasclofun, BigDecimal mifidadnapinsesma, BigDecimal mifidadnoftpinsesma,
-			BigDecimal mifidavdatuesma, String mifidavdatucurcode, BigDecimal mifidavvaoftresma, BigDecimal mifidavvaoftrcurcode, String mifidbaseprod, String mifidbaseprodesma,
-			String mifidbondseni, String mifidbondtype, String mifidclobflag, String mifidcofialiinfornewbo, String mifidcodein, String mifidcodeinesma, String mifidcoinflesma,
-			String mifidcoinre, String mifidcotype, String mifiddeltypeesma, String mifidemalsubtype, String mifidexerstyle, String mifidexerstyleesma, Integer mifidexpdateesma,
-			String mifidfiprtype, String mifidfiprtypeesma, Integer mifidfrtradedate, Integer mifidfrtradedateesma, String mifidflag, BigDecimal mifidfrfloatesma,
-			String mifidfrfloatcurcode, String mifidfusubpr, String mifidfusubpresma, Long mifidissdateesma, BigDecimal mifidisssizeesma, Integer mifidmatdate,
-			Integer mifidmatdateesma, String mifidmostremaesma, String mifidoptype, String mifidoptypeesma, BigDecimal mifidptuw12esma, BigDecimal mifidptuwptv12mesma,
-			Long mifidpotrlisthfl, Long mifidpotrlisthvl, BigDecimal mifidpotrlistrper, BigDecimal mifidpotrlisvoper, Long mifidpotrsstithfl, Long mifidpotrsstithvl,
-			BigDecimal mifidpotrsstitrper, BigDecimal mifidpotrsstivoper, Long mifidpretrlisthfl, Long mifidpretrlisthvl, BigDecimal mifidpretrlistrper, Long mifidpretrsstithfl,
-			Long mifidpretrsstithvl, BigDecimal mifidpretrsstitrper, String mifidregulatedesma, Long mifidstmasizeesma, String mifidstmasizecurcode, String mifidsubprod,
-			String mifidsubprodesma, Integer mifidtermdate, Integer mifidtermdateesma, String mifidtrobflag, Integer mifidtradapdate, Integer mifidtradapdateesma,
-			Integer mifidtradreqdate, Integer mifidtradreqdateesma, String mifidtrtype, String mifidtrtypeesma, String mifidundindname, String mifidundindnameesma,
-			String mifidundindtermesma, String mifidundtype, String mifiridentifier, BigDecimal mindenomination, BigDecimal ncaavdailyturnover, String ncaavdailyturncurcode,
-			BigDecimal ncafreefl, String ncafreeflcurcode, String notionalcuresma, String optionroot, String placeholder, BigDecimal pricemultiplieresma, String prtrmaquote,
-			String reqfattbyissuer, String reqfattbyissueresma, String securitydescription, Long strikepriceesma, String strikepricecuresma, String suscategoryesma,
-			Integer susendedonesma, Integer susongoingesma, String susratesma, Integer susstonesma, BigDecimal ttlamissued, Long ttleutu12moesma, Long ttleuvl12moesma,
-			String undeeaelig, String undisin, String undisinesma) {
+	
+	public XrefDsp(long dhsid, String ipc, String assetstatus, String basketundisinlist, String basketwrrindicator,
+			String cincode, String complegaldomicile, String compshortname, String dealstartdate, String eeavenueelflg,
+			String fininsshnameesma, String inesmafirds, String insclassesma, String insfullnameesma, String issuedate,
+			String issortrvenueleiesma, String mrkattsrcpermid, String maturitydate, String mifidasclofun,
+			String mifidadnapinsesma, String mifidadnoftpinsesma, String mifidavdatuesma, String mifidavdatucurcode,
+			String mifidavvaoftresma, String mifidavvaoftrcurcode, String mifidbaseprod, String mifidbaseprodesma,
+			String mifidbondseni, String mifidbondtype, String mifidclobflag, String mifidcofialiinfornewbo,
+			String mifidcodein, String mifidcodeinesma, String mifidcoinflesma, String mifidcoinre, String mifidcotype,
+			String mifiddeltypeesma, String mifidemalsubtype, String mifidexerstyle, String mifidexerstyleesma,
+			String mifidexpdateesma, String mifidfiprtype, String mifidfiprtypeesma, String mifidfrtradedate,
+			String mifidfrtradedateesma, String mifidflag, String mifidfrfloatesma, String mifidfrfloatcurcode,
+			String mifidfusubpr, String mifidfusubpresma, String mifidissdateesma, String mifidisssizeesma,
+			String mifidmatdate, String mifidmatdateesma, String mifidmostremaesma, String mifidoptype,
+			String mifidoptypeesma, String mifidptuw12esma, String mifidptuwptv12mesma, String mifidpotrlisthfl,
+			String mifidpotrlisthvl, String mifidpotrlistrper, String mifidpotrlisvoper, String mifidpotrsstithfl,
+			String mifidpotrsstithvl, String mifidpotrsstitrper, String mifidpotrsstivoper, String mifidpretrlisthfl,
+			String mifidpretrlisthvl, String mifidpretrlistrper, String mifidpretrsstithfl, String mifidpretrsstithvl,
+			String mifidpretrsstitrper, String mifidregulatedesma, String mifidstmasizeesma,
+			String mifidstmasizecurcode, String mifidsubprod, String mifidsubprodesma, String mifidtermdate,
+			String mifidtermdateesma, String mifidtrobflag, String mifidtradapdate, String mifidtradapdateesma,
+			String mifidtradreqdate, String mifidtradreqdateesma, String mifidtrtype, String mifidtrtypeesma,
+			String mifidundindname, String mifidundindnameesma, String mifidundindtermesma, String mifidundtype,
+			String mifiridentifier, String mindenomination, String ncaavdailyturnover, String ncaavdailyturncurcode,
+			String ncafreefl, String ncafreeflcurcode, String notionalcuresma, String optionroot, String placeholder,
+			String pricemultiplieresma, String prtrmaquote, String reqfattbyissuer, String reqfattbyissueresma,
+			String securitydescription, String strikepriceesma, String strikepricecuresma, String suscategoryesma,
+			String susendedonesma, String susongoingesma, String susratesma, String susstonesma, String ttlamissued,
+			String ttleutu12moesma, String ttleuvl12moesma, String undeeaelig, String undisin, String undisinesma) {
 		this.dhsid = dhsid;
 		this.ipc = ipc;
 		this.assetstatus = assetstatus;
@@ -355,11 +365,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "dealStartDate", precision = 8, scale = 0)
-	public Integer getDealstartdate() {
+	public String getDealstartdate() {
 		return this.dealstartdate;
 	}
 
-	public void setDealstartdate(Integer dealstartdate) {
+	public void setDealstartdate(String dealstartdate) {
 		this.dealstartdate = dealstartdate;
 	}
 
@@ -409,11 +419,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "issueDate", precision = 8, scale = 0)
-	public Integer getIssuedate() {
+	public String getIssuedate() {
 		return this.issuedate;
 	}
 
-	public void setIssuedate(Integer issuedate) {
+	public void setIssuedate(String issuedate) {
 		this.issuedate = issuedate;
 	}
 
@@ -427,20 +437,20 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mrkAttSrcPermID", precision = 30, scale = 0)
-	public BigDecimal getMrkattsrcpermid() {
+	public String getMrkattsrcpermid() {
 		return this.mrkattsrcpermid;
 	}
 
-	public void setMrkattsrcpermid(BigDecimal mrkattsrcpermid) {
+	public void setMrkattsrcpermid(String mrkattsrcpermid) {
 		this.mrkattsrcpermid = mrkattsrcpermid;
 	}
 
 	@Column(name = "maturityDate", precision = 8, scale = 0)
-	public Integer getMaturitydate() {
+	public String getMaturitydate() {
 		return this.maturitydate;
 	}
 
-	public void setMaturitydate(Integer maturitydate) {
+	public void setMaturitydate(String maturitydate) {
 		this.maturitydate = maturitydate;
 	}
 
@@ -454,29 +464,29 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidADNAPInsESMA", precision = 12)
-	public BigDecimal getMifidadnapinsesma() {
+	public String getMifidadnapinsesma() {
 		return this.mifidadnapinsesma;
 	}
 
-	public void setMifidadnapinsesma(BigDecimal mifidadnapinsesma) {
+	public void setMifidadnapinsesma(String mifidadnapinsesma) {
 		this.mifidadnapinsesma = mifidadnapinsesma;
 	}
 
 	@Column(name = "mifidADNOfTPInsESMA", precision = 12)
-	public BigDecimal getMifidadnoftpinsesma() {
+	public String getMifidadnoftpinsesma() {
 		return this.mifidadnoftpinsesma;
 	}
 
-	public void setMifidadnoftpinsesma(BigDecimal mifidadnoftpinsesma) {
+	public void setMifidadnoftpinsesma(String mifidadnoftpinsesma) {
 		this.mifidadnoftpinsesma = mifidadnoftpinsesma;
 	}
 
 	@Column(name = "mifidAvDaTuESMA", precision = 20)
-	public BigDecimal getMifidavdatuesma() {
+	public String getMifidavdatuesma() {
 		return this.mifidavdatuesma;
 	}
 
-	public void setMifidavdatuesma(BigDecimal mifidavdatuesma) {
+	public void setMifidavdatuesma(String mifidavdatuesma) {
 		this.mifidavdatuesma = mifidavdatuesma;
 	}
 
@@ -490,20 +500,20 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidAvVaOfTrESMA", precision = 20)
-	public BigDecimal getMifidavvaoftresma() {
+	public String getMifidavvaoftresma() {
 		return this.mifidavvaoftresma;
 	}
 
-	public void setMifidavvaoftresma(BigDecimal mifidavvaoftresma) {
+	public void setMifidavvaoftresma(String mifidavvaoftresma) {
 		this.mifidavvaoftresma = mifidavvaoftresma;
 	}
 
 	@Column(name = "mifidAvVaOfTrCurCode", precision = 22, scale = 0)
-	public BigDecimal getMifidavvaoftrcurcode() {
+	public String getMifidavvaoftrcurcode() {
 		return this.mifidavvaoftrcurcode;
 	}
 
-	public void setMifidavvaoftrcurcode(BigDecimal mifidavvaoftrcurcode) {
+	public void setMifidavvaoftrcurcode(String mifidavvaoftrcurcode) {
 		this.mifidavvaoftrcurcode = mifidavvaoftrcurcode;
 	}
 
@@ -643,11 +653,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidExpDateESMA", precision = 8, scale = 0)
-	public Integer getMifidexpdateesma() {
+	public String getMifidexpdateesma() {
 		return this.mifidexpdateesma;
 	}
 
-	public void setMifidexpdateesma(Integer mifidexpdateesma) {
+	public void setMifidexpdateesma(String mifidexpdateesma) {
 		this.mifidexpdateesma = mifidexpdateesma;
 	}
 
@@ -670,20 +680,20 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidFrTradeDate", precision = 8, scale = 0)
-	public Integer getMifidfrtradedate() {
+	public String getMifidfrtradedate() {
 		return this.mifidfrtradedate;
 	}
 
-	public void setMifidfrtradedate(Integer mifidfrtradedate) {
+	public void setMifidfrtradedate(String mifidfrtradedate) {
 		this.mifidfrtradedate = mifidfrtradedate;
 	}
 
 	@Column(name = "mifidFrTradeDateESMA", precision = 8, scale = 0)
-	public Integer getMifidfrtradedateesma() {
+	public String getMifidfrtradedateesma() {
 		return this.mifidfrtradedateesma;
 	}
 
-	public void setMifidfrtradedateesma(Integer mifidfrtradedateesma) {
+	public void setMifidfrtradedateesma(String mifidfrtradedateesma) {
 		this.mifidfrtradedateesma = mifidfrtradedateesma;
 	}
 
@@ -697,11 +707,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidFrFloatESMA", precision = 20, scale = 0)
-	public BigDecimal getMifidfrfloatesma() {
+	public String getMifidfrfloatesma() {
 		return this.mifidfrfloatesma;
 	}
 
-	public void setMifidfrfloatesma(BigDecimal mifidfrfloatesma) {
+	public void setMifidfrfloatesma(String mifidfrfloatesma) {
 		this.mifidfrfloatesma = mifidfrfloatesma;
 	}
 
@@ -733,38 +743,38 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidIssDateESMA", precision = 10, scale = 0)
-	public Long getMifidissdateesma() {
+	public String getMifidissdateesma() {
 		return this.mifidissdateesma;
 	}
 
-	public void setMifidissdateesma(Long mifidissdateesma) {
+	public void setMifidissdateesma(String mifidissdateesma) {
 		this.mifidissdateesma = mifidissdateesma;
 	}
 
 	@Column(name = "mifidIssSizeESMA", precision = 24)
-	public BigDecimal getMifidisssizeesma() {
+	public String getMifidisssizeesma() {
 		return this.mifidisssizeesma;
 	}
 
-	public void setMifidisssizeesma(BigDecimal mifidisssizeesma) {
+	public void setMifidisssizeesma(String mifidisssizeesma) {
 		this.mifidisssizeesma = mifidisssizeesma;
 	}
 
 	@Column(name = "mifidMatDate", precision = 8, scale = 0)
-	public Integer getMifidmatdate() {
+	public String getMifidmatdate() {
 		return this.mifidmatdate;
 	}
 
-	public void setMifidmatdate(Integer mifidmatdate) {
+	public void setMifidmatdate(String mifidmatdate) {
 		this.mifidmatdate = mifidmatdate;
 	}
 
 	@Column(name = "mifidMatDateESMA", precision = 8, scale = 0)
-	public Integer getMifidmatdateesma() {
+	public String getMifidmatdateesma() {
 		return this.mifidmatdateesma;
 	}
 
-	public void setMifidmatdateesma(Integer mifidmatdateesma) {
+	public void setMifidmatdateesma(String mifidmatdateesma) {
 		this.mifidmatdateesma = mifidmatdateesma;
 	}
 
@@ -796,146 +806,146 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidPTUW12ESMA", precision = 5)
-	public BigDecimal getMifidptuw12esma() {
+	public String getMifidptuw12esma() {
 		return this.mifidptuw12esma;
 	}
 
-	public void setMifidptuw12esma(BigDecimal mifidptuw12esma) {
+	public void setMifidptuw12esma(String mifidptuw12esma) {
 		this.mifidptuw12esma = mifidptuw12esma;
 	}
 
 	@Column(name = "mifidPTUWPTV12MESMA", precision = 5)
-	public BigDecimal getMifidptuwptv12mesma() {
+	public String getMifidptuwptv12mesma() {
 		return this.mifidptuwptv12mesma;
 	}
 
-	public void setMifidptuwptv12mesma(BigDecimal mifidptuwptv12mesma) {
+	public void setMifidptuwptv12mesma(String mifidptuwptv12mesma) {
 		this.mifidptuwptv12mesma = mifidptuwptv12mesma;
 	}
 
 	@Column(name = "mifidPoTrLISThFl", precision = 10, scale = 0)
-	public Long getMifidpotrlisthfl() {
+	public String getMifidpotrlisthfl() {
 		return this.mifidpotrlisthfl;
 	}
 
-	public void setMifidpotrlisthfl(Long mifidpotrlisthfl) {
+	public void setMifidpotrlisthfl(String mifidpotrlisthfl) {
 		this.mifidpotrlisthfl = mifidpotrlisthfl;
 	}
 
 	@Column(name = "mifidPoTrLISThVl", precision = 10, scale = 0)
-	public Long getMifidpotrlisthvl() {
+	public String getMifidpotrlisthvl() {
 		return this.mifidpotrlisthvl;
 	}
 
-	public void setMifidpotrlisthvl(Long mifidpotrlisthvl) {
+	public void setMifidpotrlisthvl(String mifidpotrlisthvl) {
 		this.mifidpotrlisthvl = mifidpotrlisthvl;
 	}
 
 	@Column(name = "mifidPoTrLISTrPer", precision = 5)
-	public BigDecimal getMifidpotrlistrper() {
+	public String getMifidpotrlistrper() {
 		return this.mifidpotrlistrper;
 	}
 
-	public void setMifidpotrlistrper(BigDecimal mifidpotrlistrper) {
+	public void setMifidpotrlistrper(String mifidpotrlistrper) {
 		this.mifidpotrlistrper = mifidpotrlistrper;
 	}
 
 	@Column(name = "mifidPoTrLISVoPer", precision = 5)
-	public BigDecimal getMifidpotrlisvoper() {
+	public String getMifidpotrlisvoper() {
 		return this.mifidpotrlisvoper;
 	}
 
-	public void setMifidpotrlisvoper(BigDecimal mifidpotrlisvoper) {
+	public void setMifidpotrlisvoper(String mifidpotrlisvoper) {
 		this.mifidpotrlisvoper = mifidpotrlisvoper;
 	}
 
 	@Column(name = "mifidPoTrSSTIThFl", precision = 10, scale = 0)
-	public Long getMifidpotrsstithfl() {
+	public String getMifidpotrsstithfl() {
 		return this.mifidpotrsstithfl;
 	}
 
-	public void setMifidpotrsstithfl(Long mifidpotrsstithfl) {
+	public void setMifidpotrsstithfl(String mifidpotrsstithfl) {
 		this.mifidpotrsstithfl = mifidpotrsstithfl;
 	}
 
 	@Column(name = "mifidPoTrSSTIThVl", precision = 10, scale = 0)
-	public Long getMifidpotrsstithvl() {
+	public String getMifidpotrsstithvl() {
 		return this.mifidpotrsstithvl;
 	}
 
-	public void setMifidpotrsstithvl(Long mifidpotrsstithvl) {
+	public void setMifidpotrsstithvl(String mifidpotrsstithvl) {
 		this.mifidpotrsstithvl = mifidpotrsstithvl;
 	}
 
 	@Column(name = "mifidPoTrSSTITrPer", precision = 5)
-	public BigDecimal getMifidpotrsstitrper() {
+	public String getMifidpotrsstitrper() {
 		return this.mifidpotrsstitrper;
 	}
 
-	public void setMifidpotrsstitrper(BigDecimal mifidpotrsstitrper) {
+	public void setMifidpotrsstitrper(String mifidpotrsstitrper) {
 		this.mifidpotrsstitrper = mifidpotrsstitrper;
 	}
 
 	@Column(name = "mifidPoTrSSTIVoPer", precision = 5)
-	public BigDecimal getMifidpotrsstivoper() {
+	public String getMifidpotrsstivoper() {
 		return this.mifidpotrsstivoper;
 	}
 
-	public void setMifidpotrsstivoper(BigDecimal mifidpotrsstivoper) {
+	public void setMifidpotrsstivoper(String mifidpotrsstivoper) {
 		this.mifidpotrsstivoper = mifidpotrsstivoper;
 	}
 
 	@Column(name = "mifidPreTrLISThFl", precision = 10, scale = 0)
-	public Long getMifidpretrlisthfl() {
+	public String getMifidpretrlisthfl() {
 		return this.mifidpretrlisthfl;
 	}
 
-	public void setMifidpretrlisthfl(Long mifidpretrlisthfl) {
+	public void setMifidpretrlisthfl(String mifidpretrlisthfl) {
 		this.mifidpretrlisthfl = mifidpretrlisthfl;
 	}
 
 	@Column(name = "mifidPreTrLISThVl", precision = 10, scale = 0)
-	public Long getMifidpretrlisthvl() {
+	public String getMifidpretrlisthvl() {
 		return this.mifidpretrlisthvl;
 	}
 
-	public void setMifidpretrlisthvl(Long mifidpretrlisthvl) {
+	public void setMifidpretrlisthvl(String mifidpretrlisthvl) {
 		this.mifidpretrlisthvl = mifidpretrlisthvl;
 	}
 
 	@Column(name = "mifidPreTrLISTrPer", precision = 5)
-	public BigDecimal getMifidpretrlistrper() {
+	public String getMifidpretrlistrper() {
 		return this.mifidpretrlistrper;
 	}
 
-	public void setMifidpretrlistrper(BigDecimal mifidpretrlistrper) {
+	public void setMifidpretrlistrper(String mifidpretrlistrper) {
 		this.mifidpretrlistrper = mifidpretrlistrper;
 	}
 
 	@Column(name = "mifidPreTrSSTIThFl", precision = 10, scale = 0)
-	public Long getMifidpretrsstithfl() {
+	public String getMifidpretrsstithfl() {
 		return this.mifidpretrsstithfl;
 	}
 
-	public void setMifidpretrsstithfl(Long mifidpretrsstithfl) {
+	public void setMifidpretrsstithfl(String mifidpretrsstithfl) {
 		this.mifidpretrsstithfl = mifidpretrsstithfl;
 	}
 
 	@Column(name = "mifidPreTrSSTIThVl", precision = 10, scale = 0)
-	public Long getMifidpretrsstithvl() {
+	public String getMifidpretrsstithvl() {
 		return this.mifidpretrsstithvl;
 	}
 
-	public void setMifidpretrsstithvl(Long mifidpretrsstithvl) {
+	public void setMifidpretrsstithvl(String mifidpretrsstithvl) {
 		this.mifidpretrsstithvl = mifidpretrsstithvl;
 	}
 
 	@Column(name = "mifidPreTrSSTITrPer", precision = 5)
-	public BigDecimal getMifidpretrsstitrper() {
+	public String getMifidpretrsstitrper() {
 		return this.mifidpretrsstitrper;
 	}
 
-	public void setMifidpretrsstitrper(BigDecimal mifidpretrsstitrper) {
+	public void setMifidpretrsstitrper(String mifidpretrsstitrper) {
 		this.mifidpretrsstitrper = mifidpretrsstitrper;
 	}
 
@@ -949,11 +959,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidStMaSizeESMA", precision = 10, scale = 0)
-	public Long getMifidstmasizeesma() {
+	public String getMifidstmasizeesma() {
 		return this.mifidstmasizeesma;
 	}
 
-	public void setMifidstmasizeesma(Long mifidstmasizeesma) {
+	public void setMifidstmasizeesma(String mifidstmasizeesma) {
 		this.mifidstmasizeesma = mifidstmasizeesma;
 	}
 
@@ -985,20 +995,20 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidTermDate", precision = 8, scale = 0)
-	public Integer getMifidtermdate() {
+	public String getMifidtermdate() {
 		return this.mifidtermdate;
 	}
 
-	public void setMifidtermdate(Integer mifidtermdate) {
+	public void setMifidtermdate(String mifidtermdate) {
 		this.mifidtermdate = mifidtermdate;
 	}
 
 	@Column(name = "mifidTermDateESMA", precision = 8, scale = 0)
-	public Integer getMifidtermdateesma() {
+	public String getMifidtermdateesma() {
 		return this.mifidtermdateesma;
 	}
 
-	public void setMifidtermdateesma(Integer mifidtermdateesma) {
+	public void setMifidtermdateesma(String mifidtermdateesma) {
 		this.mifidtermdateesma = mifidtermdateesma;
 	}
 
@@ -1012,38 +1022,38 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "mifidTrAdApDate", precision = 8, scale = 0)
-	public Integer getMifidtradapdate() {
+	public String getMifidtradapdate() {
 		return this.mifidtradapdate;
 	}
 
-	public void setMifidtradapdate(Integer mifidtradapdate) {
+	public void setMifidtradapdate(String mifidtradapdate) {
 		this.mifidtradapdate = mifidtradapdate;
 	}
 
 	@Column(name = "mifidTrAdApDateESMA", precision = 8, scale = 0)
-	public Integer getMifidtradapdateesma() {
+	public String getMifidtradapdateesma() {
 		return this.mifidtradapdateesma;
 	}
 
-	public void setMifidtradapdateesma(Integer mifidtradapdateesma) {
+	public void setMifidtradapdateesma(String mifidtradapdateesma) {
 		this.mifidtradapdateesma = mifidtradapdateesma;
 	}
 
 	@Column(name = "mifidTrAdReqDate", precision = 8, scale = 0)
-	public Integer getMifidtradreqdate() {
+	public String getMifidtradreqdate() {
 		return this.mifidtradreqdate;
 	}
 
-	public void setMifidtradreqdate(Integer mifidtradreqdate) {
+	public void setMifidtradreqdate(String mifidtradreqdate) {
 		this.mifidtradreqdate = mifidtradreqdate;
 	}
 
 	@Column(name = "mifidTrAdReqDateESMA", precision = 8, scale = 0)
-	public Integer getMifidtradreqdateesma() {
+	public String getMifidtradreqdateesma() {
 		return this.mifidtradreqdateesma;
 	}
 
-	public void setMifidtradreqdateesma(Integer mifidtradreqdateesma) {
+	public void setMifidtradreqdateesma(String mifidtradreqdateesma) {
 		this.mifidtradreqdateesma = mifidtradreqdateesma;
 	}
 
@@ -1111,20 +1121,20 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "minDenomination", precision = 22, scale = 0)
-	public BigDecimal getMindenomination() {
+	public String getMindenomination() {
 		return this.mindenomination;
 	}
 
-	public void setMindenomination(BigDecimal mindenomination) {
+	public void setMindenomination(String mindenomination) {
 		this.mindenomination = mindenomination;
 	}
 
 	@Column(name = "ncaAvDailyTurnover", precision = 20)
-	public BigDecimal getNcaavdailyturnover() {
+	public String getNcaavdailyturnover() {
 		return this.ncaavdailyturnover;
 	}
 
-	public void setNcaavdailyturnover(BigDecimal ncaavdailyturnover) {
+	public void setNcaavdailyturnover(String ncaavdailyturnover) {
 		this.ncaavdailyturnover = ncaavdailyturnover;
 	}
 
@@ -1138,11 +1148,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "ncaFreeFl", precision = 20, scale = 0)
-	public BigDecimal getNcafreefl() {
+	public String getNcafreefl() {
 		return this.ncafreefl;
 	}
 
-	public void setNcafreefl(BigDecimal ncafreefl) {
+	public void setNcafreefl(String ncafreefl) {
 		this.ncafreefl = ncafreefl;
 	}
 
@@ -1183,11 +1193,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "priceMultiplierESMA", precision = 38, scale = 0)
-	public BigDecimal getPricemultiplieresma() {
+	public String getPricemultiplieresma() {
 		return this.pricemultiplieresma;
 	}
 
-	public void setPricemultiplieresma(BigDecimal pricemultiplieresma) {
+	public void setPricemultiplieresma(String pricemultiplieresma) {
 		this.pricemultiplieresma = pricemultiplieresma;
 	}
 
@@ -1228,11 +1238,11 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "strikePriceESMA", precision = 18, scale = 0)
-	public Long getStrikepriceesma() {
+	public String getStrikepriceesma() {
 		return this.strikepriceesma;
 	}
 
-	public void setStrikepriceesma(Long strikepriceesma) {
+	public void setStrikepriceesma(String strikepriceesma) {
 		this.strikepriceesma = strikepriceesma;
 	}
 
@@ -1255,20 +1265,20 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "susEndedOnESMA", precision = 8, scale = 0)
-	public Integer getSusendedonesma() {
+	public String getSusendedonesma() {
 		return this.susendedonesma;
 	}
 
-	public void setSusendedonesma(Integer susendedonesma) {
+	public void setSusendedonesma(String susendedonesma) {
 		this.susendedonesma = susendedonesma;
 	}
 
 	@Column(name = "susOnGoingESMA", precision = 8, scale = 0)
-	public Integer getSusongoingesma() {
+	public String getSusongoingesma() {
 		return this.susongoingesma;
 	}
 
-	public void setSusongoingesma(Integer susongoingesma) {
+	public void setSusongoingesma(String susongoingesma) {
 		this.susongoingesma = susongoingesma;
 	}
 
@@ -1282,38 +1292,38 @@ public class XrefDsp implements java.io.Serializable {
 	}
 
 	@Column(name = "susStOnESMA", precision = 8, scale = 0)
-	public Integer getSusstonesma() {
+	public String getSusstonesma() {
 		return this.susstonesma;
 	}
 
-	public void setSusstonesma(Integer susstonesma) {
+	public void setSusstonesma(String susstonesma) {
 		this.susstonesma = susstonesma;
 	}
 
 	@Column(name = "ttlAmIssued", precision = 36, scale = 0)
-	public BigDecimal getTtlamissued() {
+	public String getTtlamissued() {
 		return this.ttlamissued;
 	}
 
-	public void setTtlamissued(BigDecimal ttlamissued) {
+	public void setTtlamissued(String ttlamissued) {
 		this.ttlamissued = ttlamissued;
 	}
 
 	@Column(name = "ttlEUTu12MoESMA", precision = 12, scale = 0)
-	public Long getTtleutu12moesma() {
+	public String getTtleutu12moesma() {
 		return this.ttleutu12moesma;
 	}
 
-	public void setTtleutu12moesma(Long ttleutu12moesma) {
+	public void setTtleutu12moesma(String ttleutu12moesma) {
 		this.ttleutu12moesma = ttleutu12moesma;
 	}
 
 	@Column(name = "ttlEUVl12MoESMA", precision = 12, scale = 0)
-	public Long getTtleuvl12moesma() {
+	public String getTtleuvl12moesma() {
 		return this.ttleuvl12moesma;
 	}
 
-	public void setTtleuvl12moesma(Long ttleuvl12moesma) {
+	public void setTtleuvl12moesma(String ttleuvl12moesma) {
 		this.ttleuvl12moesma = ttleuvl12moesma;
 	}
 
