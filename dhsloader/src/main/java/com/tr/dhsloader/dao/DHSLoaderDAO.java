@@ -91,7 +91,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 			Session session = getCurrentSession();
 			int count = 0;
 			for (Dhsidmap dhsidmap : dhsidmaps) {
-				session.saveOrUpdate(dhsidmap);
+				session.save(dhsidmap);
 				// batch for 250 rows
 				if (count % 250 == 0) {
 					session.flush();

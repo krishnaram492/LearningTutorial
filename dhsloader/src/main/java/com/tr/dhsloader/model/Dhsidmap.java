@@ -11,7 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "DhsIdMap1",schema="dbo")
+@Table(name = "DhsIdMap1", schema = "dbo")
 public class Dhsidmap implements java.io.Serializable {
 
 	private static final long serialVersionUID = -2906401980614302531L;
@@ -109,8 +109,6 @@ public class Dhsidmap implements java.io.Serializable {
 	public void setQuoteid(byte[] quoteid) {
 		this.quoteid = quoteid;
 	}
-	
-	
 
 	@Override
 	public int hashCode() {

@@ -1,6 +1,5 @@
 package com.tr.dhsloader.model;
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +10,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "XRef_DSP1", schema="dbo")
+@Table(name = "XRef_DSP1", schema = "dbo")
 public class XrefDsp implements java.io.Serializable {
 
 	private static final long serialVersionUID = -8069713917374599924L;
@@ -142,35 +141,25 @@ public class XrefDsp implements java.io.Serializable {
 		this.dhsid = dhsid;
 	}
 
-	
-	public XrefDsp(long dhsid, String ipc, String assetstatus, String basketundisinlist, String basketwrrindicator,
-			String cincode, String complegaldomicile, String compshortname, String dealstartdate, String eeavenueelflg,
-			String fininsshnameesma, String inesmafirds, String insclassesma, String insfullnameesma, String issuedate,
-			String issortrvenueleiesma, String mrkattsrcpermid, String maturitydate, String mifidasclofun,
-			String mifidadnapinsesma, String mifidadnoftpinsesma, String mifidavdatuesma, String mifidavdatucurcode,
-			String mifidavvaoftresma, String mifidavvaoftrcurcode, String mifidbaseprod, String mifidbaseprodesma,
-			String mifidbondseni, String mifidbondtype, String mifidclobflag, String mifidcofialiinfornewbo,
-			String mifidcodein, String mifidcodeinesma, String mifidcoinflesma, String mifidcoinre, String mifidcotype,
-			String mifiddeltypeesma, String mifidemalsubtype, String mifidexerstyle, String mifidexerstyleesma,
-			String mifidexpdateesma, String mifidfiprtype, String mifidfiprtypeesma, String mifidfrtradedate,
-			String mifidfrtradedateesma, String mifidflag, String mifidfrfloatesma, String mifidfrfloatcurcode,
-			String mifidfusubpr, String mifidfusubpresma, String mifidissdateesma, String mifidisssizeesma,
-			String mifidmatdate, String mifidmatdateesma, String mifidmostremaesma, String mifidoptype,
-			String mifidoptypeesma, String mifidptuw12esma, String mifidptuwptv12mesma, String mifidpotrlisthfl,
-			String mifidpotrlisthvl, String mifidpotrlistrper, String mifidpotrlisvoper, String mifidpotrsstithfl,
-			String mifidpotrsstithvl, String mifidpotrsstitrper, String mifidpotrsstivoper, String mifidpretrlisthfl,
-			String mifidpretrlisthvl, String mifidpretrlistrper, String mifidpretrsstithfl, String mifidpretrsstithvl,
-			String mifidpretrsstitrper, String mifidregulatedesma, String mifidstmasizeesma,
-			String mifidstmasizecurcode, String mifidsubprod, String mifidsubprodesma, String mifidtermdate,
-			String mifidtermdateesma, String mifidtrobflag, String mifidtradapdate, String mifidtradapdateesma,
-			String mifidtradreqdate, String mifidtradreqdateesma, String mifidtrtype, String mifidtrtypeesma,
-			String mifidundindname, String mifidundindnameesma, String mifidundindtermesma, String mifidundtype,
-			String mifiridentifier, String mindenomination, String ncaavdailyturnover, String ncaavdailyturncurcode,
-			String ncafreefl, String ncafreeflcurcode, String notionalcuresma, String optionroot, String placeholder,
-			String pricemultiplieresma, String prtrmaquote, String reqfattbyissuer, String reqfattbyissueresma,
-			String securitydescription, String strikepriceesma, String strikepricecuresma, String suscategoryesma,
-			String susendedonesma, String susongoingesma, String susratesma, String susstonesma, String ttlamissued,
-			String ttleutu12moesma, String ttleuvl12moesma, String undeeaelig, String undisin, String undisinesma) {
+	public XrefDsp(long dhsid, String ipc, String assetstatus, String basketundisinlist, String basketwrrindicator, String cincode, String complegaldomicile, String compshortname,
+			String dealstartdate, String eeavenueelflg, String fininsshnameesma, String inesmafirds, String insclassesma, String insfullnameesma, String issuedate,
+			String issortrvenueleiesma, String mrkattsrcpermid, String maturitydate, String mifidasclofun, String mifidadnapinsesma, String mifidadnoftpinsesma,
+			String mifidavdatuesma, String mifidavdatucurcode, String mifidavvaoftresma, String mifidavvaoftrcurcode, String mifidbaseprod, String mifidbaseprodesma,
+			String mifidbondseni, String mifidbondtype, String mifidclobflag, String mifidcofialiinfornewbo, String mifidcodein, String mifidcodeinesma, String mifidcoinflesma,
+			String mifidcoinre, String mifidcotype, String mifiddeltypeesma, String mifidemalsubtype, String mifidexerstyle, String mifidexerstyleesma, String mifidexpdateesma,
+			String mifidfiprtype, String mifidfiprtypeesma, String mifidfrtradedate, String mifidfrtradedateesma, String mifidflag, String mifidfrfloatesma,
+			String mifidfrfloatcurcode, String mifidfusubpr, String mifidfusubpresma, String mifidissdateesma, String mifidisssizeesma, String mifidmatdate,
+			String mifidmatdateesma, String mifidmostremaesma, String mifidoptype, String mifidoptypeesma, String mifidptuw12esma, String mifidptuwptv12mesma,
+			String mifidpotrlisthfl, String mifidpotrlisthvl, String mifidpotrlistrper, String mifidpotrlisvoper, String mifidpotrsstithfl, String mifidpotrsstithvl,
+			String mifidpotrsstitrper, String mifidpotrsstivoper, String mifidpretrlisthfl, String mifidpretrlisthvl, String mifidpretrlistrper, String mifidpretrsstithfl,
+			String mifidpretrsstithvl, String mifidpretrsstitrper, String mifidregulatedesma, String mifidstmasizeesma, String mifidstmasizecurcode, String mifidsubprod,
+			String mifidsubprodesma, String mifidtermdate, String mifidtermdateesma, String mifidtrobflag, String mifidtradapdate, String mifidtradapdateesma,
+			String mifidtradreqdate, String mifidtradreqdateesma, String mifidtrtype, String mifidtrtypeesma, String mifidundindname, String mifidundindnameesma,
+			String mifidundindtermesma, String mifidundtype, String mifiridentifier, String mindenomination, String ncaavdailyturnover, String ncaavdailyturncurcode,
+			String ncafreefl, String ncafreeflcurcode, String notionalcuresma, String optionroot, String placeholder, String pricemultiplieresma, String prtrmaquote,
+			String reqfattbyissuer, String reqfattbyissueresma, String securitydescription, String strikepriceesma, String strikepricecuresma, String suscategoryesma,
+			String susendedonesma, String susongoingesma, String susratesma, String susstonesma, String ttlamissued, String ttleutu12moesma, String ttleuvl12moesma,
+			String undeeaelig, String undisin, String undisinesma) {
 		this.dhsid = dhsid;
 		this.ipc = ipc;
 		this.assetstatus = assetstatus;

@@ -1347,8 +1347,6 @@ public class XrefXxDspId implements java.io.Serializable {
 		this.undisinesma = undisinesma;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -1621,6 +1619,5 @@ public class XrefXxDspId implements java.io.Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-
 
 }

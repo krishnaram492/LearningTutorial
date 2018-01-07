@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "XRef_XX_DSP1", schema="dbo")
+@Table(name = "XRef_XX_DSP1", schema = "dbo")
 public class XrefXxDsp implements java.io.Serializable {
 
 	private static final long serialVersionUID = -1636443729844129372L;
@@ -28,13 +28,10 @@ public class XrefXxDsp implements java.io.Serializable {
 	@EmbeddedId
 	@AttributeOverrides({ @AttributeOverride(name = "action", column = @Column(name = "action", length = 50)),
 			@AttributeOverride(name = "levelcode", column = @Column(name = "levelCode", length = 50)),
-			@AttributeOverride(name = "ipc", column = @Column(name = "ipc", length = 50)), 
-			@AttributeOverride(name = "quoteid", column = @Column(name = "quoteID", length = 50)),
-			@AttributeOverride(name = "ric", column = @Column(name = "RIC", length = 50)),
-			@AttributeOverride(name = "sedol", column = @Column(name = "sedol", length = 50)),
+			@AttributeOverride(name = "ipc", column = @Column(name = "ipc", length = 50)), @AttributeOverride(name = "quoteid", column = @Column(name = "quoteID", length = 50)),
+			@AttributeOverride(name = "ric", column = @Column(name = "RIC", length = 50)), @AttributeOverride(name = "sedol", column = @Column(name = "sedol", length = 50)),
 			@AttributeOverride(name = "issuepermid", column = @Column(name = "issuePermID", length = 50)),
-			@AttributeOverride(name = "assetid", column = @Column(name = "assetID", length = 50)), 
-			@AttributeOverride(name = "pilc", column = @Column(name = "pilc", length = 50)),
+			@AttributeOverride(name = "assetid", column = @Column(name = "assetID", length = 50)), @AttributeOverride(name = "pilc", column = @Column(name = "pilc", length = 50)),
 			@AttributeOverride(name = "cusip", column = @Column(name = "cusip", length = 50)),
 			@AttributeOverride(name = "orgpermid", column = @Column(name = "orgPermID", length = 50)),
 			@AttributeOverride(name = "assetstatus", column = @Column(name = "assetStatus", length = 50)),
@@ -51,7 +48,7 @@ public class XrefXxDsp implements java.io.Serializable {
 			@AttributeOverride(name = "inesmafirds", column = @Column(name = "inEsmaFirds", length = 50)),
 			@AttributeOverride(name = "insclassesma", column = @Column(name = "insClassESMA", length = 50)),
 			@AttributeOverride(name = "insfullnameesma", column = @Column(name = "insFullNameESMA", length = 50)),
-			@AttributeOverride(name = "isin", column = @Column(name = "isin", length = 50)), 
+			@AttributeOverride(name = "isin", column = @Column(name = "isin", length = 50)),
 			@AttributeOverride(name = "issuedate", column = @Column(name = "issueDate", length = 50)),
 			@AttributeOverride(name = "issuerlei", column = @Column(name = "issuerLEI", length = 50)),
 			@AttributeOverride(name = "issortrvenueleiesma", column = @Column(name = "issOrTrVenueLeiESMA", length = 50)),

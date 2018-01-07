@@ -48,28 +48,33 @@ public class DHSLoaderApp implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
+//		ingester.run();
 
-		ingester.run();
-
-		try {
-			String fileName = fileutil.readStatus("C:\\temp\\myfile.txt");
-			String filePath = "";
-			if (StringUtils.isNotBlank(fileName)) {
-				filePath = ftpUtil.getArchivePath(fileName);
-			} else {
-				LOGGER.warn("Status File Not Found");
-				filePath = ftpUtil.getTargetPath();
+		while (true) {
+			LOGGER.info("Application Started..");
+			try {
+/*				String fileName = fileutil.readStatus("C:\\temp\\myfile.txt");
+				String filePath = "";
+				if (StringUtils.isNotBlank(fileName)) {
+					filePath = ftpUtil.getArchivePath(fileName);
+				} else {
+					LOGGER.warn("Status File Not Found");
+					filePath = ftpUtil.getTargetPath();
+				}
+				File f = new File(filePath);
+				if (f.exists() && !f.isDirectory()) {
+					LOGGER.info("File path is {} ", filePath);
+					service.processReport(filePath);
+				}*/
+			} catch (Exception e) {
+				LOGGER.error("Exception Occured {}", e.getMessage());
 			}
-			File f = new File(filePath);
-			if (f.exists() && !f.isDirectory()) {
-				LOGGER.info("File path is {} ", filePath);
-				service.processReport(filePath);
-				LOGGER.info("File processing completed");
-			}
-		} catch (Exception e) {
-			LOGGER.error("Exception Occured {}", e.getMessage());
+			LOGGER.info("Application ended..");
+			
+			LOGGER.info("waiting for 10 mins to continue next segment...");
+//			Thread.sleep(600000);
+			Thread.sleep(10000);
 		}
-		LOGGER.info("Process end..");
 	}
 
 }

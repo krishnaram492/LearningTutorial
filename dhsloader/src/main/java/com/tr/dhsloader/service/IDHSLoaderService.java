@@ -1,7 +1,7 @@
 package com.tr.dhsloader.service;
 
 /**
- * @author Ram
+ * @author Thomson Reuters
  * 
  */
 public interface IDHSLoaderService {

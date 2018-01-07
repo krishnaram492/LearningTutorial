@@ -17,6 +17,7 @@
 	</parent>
 	<properties>
 		<java.version>1.8</java.version>
+		<!-- <start-class>com.tr.dhsloader.app.DHSLoaderApp</start-class> -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -52,11 +53,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.11</version>
-		</dependency>
+			</dependency>
 
 		<dependency>
 			<groupId>oracle</groupId>
@@ -84,10 +85,58 @@
 	</dependencies>
 	<build>
 		<plugins>
+		
+			<!-- 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.tr.dhsloader.app.DHSLoaderApp</mainClass>
+					<mainClass>com.tr.dhsloader.app.FTPTestApp</mainClass>
+				</configuration>
+			</plugin> 
+			-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<id>build-first</id>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.tr.dhsloader.app.DHSLoaderApp</mainClass>
+								</transformer>
+							</transformers>
+							<finalName>first-runnable</finalName>
+						</configuration>
+					</execution>
+					<execution>
+						<phase>package</phase>
+						<id>build-second</id>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.tr.dhsloader.app.FTPTestApp</mainClass>
+								</transformer>
+							</transformers>
+							<finalName>second-runnable</finalName>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
+			
 		</plugins>
 	</build>
 </project>

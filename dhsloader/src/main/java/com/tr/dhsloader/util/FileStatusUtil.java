@@ -6,28 +6,40 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tr.dhsloader.constants.IDHSLoaderConstants;
+
 @Component
 public class FileStatusUtil {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(FileStatusUtil.class);
 
 	@Autowired
 	private FTPUtil ftputil;
 
 	public String buildCurrentDate() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat(IDHSLoaderConstants.DATE_FORMAT);
 		Date today = Calendar.getInstance().getTime();
 		String reportDate = df.format(today);
 		return reportDate;
 	}
 
 	public String readStatus(String statusFileName) throws Exception {
+		LOGGER.info("Status file check started..");
 		File f = new File(statusFileName);
 		if (f.exists() && !f.isDirectory()) {
 			FileInputStream fis = new FileInputStream(statusFileName);// "C:\\temp\\myfile.txt"
@@ -38,26 +50,28 @@ public class FileStatusUtil {
 				if (line != null && line != "")
 					lastline = line;
 			}
-			System.out.println(lastline);
-
+			LOGGER.info("Previous file processed is {}", lastline);
 			if (StringUtils.isNotBlank(lastline)) {
 				int len = lastline.length();
-				String val = lastline.substring(len - 11, len - 1);
+				String val = lastline.substring(len - 12, len - 1);
 				String[] strs = val.split("\\|");
 				String fullDate = strs[0];
 				int segment = Integer.valueOf(strs[1]);
 				String fileName = "";
 				if (segment == 96) {
 					fullDate = ftputil.getDate();
-					fileName = "/MIFID.REF.296E." + fullDate + "." + 1 + ".1.1.txt.zip";
+					fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + 1
+							+ IDHSLoaderConstants._1_1_TXT_ZIP;
 				} else {
-					fileName = "/MIFID.REF.296E." + fullDate + "." + (segment + 1) + ".1.1.txt.zip";
+					fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + (segment + 1)
+							+ IDHSLoaderConstants._1_1_TXT_ZIP;
 				}
 				return fileName;
 			} else {
 				return ftputil.getTargetFilePath();
 			}
 		}
+		LOGGER.info("Status file check Completed..");
 		return null;
 
 	}
@@ -70,5 +84,29 @@ public class FileStatusUtil {
 			fw.close();
 		} catch (IOException e) {
 		}
+		LOGGER.info("File processed and wrote into status file..");
 	}
+
+	public void moveFileToProcessedFolder(String sourcePath) throws Exception {
+		String fileName = "";
+
+		if (StringUtils.isNotBlank(sourcePath)) {
+			fileName = FilenameUtils.getName(sourcePath);
+		}
+
+		String targetPath = ftputil.getProcessedPath() + "/" + fileName;
+
+		if (StringUtils.isNotBlank(sourcePath) && StringUtils.isNotBlank(targetPath)) {
+
+			Path movefrom = FileSystems.getDefault().getPath(sourcePath);
+			Path target = FileSystems.getDefault().getPath(targetPath);
+
+			// File moved from one location to another location
+			Files.move(movefrom, target, StandardCopyOption.REPLACE_EXISTING);
+		}
+
+		LOGGER.info("File succesfully processed and moved to Processed Folder..");
+
+	}
+
 }

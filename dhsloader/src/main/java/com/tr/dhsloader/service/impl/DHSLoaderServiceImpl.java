@@ -43,6 +43,8 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor = Exception.class)
 	public boolean processReport(String filePath) throws Exception {
+		
+		LOGGER.info("File Processing Started..");
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
@@ -63,10 +65,10 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
 
 		List<String> quotes = util.buildQuote(xrefXxDsps);
-		LOGGER.info("quotes ar3 {} ", quotes);
+		
+		LOGGER.info("quotes are {} ", quotes);
 
 		List<byte[]> pairList = util.buildDHSComp(quotes);
-		LOGGER.info("pairList ar3 {} ", pairList);
 
 		Map<String, Long> dhsIdMap = dao.getDhsidList(pairList);
 
@@ -104,9 +106,13 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 		if (StringUtils.isNotBlank(firstLine))
 			fileutil.writeStatus(firstLine);
 
+		fileutil.moveFileToProcessedFolder(filePath);
+
 		stopWatch.stop();
 
 		LOGGER.info("Total time taken for processReport api is {} {}", stopWatch.getTotalTimeSeconds(), " secs.");
+		
+		LOGGER.info("File Processing Ended..");
 
 		return status;
 	}

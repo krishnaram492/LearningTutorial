@@ -31,6 +31,7 @@ public class FTPIngester {
 	public void run() {
 
 		try {
+			LOGGER.info("FTP App Started..");
 			String ftpUrl = ftpUtil.buildFtpUrl();
 			String targetPath = ftpUtil.getTargetPath();
 
@@ -49,11 +50,10 @@ public class FTPIngester {
 			outputStream.close();
 			inputStream.close();
 			LOGGER.info("File Downloaded");
-			System.out.println("File downloaded");
 		} catch (IOException ex) {
-			LOGGER.error("FTP file is not found...please try again after some time {}",ex.getMessage());
+			LOGGER.error("FTP file is not found...please try again after some time {}", ex.getMessage());
 		}
-
+		LOGGER.info("FTP App End..");
 	}
 
 }
