@@ -27,6 +27,7 @@ public class DBConfiguration {
 	private Environment env;
 
 	/**
+	 * It builds sybase data source
 	 * 
 	 * @return
 	 */
@@ -41,6 +42,7 @@ public class DBConfiguration {
 	}
 
 	/**
+	 * It builds sysbase sessionFactory based on data source
 	 * 
 	 * @return
 	 */
@@ -50,17 +52,21 @@ public class DBConfiguration {
 
 		sessionFactory.setDataSource(dataSource());
 
-		sessionFactory.setPackagesToScan(env.getProperty("db.hibernate.packagesToScan"));
+		sessionFactory.setPackagesToScan(env
+				.getProperty("db.hibernate.packagesToScan"));
 
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.put("hibernate.dialect", env.getProperty("db.hibernate.dialect"));
-		hibernateProperties.put("hibernate.show_sql", env.getProperty("db.hibernate.show_sql"));
+		hibernateProperties.put("hibernate.dialect",
+				env.getProperty("db.hibernate.dialect"));
+		hibernateProperties.put("hibernate.show_sql",
+				env.getProperty("db.hibernate.show_sql"));
 		sessionFactory.setHibernateProperties(hibernateProperties);
 
 		return sessionFactory;
 	}
 
 	/**
+	 * It creates transaction manager
 	 * 
 	 * @return
 	 */

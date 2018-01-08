@@ -31,6 +31,11 @@ public class FileStatusUtil {
 	@Autowired
 	private FTPUtil ftputil;
 
+	/**
+	 * This API build CurrentDate
+	 * 
+	 * @return
+	 */
 	public String buildCurrentDate() {
 		SimpleDateFormat df = new SimpleDateFormat(IDHSLoaderConstants.DATE_FORMAT);
 		Date today = Calendar.getInstance().getTime();
@@ -38,6 +43,13 @@ public class FileStatusUtil {
 		return reportDate;
 	}
 
+	/**
+	 * This API read status file
+	 * 
+	 * @param statusFileName
+	 * @return
+	 * @throws Exception
+	 */
 	public String readStatus(String statusFileName) throws Exception {
 		LOGGER.info("Status file check started..");
 		File f = new File(statusFileName);
@@ -60,11 +72,9 @@ public class FileStatusUtil {
 				String fileName = "";
 				if (segment == 96) {
 					fullDate = ftputil.getDate();
-					fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + 1
-							+ IDHSLoaderConstants._1_1_TXT_ZIP;
+					fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + 1 + IDHSLoaderConstants._1_1_TXT_ZIP;
 				} else {
-					fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + (segment + 1)
-							+ IDHSLoaderConstants._1_1_TXT_ZIP;
+					fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + (segment + 1) + IDHSLoaderConstants._1_1_TXT_ZIP;
 				}
 				return fileName;
 			} else {
@@ -76,6 +86,11 @@ public class FileStatusUtil {
 
 	}
 
+	/**
+	 * This API file writes status
+	 * 
+	 * @param firstLine
+	 */
 	public void writeStatus(String firstLine) {
 		try {
 			String date = buildCurrentDate();
@@ -87,6 +102,12 @@ public class FileStatusUtil {
 		LOGGER.info("File processed and wrote into status file..");
 	}
 
+	/**
+	 * This API move File To ProcessedFolder
+	 * 
+	 * @param sourcePath
+	 * @throws Exception
+	 */
 	public void moveFileToProcessedFolder(String sourcePath) throws Exception {
 		String fileName = "";
 

@@ -44,6 +44,7 @@ public class DHSLoaderUtil {
 	private DHSLoaderDAO dao;
 
 	/**
+	 * This API reads file and creates into CsvReader object
 	 * 
 	 * @param filePath
 	 * @return
@@ -96,6 +97,7 @@ public class DHSLoaderUtil {
 	}
 
 	/**
+	 * This API build XrefXx Dsp Data
 	 * 
 	 * @param csvReader
 	 * @return
@@ -255,7 +257,14 @@ public class DHSLoaderUtil {
 		return xrefDsps;
 	}
 
-	public synchronized List<String> buildQuote(List<XrefXxDsp> xrefXxDsps) throws Exception {
+	/**
+	 * This API builds list of quote id
+	 * 
+	 * @param xrefXxDsps
+	 * @return
+	 * @throws Exception
+	 */
+	public List<String> buildQuote(List<XrefXxDsp> xrefXxDsps) throws Exception {
 		List<String> quotes = new ArrayList<String>();
 
 		for (XrefXxDsp obj : xrefXxDsps) {
@@ -271,6 +280,7 @@ public class DHSLoaderUtil {
 	}
 
 	/**
+	 * This API buildDhsIdMap
 	 * 
 	 * @param xrefXxDsps
 	 * @return
@@ -311,7 +321,14 @@ public class DHSLoaderUtil {
 		LOGGER.info("Building Dhsid List Ended...");
 	}
 
-	public synchronized List<XrefDsp> buildXrefDsp(List<XrefXxDsp> xrefXxDsps, Map<String, Long> dhsIdMap) {
+	/**
+	 * This API builds buildXrefDsp
+	 * 
+	 * @param xrefXxDsps
+	 * @param dhsIdMap
+	 * @return
+	 */
+	public List<XrefDsp> buildXrefDsp(List<XrefXxDsp> xrefXxDsps, Map<String, Long> dhsIdMap) {
 		LOGGER.info("Building XrefDSP List Started...");
 		List<XrefDsp> xrefDsps = new ArrayList<XrefDsp>();
 
@@ -499,6 +516,13 @@ public class DHSLoaderUtil {
 		return date.replace("-", "");
 	}
 
+	/**
+	 * This API builds DHSComp based on list of quotes
+	 * 
+	 * @param quotes
+	 * @return
+	 * @throws Exception
+	 */
 	public List<byte[]> buildDHSComp(List<String> quotes) throws Exception {
 		List<byte[]> comps = new ArrayList<byte[]>();
 		for (String quote : quotes) {
@@ -510,16 +534,26 @@ public class DHSLoaderUtil {
 		return comps;
 	}
 
+	/**
+	 * This API builds xref history table
+	 * 
+	 * @param rows
+	 * @param dhsIdMap
+	 * @param fileName
+	 * @return
+	 * @throws Exception
+	 */
 	public List<XrefHistory> buildXrefHistory(CsvReader rows, Map<String, Long> dhsIdMap, String fileName) throws Exception {
 		List<XrefHistory> xrefhists = new ArrayList<XrefHistory>();
 		Map<String, Integer> colIdMap = dao.getColIdMap();
 
 		if (null != rows) {
 			while (rows.readRecord()) {
-				if (rows.get("Asset_Status_-_Change_Flag") != null && rows.get("Asset_Status_-_Change_Flag") == "Y" && rows.get("Basket_Underlying_ISIN_List_-_Change_Flag") != null
-						&& rows.get("Basket_Underlying_ISIN_List_-_Change_Flag") == "Y" && rows.get("Basket_Warrant_Indicator_-_Change_Flag") != null
-						&& rows.get("Basket_Warrant_Indicator_-_Change_Flag") == "Y" && rows.get("CFI_Code_-_Change_Flag") != null && rows.get("CFI_Code_-_Change_Flag") == "Y"
-						&& rows.get("CIN_Code_-_Change_Flag") != null && rows.get("CIN_Code_-_Change_Flag") == "Y" && rows.get("Company_Legal_Domicile_-_Change_Flag") != null
+				if (rows.get("Asset_Status_-_Change_Flag") != null && rows.get("Asset_Status_-_Change_Flag") == "Y"
+						&& rows.get("Basket_Underlying_ISIN_List_-_Change_Flag") != null && rows.get("Basket_Underlying_ISIN_List_-_Change_Flag") == "Y"
+						&& rows.get("Basket_Warrant_Indicator_-_Change_Flag") != null && rows.get("Basket_Warrant_Indicator_-_Change_Flag") == "Y"
+						&& rows.get("CFI_Code_-_Change_Flag") != null && rows.get("CFI_Code_-_Change_Flag") == "Y" && rows.get("CIN_Code_-_Change_Flag") != null
+						&& rows.get("CIN_Code_-_Change_Flag") == "Y" && rows.get("Company_Legal_Domicile_-_Change_Flag") != null
 						&& rows.get("Company_Legal_Domicile_-_Change_Flag") == "Y" && rows.get("Company_Short_Name_-_Change_Flag") != null
 						&& rows.get("Company_Short_Name_-_Change_Flag") == "Y" && rows.get("Deal_Start_Date_-_Change_Flag") != null
 						&& rows.get("Deal_Start_Date_-_Change_Flag") == "Y" && rows.get("EEA_Venue_Eligible_Flag_-_Change_Flag") != null
@@ -662,6 +696,13 @@ public class DHSLoaderUtil {
 		return xrefhists;
 	}
 
+	/**
+	 * This API get First line of the flat file
+	 * 
+	 * @param filePath
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings({ "resource", "rawtypes" })
 	public String getFirstLine(String filePath) throws Exception {
 		LOGGER.info("File loading..");

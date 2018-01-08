@@ -20,6 +20,7 @@ public class FTPUtil {
 	private Environment env;
 
 	/**
+	 * This API build FTP url
 	 * 
 	 * @return
 	 */
@@ -35,6 +36,11 @@ public class FTPUtil {
 		return ftpUrl;
 	}
 
+	/**
+	 * This API get segment based on GMT
+	 * 
+	 * @return
+	 */
 	public int getSegment() {
 		int x = 0;
 		TimeZone timeZone = TimeZone.getTimeZone(IDHSLoaderConstants.GMT);
@@ -51,6 +57,11 @@ public class FTPUtil {
 		return segment;
 	}
 
+	/**
+	 * This API get date based GMT
+	 * 
+	 * @return
+	 */
 	public String getDate() {
 
 		TimeZone timeZone = TimeZone.getTimeZone(IDHSLoaderConstants.GMT);
@@ -66,17 +77,26 @@ public class FTPUtil {
 		return fullDate;
 	}
 
+	/**
+	 * This API get File name based FTP filename
+	 * 
+	 * @return
+	 */
 	public String getFileName() {
 
 		String fullDate = getDate();
 		int segment = getSegment();
-		String fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + segment
-				+ IDHSLoaderConstants._1_1_TXT_ZIP;
+		String fileName = IDHSLoaderConstants.MIFID_REF_296E + fullDate + "." + segment + IDHSLoaderConstants._1_1_TXT_ZIP;
 
 		return fileName;
 
 	}
 
+	/**
+	 * This API get source path based on base path
+	 * 
+	 * @return
+	 */
 	public String getSourcePath() {
 
 		String fullDate = getDate();
@@ -86,23 +106,44 @@ public class FTPUtil {
 		return sourcepath;
 	}
 
+	/**
+	 * This API based on Archive path
+	 * 
+	 * @param fileName
+	 * @return
+	 */
 	public String getArchivePath(String fileName) {
 
 		String archivepath = env.getProperty(IDHSLoaderConstants.FTP_ARCHIVEPATH) + fileName;
 		return archivepath;
 	}
 
+	/**
+	 * This API gets target path
+	 * 
+	 * @return
+	 */
 	public String getTargetPath() {
 		String fileName = getFileName();
 		String archivepath = env.getProperty(IDHSLoaderConstants.FTP_ARCHIVEPATH) + fileName;
 		return archivepath;
 	}
 
+	/**
+	 * This API gets target file path
+	 * 
+	 * @return
+	 */
 	public String getTargetFilePath() {
 		String fileName = getFileName();
 		return fileName;
 	}
 
+	/**
+	 * This API get processed path
+	 * 
+	 * @return
+	 */
 	public String getProcessedPath() {
 		String processedpath = env.getProperty(IDHSLoaderConstants.FTP_PROCESSEDPATH);
 

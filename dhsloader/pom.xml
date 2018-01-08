@@ -17,7 +17,7 @@
 	</parent>
 	<properties>
 		<java.version>1.8</java.version>
-		<!-- <start-class>com.tr.dhsloader.app.DHSLoaderApp</start-class> -->
+		<!-- <start-class>com.tr.dhsloader.app.DHSLoaderApp</start-class> --><!-- on load start class -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,11 +33,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>sybase</groupId>
 			<artifactId>jconn4</artifactId>
 			<version>7.07</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>net.sourceforge.javacsv</groupId>
@@ -53,11 +53,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			</dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>oracle</groupId>
@@ -83,60 +83,45 @@
 		</dependency>
 
 	</dependencies>
+
 	<build>
 		<plugins>
-		
-			<!-- 
+
+			<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
+				<configuration> <mainClass>com.tr.dhsloader.app.DHSLoaderApp</mainClass> 
+				</configuration> </plugin> -->
+		</plugins>
+	</build>
+
+	<reporting>
+		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.4</version>
 				<configuration>
-					<mainClass>com.tr.dhsloader.app.DHSLoaderApp</mainClass>
-					<mainClass>com.tr.dhsloader.app.FTPTestApp</mainClass>
+					<skipEmptyReport>false</skipEmptyReport>
+					<linkXref>true</linkXref>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>1</minimumTokens>
+					<targetJdk>1.7</targetJdk>
 				</configuration>
-			</plugin> 
-			-->
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<id>build-first</id>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.tr.dhsloader.app.DHSLoaderApp</mainClass>
-								</transformer>
-							</transformers>
-							<finalName>first-runnable</finalName>
-						</configuration>
-					</execution>
-					<execution>
-						<phase>package</phase>
-						<id>build-second</id>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.tr.dhsloader.app.FTPTestApp</mainClass>
-								</transformer>
-							</transformers>
-							<finalName>second-runnable</finalName>
-						</configuration>
-					</execution>
-				</executions>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+						</plugin>
+					</reportPlugins>
+				</configuration>
 			</plugin>
-			
 		</plugins>
-	</build>
+	</reporting>
+
+
 </project>

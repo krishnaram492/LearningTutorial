@@ -40,7 +40,10 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 	@Autowired
 	private FileStatusUtil fileutil;
-
+	
+	/**
+	 * This API process file data and saves into DB
+	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor = Exception.class)
 	public boolean processReport(String filePath) throws Exception {
 		

@@ -14,8 +14,8 @@ import com.tr.dhsloader.ingester.FTPIngester;
  * @author Thomson Reuters
  * 
  */
-//@SpringBootApplication
-//@ComponentScan({ "com.tr.dhsloader" })
+@SpringBootApplication
+@ComponentScan({ "com.tr.dhsloader" })
 public class DHSFTPRunnerApp implements CommandLineRunner {
 
 	@Autowired
@@ -33,8 +33,8 @@ public class DHSFTPRunnerApp implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg0) throws Exception {
-
+		LOGGER.info("FTP File Processing started..");
 		ingester.run();
-		LOGGER.info("Process end..");
+		LOGGER.info("FTP File Processing completed..");
 	}
 }

@@ -21,13 +21,17 @@ import com.tr.dhsloader.util.FTPUtil;
 @Component
 public class FTPIngester {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FTPIngester.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(FTPIngester.class);
 
 	@Autowired
 	private FTPUtil ftpUtil;
 
 	private static final int BUFFER_SIZE = 4096;
 
+	/**
+	 * Download the file from ftp path based on GMT time
+	 */
 	public void run() {
 
 		try {
@@ -51,7 +55,9 @@ public class FTPIngester {
 			inputStream.close();
 			LOGGER.info("File Downloaded");
 		} catch (IOException ex) {
-			LOGGER.error("FTP file is not found...please try again after some time {}", ex.getMessage());
+			LOGGER.error(
+					"FTP file is not found...please try again after some time {}",
+					ex.getMessage());
 		}
 		LOGGER.info("FTP App End..");
 	}

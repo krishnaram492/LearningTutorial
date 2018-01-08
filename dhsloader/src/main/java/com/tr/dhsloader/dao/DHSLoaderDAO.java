@@ -32,6 +32,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderDAO.class);
 
 	/**
+	 * This API saves list of XrefXxDsp models in sybase
 	 * 
 	 * @param xrefXxDsps
 	 * @throws Exception
@@ -56,6 +57,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	}
 
 	/**
+	 * This API saves list of XrefDsp models in sybase
 	 * 
 	 * @param xrefDsps
 	 * @throws Exception
@@ -80,6 +82,7 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 	}
 
 	/**
+	 * This API saves list of Dhsidmap models in sybase
 	 * 
 	 * @param dhsidmaps
 	 * @throws Exception
@@ -103,6 +106,12 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		LOGGER.info("end :: saveDhsidDetails...");
 	}
 
+	/**
+	 * This API get max dhsid from dhsidmap table in sybase
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Long getMaxDhsid() throws Exception {
 		Long dhsid = null;
@@ -111,6 +120,13 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		return dhsid;
 	}
 
+	/**
+	 * This API get map data based on list of quotesid
+	 * 
+	 * @param pairList
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Map<String, Long> getDhsidList(List<byte[]> pairList) throws Exception {
@@ -155,6 +171,12 @@ public class DHSLoaderDAO extends BaseHibernateDao {
 		return dhsIdMap;
 	}
 
+	/**
+	 * This API get map of (col name and colid) dspCplumns table
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Map<String, Integer> getColIdMap() throws Exception {
 		Map<String, Integer> colIdMap = new HashMap<String, Integer>();
