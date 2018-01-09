@@ -18,6 +18,7 @@ import com.tr.dhsloader.constants.IDHSLoaderConstants;
 import com.tr.dhsloader.dao.DHSLoaderDAO;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
+import com.tr.dhsloader.model.XrefHistory;
 import com.tr.dhsloader.model.XrefXxDsp;
 import com.tr.dhsloader.service.IDHSLoaderService;
 import com.tr.dhsloader.util.DHSLoaderUtil;
@@ -40,13 +41,13 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 	@Autowired
 	private FileStatusUtil fileutil;
-	
+
 	/**
 	 * This API process file data and saves into DB
 	 */
 	@Transactional(value = IDHSLoaderConstants.TRANSACTION_MANAGER, readOnly = false, rollbackFor = Exception.class)
 	public boolean processReport(String filePath) throws Exception {
-		
+
 		LOGGER.info("File Processing Started..");
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
@@ -68,7 +69,7 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 		List<XrefXxDsp> xrefXxDsps = util.buildXrefXxDspData(rows);
 
 		List<String> quotes = util.buildQuote(xrefXxDsps);
-		
+
 		LOGGER.info("quotes are {} ", quotes);
 
 		List<byte[]> pairList = util.buildDHSComp(quotes);
@@ -81,7 +82,7 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 
 		List<XrefDsp> xrefDsps = util.buildXrefDsp(xrefXxDsps, dhsIdMap);
 
-		// List<XrefHistory> xrefhist = util.buildXrefHistory(rows, dhsIdMap, fileName);
+		List<XrefHistory> xrefhist = util.buildXrefHistory(rows, dhsIdMap, fileName);
 
 		LOGGER.info("xrefXxDsps size is {} ", xrefXxDsps.size());
 
@@ -114,7 +115,7 @@ public class DHSLoaderServiceImpl extends Thread implements IDHSLoaderService {
 		stopWatch.stop();
 
 		LOGGER.info("Total time taken for processReport api is {} {}", stopWatch.getTotalTimeSeconds(), " secs.");
-		
+
 		LOGGER.info("File Processing Ended..");
 
 		return status;

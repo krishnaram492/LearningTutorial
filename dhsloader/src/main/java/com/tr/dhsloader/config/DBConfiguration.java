@@ -14,15 +14,18 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.tr.dhsloader.constants.IDHSLoaderConstants;
+
 /**
  * @author Thomson Reuters
  * 
  */
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:db.properties")
+@PropertySource(IDHSLoaderConstants.CLASSPATH_DB_PROPERTIES)
 public class DBConfiguration {
 
+	
 	@Autowired
 	private Environment env;
 
@@ -34,10 +37,10 @@ public class DBConfiguration {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(env.getProperty("db.driver"));
-		dataSource.setUrl(env.getProperty("db.url"));
-		dataSource.setUsername(env.getProperty("db.username"));
-		dataSource.setPassword(env.getProperty("db.password"));
+		dataSource.setDriverClassName(env.getProperty(IDHSLoaderConstants.DB_DRIVER));
+		dataSource.setUrl(env.getProperty(IDHSLoaderConstants.DB_URL));
+		dataSource.setUsername(env.getProperty(IDHSLoaderConstants.DB_USERNAME));
+		dataSource.setPassword(env.getProperty(IDHSLoaderConstants.DB_PASSWORD));
 		return dataSource;
 	}
 
@@ -53,13 +56,13 @@ public class DBConfiguration {
 		sessionFactory.setDataSource(dataSource());
 
 		sessionFactory.setPackagesToScan(env
-				.getProperty("db.hibernate.packagesToScan"));
+				.getProperty(IDHSLoaderConstants.DB_HIBERNATE_PACKAGES_TO_SCAN));
 
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.put("hibernate.dialect",
-				env.getProperty("db.hibernate.dialect"));
-		hibernateProperties.put("hibernate.show_sql",
-				env.getProperty("db.hibernate.show_sql"));
+		hibernateProperties.put(IDHSLoaderConstants.HIBERNATE_DIALECT,
+				env.getProperty(IDHSLoaderConstants.DB_HIBERNATE_DIALECT));
+		hibernateProperties.put(IDHSLoaderConstants.HIBERNATE_SHOW_SQL,
+				env.getProperty(IDHSLoaderConstants.DB_HIBERNATE_SHOW_SQL));
 		sessionFactory.setHibernateProperties(hibernateProperties);
 
 		return sessionFactory;

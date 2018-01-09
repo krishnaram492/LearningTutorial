@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.csvreader.CsvReader;
+import com.tr.dhsloader.constants.IDHSLoaderConstants;
 import com.tr.dhsloader.dao.DHSLoaderDAO;
 import com.tr.dhsloader.model.Dhsidmap;
 import com.tr.dhsloader.model.XrefDsp;
@@ -543,155 +545,46 @@ public class DHSLoaderUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<XrefHistory> buildXrefHistory(CsvReader rows, Map<String, Long> dhsIdMap, String fileName) throws Exception {
+	public List<XrefHistory> buildXrefHistory(CsvReader rows, Map<String, Long> dhsIdMap, String fileName)
+			throws Exception {
 		List<XrefHistory> xrefhists = new ArrayList<XrefHistory>();
 		Map<String, Integer> colIdMap = dao.getColIdMap();
-
+		List<String> fields = new ArrayList<String>();
+		for (String _field : rows.getHeaders()) {
+			fields.add(_field);
+		}
 		if (null != rows) {
 			while (rows.readRecord()) {
-				if (rows.get("Asset_Status_-_Change_Flag") != null && rows.get("Asset_Status_-_Change_Flag") == "Y"
-						&& rows.get("Basket_Underlying_ISIN_List_-_Change_Flag") != null && rows.get("Basket_Underlying_ISIN_List_-_Change_Flag") == "Y"
-						&& rows.get("Basket_Warrant_Indicator_-_Change_Flag") != null && rows.get("Basket_Warrant_Indicator_-_Change_Flag") == "Y"
-						&& rows.get("CFI_Code_-_Change_Flag") != null && rows.get("CFI_Code_-_Change_Flag") == "Y" && rows.get("CIN_Code_-_Change_Flag") != null
-						&& rows.get("CIN_Code_-_Change_Flag") == "Y" && rows.get("Company_Legal_Domicile_-_Change_Flag") != null
-						&& rows.get("Company_Legal_Domicile_-_Change_Flag") == "Y" && rows.get("Company_Short_Name_-_Change_Flag") != null
-						&& rows.get("Company_Short_Name_-_Change_Flag") == "Y" && rows.get("Deal_Start_Date_-_Change_Flag") != null
-						&& rows.get("Deal_Start_Date_-_Change_Flag") == "Y" && rows.get("EEA_Venue_Eligible_Flag_-_Change_Flag") != null
-						&& rows.get("EEA_Venue_Eligible_Flag_-_Change_Flag") == "Y" && rows.get("Financial_Instrument_Short_Name_-_Change_Flag") != null
-						&& rows.get("Financial_Instrument_Short_Name_-_Change_Flag") == "Y" && rows.get("Financial_Instrument_Short_Name_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Financial_Instrument_Short_Name_-_ESMA_-_Change_Flag") == "Y" && rows.get("In_ESMA_FIRDS_-_Change_Flag") != null
-						&& rows.get("In_ESMA_FIRDS_-_Change_Flag") == "Y" && rows.get("Instrument_Classification_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Instrument_Classification_-_ESMA_-_Change_Flag") == "Y" && rows.get("Instrument_Full_Name_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Instrument_Full_Name_-_ESMA_-_Change_Flag") == "Y" && rows.get("ISIN_-_Change_Flag") != null && rows.get("ISIN_-_Change_Flag") == "Y"
-						&& rows.get("Issue_Date_-_Change_Flag") != null && rows.get("Issue_Date_-_Change_Flag") == "Y" && rows.get("Issuer_LEI_-_Change_Flag") != null
-						&& rows.get("Issuer_LEI_-_Change_Flag") == "Y" && rows.get("Issuer_or_Trading_Venue_LEI_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Issuer_or_Trading_Venue_LEI_-_ESMA_-_Change_Flag") == "Y" && rows.get("Market_Attributable_Source_Perm_ID_-_Change_Flag") != null
-						&& rows.get("Market_Attributable_Source_Perm_ID_-_Change_Flag") == "Y" && rows.get("Market_MIC_-_Change_Flag") != null
-						&& rows.get("Market_MIC_-_Change_Flag") == "Y" && rows.get("Maturity_Date_-_Change_Flag") != null && rows.get("Maturity_Date_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Asset_Class_of_Underlying_-_Change_Flag") != null && rows.get("MiFID_Asset_Class_of_Underlying_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Average_Daily_Notional_Amount_per_instrument_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Average_Daily_Notional_Amount_per_instrument_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Average_Daily_number_of_Trades_per_instrument_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Average_Daily_number_of_Trades_per_instrument_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Average_Daily_Turnover_-_ESMA_-_Change_Flag") != null && rows.get("MiFID_Average_Daily_Turnover_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Average_Daily_Turnover_Currency_Code_-_Change_Flag") != null
-						&& rows.get("MiFID_Average_Daily_Turnover_Currency_Code_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Average_Value_Of_Transactions_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Average_Value_Of_Transactions_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Average_Value_Of_Transactions_Currency_Code_-_Change_Flag") != null
-						&& rows.get("MiFID_Average_Value_Of_Transactions_Currency_Code_-_Change_Flag") == "Y" && rows.get("MiFID_Base_Product_-_Change_Flag") != null
-						&& rows.get("MiFID_Base_Product_-_Change_Flag") == "Y" && rows.get("MiFID_Base_Product_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Base_Product_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Bond_Seniority_-_Change_Flag") != null
-						&& rows.get("MiFID_Bond_Seniority_-_Change_Flag") == "Y" && rows.get("MiFID_Bond_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Bond_Type_-_Change_Flag") == "Y" && rows.get("MiFID_Clearing_Obligation_Flag_-_Change_Flag") != null
-						&& rows.get("MiFID_Clearing_Obligation_Flag_-_Change_Flag") == "Y" && rows.get("MiFID_COFIA_Liquidity_Flag_-_Change_Flag") != null
-						&& rows.get("MiFID_COFIA_Liquidity_Flag_-_Change_Flag") == "Y" && rows.get("MiFID_Commodities_Derivative_Indicator_-_Change_Flag") != null
-						&& rows.get("MiFID_Commodities_Derivative_Indicator_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Commodities_Derivative_Indicator_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Commodities_Derivative_Indicator_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Complex_Instrument_Flag_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Complex_Instrument_Flag_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Complex_Instrument_Reason_-_Change_Flag") != null
-						&& rows.get("MiFID_Complex_Instrument_Reason_-_Change_Flag") == "Y" && rows.get("MiFID_Contract_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Contract_Type_-_Change_Flag") == "Y" && rows.get("MiFID_Delivery_Type_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Delivery_Type_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Emissions_Allowances_Sub_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Emissions_Allowances_Sub_Type_-_Change_Flag") == "Y" && rows.get("MiFID_Exercise_Style_-_Change_Flag") != null
-						&& rows.get("MiFID_Exercise_Style_-_Change_Flag") == "Y" && rows.get("MiFID_Exercise_Style_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Exercise_Style_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Expiration_Date_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Expiration_Date_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Final_Price_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Final_Price_Type_-_Change_Flag") == "Y" && rows.get("MiFID_Final_Price_Type_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Final_Price_Type_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_First_Trade_Date_-_Change_Flag") != null
-						&& rows.get("MiFID_First_Trade_Date_-_Change_Flag") == "Y" && rows.get("MiFID_First_Trade_Date_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_First_Trade_Date_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Flag_-_Change_Flag") != null
-						&& rows.get("MiFID_Flag_-_Change_Flag") == "Y" && rows.get("MiFID_Free_Float_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Free_Float_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Free_Float_Currency_Code_-_Change_Flag") != null
-						&& rows.get("MiFID_Free_Float_Currency_Code_-_Change_Flag") == "Y" && rows.get("MiFID_Further_Sub_Product_-_Change_Flag") != null
-						&& rows.get("MiFID_Further_Sub_Product_-_Change_Flag") == "Y" && rows.get("MiFID_Further_Sub_Product_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Further_Sub_Product_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Issuance_Date_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Issuance_Date_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Issuance_Size_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Issuance_Size_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Maturity_Date_-_Change_Flag") != null
-						&& rows.get("MiFID_Maturity_Date_-_Change_Flag") == "Y" && rows.get("MiFID_Maturity_Date_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Maturity_Date_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Most_Relevant_Market_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Most_Relevant_Market_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Option_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Option_Type_-_Change_Flag") == "Y" && rows.get("MiFID_Option_Type_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Option_Type_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Percent_Trading_Under_Waivers_12_Month_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Percent_Trading_Under_Waivers_12_Month_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Percent_Trading_Under_Waivers_Per_Trading_Venue_12_Month_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Percent_Trading_Under_Waivers_Per_Trading_Venue_12_Month_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_LIS_Threshold_Floor_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_LIS_Threshold_Floor_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_LIS_Threshold_Value_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_LIS_Threshold_Value_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_LIS_Trade_Percentile_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_LIS_Trade_Percentile_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_LIS_Volume_Percentile_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_LIS_Volume_Percentile_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_SSTI_Threshold_Floor_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_SSTI_Threshold_Floor_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_SSTI_Threshold_Value_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_SSTI_Threshold_Value_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_SSTI_Trade_Percentile_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_SSTI_Trade_Percentile_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Post_Trade_SSTI_Volume_Percentile_-_Change_Flag") != null && rows.get("MiFID_Post_Trade_SSTI_Volume_Percentile_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Pre_Trade_LIS_Threshold_Floor_-_Change_Flag") != null && rows.get("MiFID_Pre_Trade_LIS_Threshold_Floor_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Pre_Trade_LIS_Threshold_Value_-_Change_Flag") != null && rows.get("MiFID_Pre_Trade_LIS_Threshold_Value_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Pre_Trade_LIS_Trade_Percentile_-_Change_Flag") != null && rows.get("MiFID_Pre_Trade_LIS_Trade_Percentile_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Pre_Trade_SSTI_Threshold_Floor_-_Change_Flag") != null && rows.get("MiFID_Pre_Trade_SSTI_Threshold_Floor_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Pre_Trade_SSTI_Threshold_Value_-_Change_Flag") != null && rows.get("MiFID_Pre_Trade_SSTI_Threshold_Value_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Pre_Trade_SSTI_Trade_Percentile_-_Change_Flag") != null && rows.get("MiFID_Pre_Trade_SSTI_Trade_Percentile_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Regulated_-_ESMA_-_Change_Flag") != null && rows.get("MiFID_Regulated_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Standard_Market_Size_-_ESMA_-_Change_Flag") != null && rows.get("MiFID_Standard_Market_Size_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Standard_Market_Size_Currency_Code_-_Change_Flag") != null && rows.get("MiFID_Standard_Market_Size_Currency_Code_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Sub_Product_-_Change_Flag") != null && rows.get("MiFID_Sub_Product_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Sub_Product_-_ESMA_-_Change_Flag") != null && rows.get("MiFID_Sub_Product_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Termination_Date_-_Change_Flag") != null && rows.get("MiFID_Termination_Date_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Termination_Date_-_ESMA_-_Change_Flag") != null && rows.get("MiFID_Termination_Date_-_ESMA_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Trade_Obligation_Flag_-_Change_Flag") != null && rows.get("MiFID_Trade_Obligation_Flag_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Trading_Admission_Approval_Date_-_Change_Flag") != null && rows.get("MiFID_Trading_Admission_Approval_Date_-_Change_Flag") == "Y"
-						&& rows.get("MiFID_Trading_Admission_Approval_Date_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Trading_Admission_Approval_Date_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Trading_Admission_Request_Date_-_Change_Flag") != null
-						&& rows.get("MiFID_Trading_Admission_Request_Date_-_Change_Flag") == "Y" && rows.get("MiFID_Trading_Admission_Request_Date_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Trading_Admission_Request_Date_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Transaction_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Transaction_Type_-_Change_Flag") == "Y" && rows.get("MiFID_Transaction_Type_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Transaction_Type_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Underlying_Index_Name_-_Change_Flag") != null
-						&& rows.get("MiFID_Underlying_Index_Name_-_Change_Flag") == "Y" && rows.get("MiFID_Underlying_Index_Name_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Underlying_Index_Name_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Underlying_Index_Term_-_ESMA_-_Change_Flag") != null
-						&& rows.get("MiFID_Underlying_Index_Term_-_ESMA_-_Change_Flag") == "Y" && rows.get("MiFID_Underlying_Type_-_Change_Flag") != null
-						&& rows.get("MiFID_Underlying_Type_-_Change_Flag") == "Y" && rows.get("MIFIR_Identifier_-_Change_Flag") != null
-						&& rows.get("MIFIR_Identifier_-_Change_Flag") == "Y" && rows.get("Minimum_Denomination_-_Change_Flag") != null
-						&& rows.get("Minimum_Denomination_-_Change_Flag") == "Y" && rows.get("NCA_Average_Daily_Turnover_-_Change_Flag") != null
-						&& rows.get("NCA_Average_Daily_Turnover_-_Change_Flag") == "Y" && rows.get("NCA_Average_Daily_Turnover_Currency_Code_-_Change_Flag") != null
-						&& rows.get("NCA_Average_Daily_Turnover_Currency_Code_-_Change_Flag") == "Y" && rows.get("NCA_Free_Float_-_Change_Flag") != null
-						&& rows.get("NCA_Free_Float_-_Change_Flag") == "Y" && rows.get("NCA_Free_Float_Currency_Code_-_Change_Flag") != null
-						&& rows.get("NCA_Free_Float_Currency_Code_-_Change_Flag") == "Y" && rows.get("Notional_Currency_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Notional_Currency_-_ESMA_-_Change_Flag") == "Y" && rows.get("Option_root_-_Change_Flag") != null
-						&& rows.get("Option_root_-_Change_Flag") == "Y" && rows.get("Price_Multiplier_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Price_Multiplier_-_ESMA_-_Change_Flag") == "Y" && rows.get("Primary_Tradable_Market_Quote_-_Change_Flag") != null
-						&& rows.get("Primary_Tradable_Market_Quote_-_Change_Flag") == "Y" && rows.get("Quote_Perm_ID_-_Change_Flag") != null
-						&& rows.get("Quote_Perm_ID_-_Change_Flag") == "Y" && rows.get("Request_for_Admission_to_Trading_by_Issuer_-_Change_Flag") != null
-						&& rows.get("Request_for_Admission_to_Trading_by_Issuer_-_Change_Flag") == "Y"
-						&& rows.get("Request_for_Admission_to_Trading_by_Issuer_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Request_for_Admission_to_Trading_by_Issuer_-_ESMA_-_Change_Flag") == "Y" && rows.get("Security_Description_-_Change_Flag") != null
-						&& rows.get("Security_Description_-_Change_Flag") == "Y" && rows.get("Strike_Price_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Strike_Price_-_ESMA_-_Change_Flag") == "Y" && rows.get("Strike_Price_Currency_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Strike_Price_Currency_-_ESMA_-_Change_Flag") == "Y" && rows.get("Suspension_Category_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Suspension_Category_-_ESMA_-_Change_Flag") == "Y" && rows.get("Suspension_Ended_On_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Suspension_Ended_On_-_ESMA_-_Change_Flag") == "Y" && rows.get("Suspension_On_Going_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Suspension_On_Going_-_ESMA_-_Change_Flag") == "Y" && rows.get("Suspension_Rationale_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Suspension_Rationale_-_ESMA_-_Change_Flag") == "Y" && rows.get("Suspension_Started_On_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Suspension_Started_On_-_ESMA_-_Change_Flag") == "Y" && rows.get("Total_Amount_Issued_-_Change_Flag") != null
-						&& rows.get("Total_Amount_Issued_-_Change_Flag") == "Y" && rows.get("Total_EU_Turnover_12_Month_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Total_EU_Turnover_12_Month_-_ESMA_-_Change_Flag") == "Y" && rows.get("Total_EU_Volume_12_Month_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Total_EU_Volume_12_Month_-_ESMA_-_Change_Flag") == "Y" && rows.get("Underlying_EEA_Venue_Eligible_-_Change_Flag") != null
-						&& rows.get("Underlying_EEA_Venue_Eligible_-_Change_Flag") == "Y" && rows.get("Underlying_ISIN_-_Change_Flag") != null
-						&& rows.get("Underlying_ISIN_-_Change_Flag") == "Y" && rows.get("Underlying_ISIN_-_ESMA_-_Change_Flag") != null
-						&& rows.get("Underlying_ISIN_-_ESMA_-_Change_Flag") == "Y") {
+				for (String _fieldName : fields) {
+					String column = _fieldName + IDHSLoaderConstants.CHANGE_FLAG;
+					String _changeFlagValue = rows.get(column);
 
-					XrefHistory obj = new XrefHistory();
-					String quoteid = rows.get("Quote_ID").replace("0x", "");
-					byte[] quote = Hex.decodeHex(quoteid.toCharArray());
+					if (_changeFlagValue != null && _changeFlagValue.equalsIgnoreCase("Y")) {
+						String _fieldValue = rows.get(_fieldName);
+						String _prevValue = rows.get(_fieldName + IDHSLoaderConstants.PREV_VALUE);
 
-					if (dhsIdMap.containsKey(Hex.encodeHexString(quote))) {
-						obj.setDhsid(dhsIdMap.get(Hex.encodeHexString(quote)));
+						XrefHistory obj = new XrefHistory();
+
+						String quoteid = rows.get("Quote_ID").replace("0x", "");
+						byte[] quote = Hex.decodeHex(quoteid.toCharArray());
+
+						if (dhsIdMap.containsKey(Hex.encodeHexString(quote))) {
+							obj.setDhsid(dhsIdMap.get(Hex.encodeHexString(quote)));
+						}
+
+						obj.setColid(colIdMap.get(_fieldName));
+						obj.setFilename(fileName);
+						obj.setPrevvalue(_prevValue);
+						obj.setValue(_fieldValue);
+						obj.setRecordtype("DSP");
+						obj.setTime(Calendar.getInstance());
+						obj.setBegindate(new Date().getTime());
+						xrefhists.add(obj);
 					}
 
-					// colIdMap
-					obj.setColid(colIdMap.get(""));
-
 				}
-
 			}
+
 		}
 		return xrefhists;
 	}

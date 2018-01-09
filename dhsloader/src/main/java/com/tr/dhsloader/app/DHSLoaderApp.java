@@ -36,8 +36,7 @@ public class DHSLoaderApp implements CommandLineRunner {
 	@Autowired
 	private FileStatusUtil fileutil;
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(DHSLoaderApp.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderApp.class);
 
 	public static void main(String[] args) throws Exception {
 		SpringApplicationBuilder applicationBuilder = new SpringApplicationBuilder();
@@ -48,11 +47,12 @@ public class DHSLoaderApp implements CommandLineRunner {
 	}
 
 	/**
-	 * Based on status file read zip file from archive folder and process the
-	 * file and store it to in DB
+	 * Based on status file read zip file from archive folder and process the file
+	 * and store it to in DB
 	 */
 	@Override
 	public void run(String... arg0) throws Exception {
+		ingester.run();
 		while (true) {
 			LOGGER.info("Application Started..");
 			try {

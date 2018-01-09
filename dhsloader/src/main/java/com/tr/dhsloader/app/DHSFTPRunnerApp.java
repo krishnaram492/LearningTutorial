@@ -14,8 +14,8 @@ import com.tr.dhsloader.ingester.FTPIngester;
  * @author Thomson Reuters
  * 
  */
-@SpringBootApplication
-@ComponentScan({ "com.tr.dhsloader" })
+//@SpringBootApplication
+//@ComponentScan({ "com.tr.dhsloader" })
 public class DHSFTPRunnerApp implements CommandLineRunner {
 
 	@Autowired
