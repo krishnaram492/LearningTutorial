@@ -76,6 +76,16 @@ public class FTPUtil {
 		String fullDate = year + "" + month + "" + date;
 		return fullDate;
 	}
+	
+	public Long getFileDate(String fileName) {
+		String[] str = fileName.split("\\.");
+		if(str.length > 4){
+			String value = str[3];
+			if(value.length() == 8)
+				return Long.valueOf(value);
+		}
+		return 0l;
+	}
 
 	/**
 	 * This API get File name based FTP filename
@@ -125,7 +135,9 @@ public class FTPUtil {
 	 */
 	public String getTargetPath() {
 		String fileName = getFileName();
-		String archivepath = env.getProperty(IDHSLoaderConstants.FTP_ARCHIVEPATH) + fileName;
+		// String archivepath = env.getProperty(IDHSLoaderConstants.FTP_ARCHIVEPATH) +
+		// fileName;
+		String archivepath = readSystemVariable(IDHSLoaderConstants.FTP_ARCHIVEPATH) + fileName;
 		return archivepath;
 	}
 
@@ -145,8 +157,10 @@ public class FTPUtil {
 	 * @return
 	 */
 	public String getProcessedPath() {
-		String processedpath = env.getProperty(IDHSLoaderConstants.FTP_PROCESSEDPATH);
+		// String processedpath =
+		// env.getProperty(IDHSLoaderConstants.FTP_PROCESSEDPATH);
 
+		String processedpath = readSystemVariable(IDHSLoaderConstants.FTP_PROCESSEDPATH);
 		if (StringUtils.isNotBlank(processedpath)) {
 			File directory = new File(processedpath);
 			if (!directory.exists()) {
@@ -155,4 +169,20 @@ public class FTPUtil {
 		}
 		return processedpath;
 	}
+
+	public String getStatusPath() {
+		// String statusPath = env.getProperty(IDHSLoaderConstants.STATUS_PATH);
+		String statusPath = readSystemVariable(IDHSLoaderConstants.STATUS_PATH);
+		return statusPath;
+
+	}
+
+	public String readSystemVariable(String var) {
+		String value = "";
+		if (StringUtils.isNotBlank(var)) {
+			value = System.getProperty(var);
+		}
+		return value;
+	}
+
 }

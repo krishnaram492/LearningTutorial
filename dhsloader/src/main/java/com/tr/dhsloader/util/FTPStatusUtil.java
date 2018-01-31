@@ -6,34 +6,22 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 import com.tr.dhsloader.constants.IDHSLoaderConstants;
 import com.tr.dhsloader.logging.DHSLogging;
 
-@Component
-@PropertySource(IDHSLoaderConstants.CLASSPATH_DB_PROPERTIES)
-public class FileStatusUtil extends DHSLogging {
+public class FTPStatusUtil extends DHSLogging {
 
 	final static Logger LOGGER = (Logger) LogManager.getLogger();
-	@Autowired
-	private Environment env;
 
 	@Autowired
 	private FTPUtil ftputil;
@@ -52,14 +40,14 @@ public class FileStatusUtil extends DHSLogging {
 	}
 
 	/**
-	 * This API read status file
+	 * This API read FTP status file for last downloaded file
 	 * 
 	 * @param statusFileName
 	 * @return
 	 * @throws Exception
 	 */
-	public String readStatus(String statusFileName) throws Exception {
-		LOGGER.log(INFORMATIONAL, "Status file check started..");
+	public String readFTPStatus(String statusFileName) throws Exception {
+		LOGGER.log(INFORMATIONAL, "FTP Status file check started..");
 		File f = new File(statusFileName);
 		if (f.exists() && !f.isDirectory()) {
 			FileInputStream fis = new FileInputStream(statusFileName);// "C:\\temp\\myfile.txt"
@@ -70,7 +58,7 @@ public class FileStatusUtil extends DHSLogging {
 				if (line != null && line != "")
 					lastline = line;
 			}
-			LOGGER.log(INFORMATIONAL, "Previous file processed is {}", lastline);
+			LOGGER.log(INFORMATIONAL, "Previous file downloaded is {}", lastline);
 			if (StringUtils.isNotBlank(lastline)) {
 				int len = lastline.length();
 				String val = lastline.substring(len - 12, len - 1);
@@ -89,67 +77,25 @@ public class FileStatusUtil extends DHSLogging {
 				return ftputil.getTargetFilePath();
 			}
 		}
-		LOGGER.log(INFORMATIONAL, "Status file check Completed..");
+		LOGGER.log(INFORMATIONAL, "FTP Status file check Completed..");
 		return null;
 
 	}
 
 	/**
-	 * This API file writes status
+	 * This API file writes downloade file to FTP status file
 	 * 
-	 * @param firstLine
+	 * @param fileName
 	 */
-	public void writeStatus(String firstLine) {
+	public void writeStatus(String fileName) {
 		try {
 			String date = buildCurrentDate();
 			FileWriter fw = new FileWriter("C:\\temp\\myfile.txt", true);
-			fw.write(date + "=" + firstLine + "\n");
+			fw.write(date + "=" + fileName + "\n");
 			fw.close();
 		} catch (IOException e) {
 		}
-		LOGGER.log(INFORMATIONAL, "File processed and wrote into status file..");
-	}
-
-	/**
-	 * This API move File To ProcessedFolder
-	 * 
-	 * @param sourcePath
-	 * @throws Exception
-	 */
-	public void moveFileToProcessedFolder(String sourcePath) throws Exception {
-		String fileName = "";
-
-		if (StringUtils.isNotBlank(sourcePath)) {
-			fileName = FilenameUtils.getName(sourcePath);
-		}
-
-		String targetPath = ftputil.getProcessedPath() + "/" + fileName;
-
-		if (StringUtils.isNotBlank(sourcePath) && StringUtils.isNotBlank(targetPath)) {
-
-			Path movefrom = FileSystems.getDefault().getPath(sourcePath);
-			Path target = FileSystems.getDefault().getPath(targetPath);
-
-			// File moved from one location to another location
-			Files.move(movefrom, target, StandardCopyOption.REPLACE_EXISTING);
-		}
-
-		LOGGER.log(INFORMATIONAL, "File succesfully processed and moved to Processed Folder..");
-
-	}
-
-	/**
-	 * THis API get batch size from property fie
-	 * 
-	 * @return batchSize
-	 */
-	public int getBatchSize() {
-		int batchSize = 300;
-		String batch = env.getProperty(IDHSLoaderConstants.BATCH_SIZE);
-		if (StringUtils.isNotBlank(batch)) {
-			batchSize = Integer.valueOf(batch);
-		}
-		return batchSize;
+		LOGGER.log(INFORMATIONAL, "File downloaded and wrote into FTP status file..");
 	}
 
 }

@@ -6,6 +6,6 @@ package com.tr.dhsloader.service;
  */
 public interface IDHSLoaderService {
 
-	boolean processReport(String filePath) throws Exception;
+	boolean processReport(String filePath, int waitCount) throws Exception;
 
 }

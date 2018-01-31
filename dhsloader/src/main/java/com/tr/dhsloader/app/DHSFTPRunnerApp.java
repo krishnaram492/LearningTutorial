@@ -1,40 +1,41 @@
 package com.tr.dhsloader.app;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.ComponentScan;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import com.tr.dhsloader.ingester.FTPIngester;
+import com.tr.dhsloader.logging.DHSLogging;
 
 /**
  * @author Thomson Reuters
  * 
  */
-//@SpringBootApplication
-//@ComponentScan({ "com.tr.dhsloader" })
-public class DHSFTPRunnerApp implements CommandLineRunner {
 
-	@Autowired
+public class DHSFTPRunnerApp extends DHSLogging implements Runnable {
+
+	final static Logger LOGGER = (Logger) LogManager.getLogger();
 	private FTPIngester ingester;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DHSFTPRunnerApp.class);
-
-	public static void main(String[] args) throws Exception {
-		SpringApplicationBuilder applicationBuilder = new SpringApplicationBuilder();
-		applicationBuilder.sources(DHSFTPRunnerApp.class);
-		applicationBuilder.web(false);
-		applicationBuilder.run(args);
-
+	public DHSFTPRunnerApp(FTPIngester in) {
+		this.ingester = in;
 	}
 
 	@Override
-	public void run(String... arg0) throws Exception {
-		LOGGER.info("FTP File Processing started..");
-		ingester.run();
-		LOGGER.info("FTP File Processing completed..");
+	public void run() {
+		while (true) {
+			LOGGER.log(INFORMATIONAL, "DHSFTPRunnerApp Process started..");
+			try {
+				ingester.runner();
+			} catch (Exception e) {
+				LOGGER.log(CRITICAL, "Exception Occured {}", e);
+			}
+			LOGGER.log(INFORMATIONAL, "DHSFTPRunnerApp Process completed..");
+			try {
+				LOGGER.log(INFORMATIONAL, "Wait for 10 mins to download next segment file..");
+				Thread.sleep(1000 * 60 * 10);
+			} catch (InterruptedException e) {
+				LOGGER.log(CRITICAL, "Exception Occured {}", e.getMessage());
+			}
+		}
 	}
 }

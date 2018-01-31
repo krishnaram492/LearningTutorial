@@ -1,17 +1,10 @@
 package com.tr.dhsloader.app;
 
-import java.io.File;
-
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.ComponentScan;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
-import com.tr.dhsloader.ingester.FTPIngester;
+import com.tr.dhsloader.logging.DHSLogging;
 import com.tr.dhsloader.service.IDHSLoaderService;
 import com.tr.dhsloader.util.FTPUtil;
 import com.tr.dhsloader.util.FileStatusUtil;
@@ -20,62 +13,56 @@ import com.tr.dhsloader.util.FileStatusUtil;
  * @author Thomson Reuters
  * 
  */
-@SpringBootApplication
-@ComponentScan({ "com.tr.dhsloader" })
-public class DHSLoaderApp implements CommandLineRunner {
+public class DHSLoaderApp extends DHSLogging implements Runnable {
 
-	@Autowired
 	private IDHSLoaderService service;
 
-	@Autowired
 	private FTPUtil ftpUtil;
 
-	@Autowired
-	private FTPIngester ingester;
-
-	@Autowired
 	private FileStatusUtil fileutil;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DHSLoaderApp.class);
-
-	public static void main(String[] args) throws Exception {
-		SpringApplicationBuilder applicationBuilder = new SpringApplicationBuilder();
-		applicationBuilder.sources(DHSLoaderApp.class);
-		applicationBuilder.web(false);
-		applicationBuilder.run(args);
-
+	public DHSLoaderApp(IDHSLoaderService s, FTPUtil ftpu, FileStatusUtil fileu) {
+		this.service = s;
+		this.ftpUtil = ftpu;
+		this.fileutil = fileu;
 	}
+
+	final static Logger LOGGER = (Logger) LogManager.getLogger();
+	private static int waitCount = 0;
 
 	/**
 	 * Based on status file read zip file from archive folder and process the file
 	 * and store it to in DB
 	 */
 	@Override
-	public void run(String... arg0) throws Exception {
-		ingester.run();
+	public void run() {
+
 		while (true) {
-			LOGGER.info("Application Started..");
+			LOGGER.log(INFORMATIONAL, "Loader Application Started..");
+			waitCount = 0;
 			try {
-				String fileName = fileutil.readStatus("C:\\temp\\myfile.txt");
+				String fileName = fileutil.readStatus(ftpUtil.getStatusPath());
 				String filePath = "";
 				if (StringUtils.isNotBlank(fileName)) {
 					filePath = ftpUtil.getArchivePath(fileName);
 				} else {
-					LOGGER.warn("Status File Not Found");
+					LOGGER.log(WARNING, "Status File Not Found");
 					filePath = ftpUtil.getTargetPath();
 				}
-				File f = new File(filePath);
-				if (f.exists() && !f.isDirectory()) {
-					LOGGER.info("File path is {} ", filePath);
-					service.processReport(filePath);
-				}
+				LOGGER.log(INFORMATIONAL, "File path is {} ", filePath);
+				service.processReport(filePath, waitCount);
 			} catch (Exception e) {
-				LOGGER.error("Exception Occured {}", e.getMessage());
+				LOGGER.error("Exception Occured {}", e);
 			}
-			LOGGER.info("Application ended..");
+			LOGGER.log(INFORMATIONAL, " Loader Application ended..");
+			waitCount++;
 
-			LOGGER.info("waiting for 10 mins to continue next segment...");
-			Thread.sleep(10000);
+			LOGGER.log(INFORMATIONAL, "Wait for 5 mins to continue next segment...");
+//			try {
+//				Thread.sleep(5 * 60 * 1000);
+//			} catch (InterruptedException e) {
+//				LOGGER.log(CRITICAL, "Exception Occured {}", e.getMessage());
+//			}
 		}
 	}
 

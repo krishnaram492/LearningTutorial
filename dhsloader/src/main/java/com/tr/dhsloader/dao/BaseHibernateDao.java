@@ -5,14 +5,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.tr.dhsloader.logging.DHSLogging;
+
 /**
  * @author Ram
  * 
  */
-public class BaseHibernateDao {
+public class BaseHibernateDao extends DHSLogging {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
 	/**
 	 * This method gets current session
@@ -52,5 +62,5 @@ public class BaseHibernateDao {
 	public Query getHBMNamedQuery(String namedQuery) {
 		return getCurrentSession().getNamedQuery(namedQuery);
 	}
-
+	
 }

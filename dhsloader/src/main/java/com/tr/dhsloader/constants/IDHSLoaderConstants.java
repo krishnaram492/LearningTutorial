@@ -19,6 +19,7 @@ public interface IDHSLoaderConstants {
 	String FTP_URL = "ftp.url";
 	String BULK_REPORTS = "Bulk_Reports/";
 	String DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
+	String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-ddHH:mm:ss";
 	String DB_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
 	String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
 	String DB_HIBERNATE_DIALECT = "db.hibernate.dialect";
@@ -31,4 +32,9 @@ public interface IDHSLoaderConstants {
 	String CLASSPATH_DB_PROPERTIES = "classpath:db.properties";
 	String CHANGE_FLAG = "_-_Change_Flag";
 	String PREV_VALUE = "_-_Previous";
+	String TIME_FORMAT = "timeformat";
+	String PROCESS_ID = "process_Id";
+	String HOST_NAME = "hostName";
+	String BATCH_SIZE = "db.hibernate.batch.size";
+	String STATUS_PATH = "ftp.statuspath";
 }
